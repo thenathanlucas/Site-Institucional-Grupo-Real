@@ -55,7 +55,13 @@ body{font-family:"Inter",sans-serif;color:#1c1917;background:#fff;overflow-x:hid
   .nav-links{display:flex;align-items:center;gap:28px;flex:1;justify-content:center}
   .nav-links a{font-size:14px;font-weight:500;color:var(--s600);text-decoration:none}
   .nav-links a:hover{color:var(--or)}
-  .bancos-grid{grid-template-columns:repeat(6,1fr)}
+  .bancos-sec{padding:80px 6%}
+}
+@media(max-width:767px){
+  .bancos-container{grid-template-columns:1fr;gap:32px}
+  .bancos-highlight{padding:40px 24px}
+  .bancos-stat-number{font-size:48px}
+  .bancos-btn-wa{width:100%;justify-content:center}
 }
 /* HERO */
 .hero{padding:44px 20px 0;background:var(--s50);border-bottom:1px solid var(--s200);overflow:hidden}
@@ -78,12 +84,19 @@ body{font-family:"Inter",sans-serif;color:#1c1917;background:#fff;overflow-x:hid
 .stat-l{font-size:11px;color:var(--s400);line-height:1.3}
 
 /* BANCOS */
-.bancos-sec{background:linear-gradient(135deg,var(--orl) 0%,rgba(232,80,26,.05) 100%);border-top:1px solid var(--s200)}
-.bancos-top{margin-bottom:48px}
-.bancos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:36px}
-.banco-item{background:#fff;border:1.5px solid var(--s200);border-radius:var(--r);padding:20px;display:flex;align-items:center;justify-content:center;text-align:center;transition:all .25s;cursor:default}
-.banco-item:hover{border-color:var(--or);background:var(--orl)}
-.banco-nome{font-size:13px;font-weight:600;color:var(--s900);line-height:1.4}
+.bancos-sec{background:linear-gradient(135deg,var(--orl) 0%,rgba(232,80,26,.05) 100%);border-top:1px solid var(--s200);border-bottom:1px solid var(--s200)}
+.bancos-container{display:grid;grid-template-columns:1fr 0.45fr;gap:48px;align-items:center}
+.bancos-content{display:flex;flex-direction:column}
+.bancos-desc{font-size:16px;color:var(--s600);line-height:1.75;margin-bottom:20px}
+.bancos-cta{font-size:15px;color:var(--s600);line-height:1.7;margin-bottom:32px;font-weight:500}
+.bancos-cta strong{color:var(--or);font-weight:700}
+.bancos-btn-wa{display:flex;align-items:center;justify-content:center;gap:12px;background:var(--gr);color:#fff;padding:20px 32px;border-radius:var(--r);font-size:17px;font-weight:600;text-decoration:none;width:fit-content;transition:all .25s;box-shadow:0 4px 16px rgba(34,197,94,.25)}
+.bancos-btn-wa:hover{background:#1ea853;box-shadow:0 6px 24px rgba(34,197,94,.35);transform:translateY(-2px)}
+.bancos-btn-wa svg{width:22px;height:22px;fill:#fff;flex-shrink:0}
+.bancos-highlight{display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid var(--or);border-radius:20px;padding:48px 32px;text-align:center}
+.bancos-stat{display:flex;flex-direction:column;align-items:center}
+.bancos-stat-number{font-family:"Inter",sans-serif;font-size:56px;font-weight:900;color:var(--or);line-height:1;margin-bottom:8px;text-shadow:0 2px 8px rgba(232,80,26,.1)}
+.bancos-stat-label{font-size:16px;color:var(--s600);font-weight:600;letter-spacing:.5px}
 
 /* SECOES */
 .sec{padding:56px 20px}
@@ -279,42 +292,23 @@ body{font-family:"Inter",sans-serif;color:#1c1917;background:#fff;overflow-x:hid
 
 <!-- BANCOS PARCEIROS -->
 <section class="sec bancos-sec">
-  <div class="bancos-top">
-    <div class="eye">Parcerias</div>
-    <h2 class="tit">Parceiros com <span class="hi">30+ Bancos</span></h2>
-    <p class="sub">Trabalhamos com as principais instituições financeiras do país. Escolha seu convênio e nos chame — a gente verifica se você é elegível.</p>
-  </div>
-  <div class="bancos-grid">
-    <div class="banco-item"><span class="banco-nome">Itaú</span></div>
-    <div class="banco-item"><span class="banco-nome">Bradesco</span></div>
-    <div class="banco-item"><span class="banco-nome">Banco do Brasil</span></div>
-    <div class="banco-item"><span class="banco-nome">Santander</span></div>
-    <div class="banco-item"><span class="banco-nome">Caixa</span></div>
-    <div class="banco-item"><span class="banco-nome">Nubank</span></div>
-    <div class="banco-item"><span class="banco-nome">Inter</span></div>
-    <div class="banco-item"><span class="banco-nome">BTG Pactual</span></div>
-    <div class="banco-item"><span class="banco-nome">Sicredi</span></div>
-    <div class="banco-item"><span class="banco-nome">Banrisul</span></div>
-    <div class="banco-item"><span class="banco-nome">HSBC</span></div>
-    <div class="banco-item"><span class="banco-nome">C6 Bank</span></div>
-    <div class="banco-item"><span class="banco-nome">Banco Votorantim</span></div>
-    <div class="banco-item"><span class="banco-nome">Original</span></div>
-    <div class="banco-item"><span class="banco-nome">Ativa</span></div>
-    <div class="banco-item"><span class="banco-nome">PagSeguro</span></div>
-    <div class="banco-item"><span class="banco-nome">Mercado Pago</span></div>
-    <div class="banco-item"><span class="banco-nome">Banco BMG</span></div>
-    <div class="banco-item"><span class="banco-nome">Agibank</span></div>
-    <div class="banco-item"><span class="banco-nome">Banco Safra</span></div>
-    <div class="banco-item"><span class="banco-nome">Banco Daycoval</span></div>
-    <div class="banco-item"><span class="banco-nome">Banco JP Morgan</span></div>
-    <div class="banco-item"><span class="banco-nome">Banco Modal</span></div>
-    <div class="banco-item"><span class="banco-nome">Banco Plural</span></div>
-    <div class="banco-item"><span class="banco-nome">Banco Panamericano</span></div>
-    <div class="banco-item"><span class="banco-nome">Banco Fibra</span></div>
-    <div class="banco-item"><span class="banco-nome">Banco Classico</span></div>
-    <div class="banco-item"><span class="banco-nome">Hipercard</span></div>
-    <div class="banco-item"><span class="banco-nome">Banco Carrefour</span></div>
-    <div class="banco-item"><span class="banco-nome">Banco Inter</span></div>
+  <div class="bancos-container">
+    <div class="bancos-content">
+      <div class="eye">Cobertura financeira</div>
+      <h2 class="tit">Trabalhamos com <span class="hi">30+ Bancos</span></h2>
+      <p class="bancos-desc">Das maiores instituições financeiras às plataformas digitais mais inovadoras. Se você tem conta em banco, a gente consegue intermediar seu crédito consignado.</p>
+      <p class="bancos-cta">Não sabe se seu banco está na nossa lista? <strong>Sem problema.</strong> Nos chame no WhatsApp e vamos verificar juntos!</p>
+      <a class="bancos-btn-wa" href="https://wa.me/5521986862308?text=Ol%C3%A1!+Gostaria+de+saber+se+meu+banco+%C3%A9+elegivel+para+empr%C3%A9stimo+consignado+com+a+Grupo+Real." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Verificar meu banco
+      </a>
+    </div>
+    <div class="bancos-highlight">
+      <div class="bancos-stat">
+        <div class="bancos-stat-number">30+</div>
+        <div class="bancos-stat-label">Bancos parceiros</div>
+      </div>
+    </div>
   </div>
 </section>
 
