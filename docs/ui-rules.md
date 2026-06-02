@@ -1,21 +1,24 @@
 # UI Rules & Design System — Grupo Real
 > **Objetivo:** Definir as regras visuais e diretrizes do frontend para o site institucional do Grupo Real, garantindo o equilíbrio entre autoridade nacional e o acolhimento do atendimento humano.
-> **Conceito:** Boutique de Crédito Segura (Estabilidade, Tradição e Proximidade).
+> **Conceito:** Boutique de Crédito Segura (Estabilidade, Tradição e Proximidade). Hero de **laranja vibrante** como cor de marca, com cards claros flutuando para máximo contraste e foco no produto.
 
 ---
 
 ## 1. Paleta de Cores (Design Tokens)
 
-Estas cores devem ser usadas para guiar o usuário de forma intuitiva, mantendo um tom acolhedor e corporativo. O azul foi completamente descontinuado.
+Direção de marca **Laranja Forte (vibrante)**: o fundo do hero é uma cor de destaque saturada que domina a tela e cria energia, enquanto os cards permanecem claros para contraste e foco no produto. O azul foi completamente descontinuado.
 
 | Elemento | Nome | Código Hex | Uso Principal no Frontend |
 | :--- | :--- | :--- | :--- |
-| **Primária** | Oliva Fechado | `#1E2E22` | Cabeçalhos, títulos principais, rodapé e blocos institucionais de peso. |
-| **Destaque (CTA)** | Coral Logo | `#FF5722` | Botões de conversão e ações humanas ("Falar com Consultor"). |
-| **Suporte** | Âmbar / Ouro | `#D98324` | Links importantes, selos de segurança e marcadores de listas. |
-| **Fundo Predominante**| Areia Conforto | `#F4F1EA` | Fundo geral da página. Evita a frieza do branco hospitalar. |
-| **Texto Base** | Grafite Escuro | `#2B2A27` | Leitura de textos longos, parágrafos e legendas. |
-| **Fundo Secundário** | Off-White Puro | `#FFFFFF` | Fundos de cartões (cards), tabelas de simulação ou depoimentos. |
+| **Marca / Fundo Hero** | Laranja Vibrante | gradiente `#FB6516 → #ED4A05 → #CE3A00` (clarão radial `#FF8A3D`) | Fundo do hero e seções de impacto. Cor de destaque que chama atenção. |
+| **Destaque (CTA)** | Laranja Ação | `#E8501A` | Botões de conversão, parcela em destaque e tags. Hover escurece para `#C2410C`. |
+| **Sucesso / WhatsApp** | Verde Confiança | `#17A24B` | Pílula de destaque no título, botões de WhatsApp e selos de segurança. |
+| **Card / Fundo Secundário** | Off-White Puro | `#FFFFFF` | Fundo dos cards de produto flutuando sobre o laranja. |
+| **Navbar** | Off-White Areia | `#FDFAF5` (sobre laranja, com blur) | Barra de navegação clara para contraste com o hero. |
+| **Texto sobre Card** | Grafite Escuro | `#2B2A27` (apoio `#7A756C`) | Leitura de textos, parágrafos e legendas dentro dos cards. |
+| **Texto sobre Hero** | Branco | `#FFFFFF` (apoio `rgba(255,247,240,.92)`, eyebrow `#FFE3CC`) | Título e subtítulo sobre o fundo laranja. |
+| **Suporte** | Âmbar / Ouro | `#D98324` | Marcadores secundários e detalhes de apoio. |
+| **Tinta da Navbar** | Grafite Quente | `#241F1A` (apoio `#6F5648`) | Logo, nome e links na barra clara. |
 
 ---
 
@@ -24,16 +27,16 @@ Estas cores devem ser usadas para guiar o usuário de forma intuitiva, mantendo 
 A tipografia deve misturar a autoridade de uma marca nacional com a legibilidade necessária para o público do consignado (Aposentados e Pensionistas).
 
 *   **Títulos principais (H1, H2):** 
-    *   **Família:** `Playfair Display`, `Georgia` ou serifada equivalente do sistema.
+    *   **Família:** `Bitter`, `Georgia` ou serifada equivalente do sistema.
     *   **Peso:** Bold (700)
-    *   **Propósito:** Passa a ideia de tradição, cartório e solidez de banco tradicional.
+    *   **Propósito:** Slab serif robusta — passa tradição, cartório e solidez de banco, com ótima legibilidade em corpos grandes.
 *   **Subtítulos e Textos Auxiliares (H3, H4, Labels):** 
-    *   **Família:** `Plus Jakarta Sans`, `Inter` ou `Helvetica`.
+    *   **Família:** `Source Sans 3`, `Helvetica` ou sem-serifa equivalente.
     *   **Peso:** Semi-Bold (600) ou Medium (500).
 *   **Corpo do Texto (Parágrafos):** 
-    *   **Família:** `Inter`, `Arial` ou sem-serifa equivalente de alta leitura.
+    *   **Família:** `Source Sans 3`, `Arial` ou sem-serifa equivalente de alta leitura.
     *   **Peso:** Regular (400).
-    *   **Regra de Acessibilidade:** Nunca usar tamanho menor que `16px` para parágrafos. Linhas de texto com altura (`line-height`) de no mínimo `1.6`.
+    *   **Regra de Acessibilidade:** Nunca usar tamanho menor que `16px` para parágrafos. Linhas de texto com altura (`line-height`) de no mínimo `1.6`. Público idoso (aposentados e pensionistas): priorize sempre corpos grandes.
 
 ---
 
@@ -80,9 +83,9 @@ Foco no "respiro" visual. Seções apertadas transmitem desespero de venda. O Gr
 ## 7. Componentes Padrão (UI Elements)
 
 ### A. O Botão de Conversão Humana (CTA Principal)
-*   **Fundo:** `#FF5722` (Coral)
+*   **Fundo:** `#E8501A` (Laranja Ação)
 *   **Texto:** `#FFFFFF` (Branco) — Peso: Bold (700)
-*   **Efeito Hover:** Escurecer para `#E64A19` com transição suave (`transition: all 0.3s ease`).
+*   **Efeito Hover:** Escurecer para `#C2410C` com transição suave (`transition: all 0.3s ease`).
 *   **Texto sugerido:** "Iniciar Atendimento com Consultor Especialista"
 
 ### B. O Bloco de Segurança (Quebra de Objeção)
