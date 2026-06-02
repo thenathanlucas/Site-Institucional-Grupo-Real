@@ -1,13 +1,13 @@
 # SPEC DE EXECUÇÃO — Novo Hero + Navbar (Laranja / Coverflow)
 
-> **Para o agente executor (Sonnet 4.6).** Implemente exatamente este spec.
+> **Para o agente executor.** Implemente exatamente este spec.
 > **Arquivo único editado:** `site_inst.html` (raiz). **Stack:** HTML + Tailwind CDN + JS vanilla. **NÃO** usar React.
-> **Escopo de cor:** laranja SÓ no hero + navbar. O resto do site permanece verde (oliva) — não mexer.
+> **Escopo de cor:** ⚠️ **ATUALIZADO** — a paleta laranja agora vale em **todo o site** (ver "Fase 6" abaixo). O verde-oliva foi descontinuado; superfícies escuras usam **Café Profundo `#2B1D14`**.
 > **Fonte do design:** `docs/components/hifi-core.jsx` + `docs/components/hifi-app.jsx` (protótipo React, só referência). Tokens canônicos em `docs/ui-rules.md`.
 
 ## Decisões já fechadas (não reabrir)
 - O carrossel **coverflow** vira o centro do hero e **substitui** o "deck carousel" atual (`#topo`, linhas ~339-519) **e** o hero de texto atual (~521-563).
-- Paleta laranja só no topo; demais seções continuam verdes.
+- ~~Paleta laranja só no topo; demais seções continuam verdes.~~ **Revertido** → padronização aplicada no site inteiro (Fase 6).
 - Fontes: **Bitter** (títulos) + **Source Sans 3** (corpo) no hero, mantendo Plus Jakarta Sans no resto.
 - Navbar: **remover** botão WhatsApp e **não** colocar barra de busca. **Manter** hambúrguer + drawer mobile (o WhatsApp flutuante já cobre conversão no mobile).
 - Card CTA: botão laranja com seta, label "Consultar já".
@@ -84,3 +84,36 @@ Manter: setas, dots (ativo = barra branca 26px), swipe touch, drag mouse, setas 
 ## Pendências menores (defaults definidos)
 - `notas-leque.png` ausente → fallback money esmaecido no CLT.
 - Label CTA "Consultar já" (trocável para "Falar com consultor").
+
+---
+
+## Fase 6 — Padronização da paleta no site inteiro (CONCLUÍDA)
+> Reverte a regra "laranja só no hero". Todo o corpo do site foi alinhado ao `docs/ui-rules.md`. **Sem alterar conteúdo** (textos/links/números/estrutura intactos) — só cor, sombra, borda.
+
+**Tokens (`tailwind.config`):**
+- ADICIONADOS: `cafe #2B1D14`, `cafe-claro #3A2A1E`, `boxShadow.hero`.
+- ALTERADOS: `laranja-acao-d` `#B23C0E`→`#C2410C` (hover canônico); `boxShadow.card` opacidade `0.06`→`0.04`.
+- REMOVIDOS (descontinuados, sem uso): `oliva`, `oliva-meio`, `oliva-claro`, `coral`, `coral-dark`.
+
+**Mapa de substituição aplicado no corpo do site:**
+| Antigo | Novo | Onde |
+|---|---|---|
+| `text-oliva` | `text-grafite` | Todos os títulos sobre fundo claro |
+| `bg-oliva` / `bg-grafite` | `bg-cafe` | Seções escuras (Quem somos, Banner humano, Footer) |
+| `from-oliva to-oliva-claro` | `from-cafe to-cafe-claro` | Placeholders de foto das filiais |
+| `border-2 border-oliva` | `border-2 border-laranja-acao` | Caixa "30+ Bancos" |
+| `stroke-oliva` | `stroke-grafite` | Ícones do acordeão de convênios |
+| `hover:border-oliva hover:text-oliva` | `hover:border-laranja-acao hover:text-laranja-acao` | Botões outline (Maps, Instagram) |
+| `text-coral` / `hover:text-coral` | `text-laranja-acao` | Realces (`<span>`, `+`, `<strong>`), links do footer |
+| `bg-coral` / `bg-coral/[.12]` | `bg-laranja-acao` | CTAs principais filled + chips de ícone |
+| `hover:bg-coral-dark` | `hover:bg-laranja-acao-d` | Hover dos CTAs |
+| `border-coral` / `border-coral/[.2]` | `border-laranja-acao` | Borda-topo de Filiais + chips |
+| `stroke-coral` | `stroke-laranja-acao` | Ícones da seção Quem somos |
+
+**CTAs:** misto por hierarquia (ver `ui-rules.md §7`) — principais em laranja, "WhatsApp"/selos em Verde Confiança, outline com hover laranja.
+
+**Verde Confiança:** faixa de selos do hero ganhou borda-topo `border-verde-hi/30`; botão flutuante e pílula "certo" mantêm verde.
+
+**Sombreamento do hero:** camadas `.hero-vignette` + `.hero-scrim` (decorativas, `aria-hidden`, `z-0`) e classe `shadow-hero` na `<section>`; conteúdo elevado a `z-10`. Detalhe em `ui-rules.md §3`.
+
+> Para padronizar **novas páginas/HTML**: aplicar este mesmo mapa + `ui-rules.md` como fonte canônica. Nunca reintroduzir `oliva`/`coral`.
