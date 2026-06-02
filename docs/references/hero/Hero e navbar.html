@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>Hero · Cards de Produto — Grupo Real</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500;0,600;0,700;1,600;1,700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { overflow-x: hidden; }
+  #root { width: 100%; min-height: 100vh; }
+  .hf-nav { transition: color .2s; }
+  .hf-nav:hover { color: inherit; opacity: 1; }
+  button { font-family: inherit; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="hifi-core.jsx"></script>
+<script type="text/babel" src="hifi-app.jsx"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { useState, useEffect, useRef } = React;
+  const { PALETTES, PRODUCTS } = window.HF;
+
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "layout": "Coverflow",
+    "palette": "Laranja",
+    "cta": "Consultar já",
+    "rate": "R$ —,—",
+    "hi": "certo"
+  }/*EDITMODE-END*/;
+
+  function Hero() {
+    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+    const pal = PALETTES[t.palette === 'Boutique' ? 1 : 2];
+    const isA = t.layout !== 'Baralho';
+    const n = PRODUCTS.length;
+    const [active, setActive] = useState(0);
+    const go = (d) => setActive(a => (a + d + n) % n);
+
+    useEffect(() => {
+      const h = (e) => {
+        if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
+        if (e.key === 'ArrowRight') go(1);
+        if (e.key === 'ArrowLeft') go(-1);
+      };
+      window.addEventListener('keydown', h);
+      return () => window.removeEventListener('keydown', h);
+    }, [n]);
+
+    // touch swipe
+    const tx = useRef(0);
+    const onStart = (e) => { tx.current = e.touches[0].clientX; };
+    const onEnd = (e) => {
+      const dx = e.changedTouches[0].clientX - tx.current;
+      if (Math.abs(dx) > 45) go(dx < 0 ? 1 : -1);
+    };
+
+    return (
+      <div className="hf" style={{
+        minHeight: '100vh', background: pal.page, color: pal.pageInk,
+        display: 'flex', flexDirection: 'column', transition: 'background .4s, color .4s'
+      }}>
+        <Header pal={pal} />
+        <main style={{
+          flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center',
+          padding: 'clamp(26px,5vh,52px) 16px 44px', gap: 'clamp(20px,3vh,30px)'
+        }}>
+          <TitleBlock pal={pal} hi={t.hi || 'certo'} />
+          {!isA && <Tabs pal={pal} active={active} setActive={setActive} />}
+          <div style={{ position: 'relative', width: '100%', maxWidth: 1180, display: 'flex', alignItems: 'center' }}
+            onTouchStart={onStart} onTouchEnd={onEnd}>
+            <NavBtn dir="prev" pal={pal} onClick={() => go(-1)} style={{ position: 'absolute', left: 'clamp(-2px,1vw,6px)', top: '50%', transform: 'translateY(-50%)', zIndex: 40 }} />
+            <div style={{ flex: 1, minWidth: 0, overflow: 'hidden', padding: '58px 0' }}>
+              {isA
+                ? <Coverflow pal={pal} active={active} setActive={setActive} cta={t.cta} rate={t.rate} />
+                : <Deck pal={pal} active={active} setActive={setActive} cta={t.cta} rate={t.rate} />}
+            </div>
+            <NavBtn dir="next" pal={pal} onClick={() => go(1)} style={{ position: 'absolute', right: 'clamp(-2px,1vw,6px)', top: '50%', transform: 'translateY(-50%)', zIndex: 40 }} />
+          </div>
+          <Dots n={n} active={active} pal={pal} onPick={setActive} />
+        </main>
+
+        <TweaksPanel>
+          <TweakSection label="Layout & cor" />
+          <TweakRadio label="Layout do carrossel" value={t.layout} options={['Coverflow', 'Baralho']} onChange={(v) => setTweak('layout', v)} />
+          <TweakRadio label="Paleta" value={t.palette} options={['Laranja', 'Boutique']} onChange={(v) => setTweak('palette', v)} />
+          <TweakSection label="Conteúdo do card" />
+          <TweakText label="Texto do botão" value={t.cta} onChange={(v) => setTweak('cta', v)} />
+          <TweakText label="Parcela (ex: R$ 33,30)" value={t.rate} onChange={(v) => setTweak('rate', v)} />
+          <TweakText label="Palavra destacada no título" value={t.hi} onChange={(v) => setTweak('hi', v)} />
+        </TweaksPanel>
+      </div>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<Hero />);
+</script>
+</body>
+</html>

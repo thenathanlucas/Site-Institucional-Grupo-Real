@@ -21,10 +21,10 @@ bancos azuis. Transmite que o cliente não é só mais um número no sistema.
 
 ## 3. Público-Alvo
 
-* principais clientes
-* perfil do público
-* necessidades
-* sensibilidade do nicho
+* aposentados e pensionistas, servidores publicos ou qualquer um legivel para fazer emprstimos
+* publico sensivel bastante idosos, acessibilidade deve ser alta
+* precisam entender o conteudo so de bater o olho. detalhes mais especificos deixar para atendentes
+* sensibilidade do nicho: por se tratar de um publico mais velho e sensivel nao pode parecer com dinheiro facil nem como propaganda enganosa conteudo nao pode parecer fraudoso.
 
 ---
 
@@ -85,7 +85,6 @@ Exemplo:
 
 Como a empresa deve ser percebida.
 
-Exemplo:
 
 * empresa sólida
 * experiente
