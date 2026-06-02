@@ -6,6 +6,7 @@
 <meta name="description" content="Grupo Real — Empréstimo consignado em Bangu e Realengo. Atendimento presencial, sem burocracia."/>
 <title>Grupo Real — Empréstimo Consignado</title>
 <link rel="icon" href="assets/logo/grupo-real-mark.svg" type="image/svg+xml"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='200' height='200' rx='40' fill='%231E2E22'/><text x='100' y='140' font-size='110' font-weight='700' text-anchor='middle' fill='%23FF5722' font-family='Georgia'>GR</text></svg>" type="image/svg+xml"/>
 <meta property="og:title" content="Quem já fez com a gente, aprovou! — Grupo Real"/>
 <meta property="og:description" content="Crédito consignado com atendimento rápido, sem enrolação e com muito respeito."/>
 <meta property="og:type" content="website"/>
@@ -32,6 +33,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500;0,600;0,700;1,600;1,700&family=Source+Sans+3:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <script async defer crossorigin="anonymous" src="https://www.instagram.com/embed.js"></script>
 
 <!-- Tailwind CSS -->
@@ -107,6 +109,19 @@ tailwind.config = {
     background: #D98324; border-radius: 50%; flex-shrink: 0;
   }
 
+  /* Deck track centraliza cards via calc() */
+  .deck-track { padding: 0 calc(50vw - 170px); }
+  @media(min-width:640px)  { .deck-track { padding: 0 calc(50vw - 190px); } }
+  @media(min-width:1024px) { .deck-track { padding: 0 calc(50vw - 210px); } }
+
+  /* Gradient accent acima do deck */
+  .deck-section-accent::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #1E2E22 0%, #D98324 50%, #FF5722 100%);
+    z-index: 2;
+  }
+
   /* Sobre photo overlay */
   .sobre-photo-overlay::after {
     content: ''; position: absolute; inset: 0;
@@ -121,132 +136,143 @@ tailwind.config = {
   .nav-ham.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
   .nav-ham.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+  /* Dots */
+  .ddot.active { background: #1E2E22; width: 24px; border-radius: 4px; }
+
+  /* Carousel scale */
+  .dc { transform: scale(0.92); opacity: 0.5; }
+  .dc.active { transform: scale(1); opacity: 1; }
+
   /* Clamps tipográficos */
   .section-title { font-size: clamp(30px, 5vw, 44px); line-height: 1.2; }
+  .hero-h1       { font-size: clamp(34px, 6vw, 58px); }
   .banner-h2 { font-size: clamp(32px, 6vw, 50px); line-height: 1.2; }
 
-  /* ─── Hero laranja ───────────────────────── */
-  .hero-orange {
-    background:
-      radial-gradient(110% 82% at 50% -2%, #FF8A3D 0%, rgba(255,138,61,0) 60%),
-      linear-gradient(158deg, #FB6516 0%, #ED4A05 50%, #CE3A00 100%);
+  /* ══════════════════════════════════
+     OPÇÃO C — ESCURO ACOLHEDOR (deck cards)
+     ══════════════════════════════════ */
+  .dc {
+    background: #1E2E22 !important;
+    border: none !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .dc.active {
+    box-shadow: 0 18px 48px rgba(30,46,34,0.35) !important;
   }
 
-  /* ─── Coverflow ──────────────────────────── */
-  .cf-card-wrap {
-    position: absolute; left: 50%; top: 50%;
-    width: 340px; height: 452px;
-    transition: transform .5s cubic-bezier(.22,.61,.36,1), opacity .5s;
-    will-change: transform, opacity;
+  .dc-header {
+    background: rgba(255,255,255,.06);
+    border-bottom: 1px solid rgba(255,255,255,.10);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
-  @media (prefers-reduced-motion: reduce) {
-    .cf-card-wrap { transition: opacity .4s !important; }
-    .cf-card-wrap * { transition: none !important; }
+  .dc-header-tag {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #D98324;
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
-
-  .cf-card {
-    width: 340px; height: 452px;
-    background: #fff;
-    border-radius: 16px;
-    border: 1px solid rgba(43,42,39,.10);
-    box-shadow: 0 18px 50px rgba(43,42,39,.18), 0 4px 12px rgba(43,42,39,.08);
-    display: flex; flex-direction: column; overflow: hidden;
-  }
-
-  .cf-panel {
-    position: relative; height: 224px; flex-shrink: 0; overflow: hidden;
-    background: linear-gradient(155deg, #E8501A 0%, #B23C0E 100%);
-  }
-
-  .cf-legib {
-    position: absolute; inset: 0; z-index: 2;
-    background: linear-gradient(to top, rgba(0,0,0,.45) 0%, rgba(0,0,0,0) 58%);
+  .dc-header-tag::before { content: '•'; font-size: 10px; }
+  .dc-header-index {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(244,241,234,0.25);
+    letter-spacing: .04em;
   }
 
-  .cf-tag {
-    position: absolute; top: 16px; left: 16px; z-index: 3;
-    font-family: 'Source Sans 3', system-ui, sans-serif;
-    font-size: 12px; font-weight: 700; letter-spacing: .04em;
-    color: #FFF3E9; padding: 5px 13px; border-radius: 999px;
-    background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.28);
-    backdrop-filter: blur(4px); white-space: nowrap;
+  .dc-inner {
+    padding: 20px 20px 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
 
-  .cf-title {
-    position: absolute; left: 18px; bottom: 16px; z-index: 3; margin: 0;
-    font-family: 'Bitter', Georgia, serif;
-    font-weight: 700; line-height: 1.05; color: #FFF3E9;
-    text-shadow: 0 2px 14px rgba(0,0,0,.4);
+  .dc-kraft-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #F4F1EA;
+    line-height: 1.35;
+    margin-bottom: 18px;
+    letter-spacing: -.2px;
   }
 
-  .cf-art {
-    position: absolute;
-    background-size: contain;
-    background-repeat: no-repeat;
+  .dc-numbers {
+    display: flex;
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+    gap: 1px;
+    background: rgba(255,255,255,.12);
+  }
+  .dc-num-cell {
+    flex: 1;
+    padding: 14px 16px 12px;
+    background: rgba(255,255,255,.05);
+  }
+  .dc-num-lbl {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(244,241,234,.4);
+    margin-bottom: 5px;
+  }
+  .dc-num-val {
+    font-size: 26px;
+    font-weight: 800;
+    color: #F4F1EA;
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+  .dc-num-val.accent { color: #FF5722; }
+  .dc-num-sub {
+    font-size: 10px;
+    color: rgba(244,241,234,.4);
+    margin-top: 3px;
   }
 
-  .cf-info {
-    flex: 1; padding: 18px 20px 16px;
-    display: flex; flex-direction: column;
+  .dc-kraft-disc {
+    font-size: 10px;
+    color: rgba(244,241,234,.3);
+    line-height: 1.55;
+    margin-bottom: 18px;
+    padding-left: 10px;
+    border-left: 2px solid rgba(255,255,255,.1);
+    flex: 1;
   }
 
-  .cf-sub {
-    margin: 0;
-    font-family: 'Source Sans 3', system-ui, sans-serif;
-    font-size: 15px; line-height: 1.5; color: #7A756C;
-  }
-
-  .cf-footer {
-    margin-top: auto; padding-top: 16px;
-    display: flex; align-items: flex-end; justify-content: space-between; gap: 12px;
-  }
-
-  .cf-badge { display: flex; flex-direction: column; line-height: 1; }
-  .cf-badge-lbl {
-    font-family: 'Source Sans 3', system-ui, sans-serif;
-    font-size: 11px; font-weight: 600; color: #7A756C; margin-bottom: 4px;
-  }
-  .cf-badge-val {
-    font-family: 'Bitter', Georgia, serif;
-    font-size: 26px; font-weight: 700; color: #E8501A; line-height: 1; white-space: nowrap;
-  }
-
-  .cf-cta {
-    display: inline-flex; align-items: center; gap: 9px; text-decoration: none;
-    padding: 12px 20px; border-radius: 7px;
-    background: #E8501A; color: #fff;
-    font-family: 'Source Sans 3', system-ui, sans-serif;
-    font-weight: 700; font-size: 15px; white-space: nowrap;
-    box-shadow: 0 8px 22px rgba(232,80,26,.34);
+  .dc-kraft-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #FF5722;
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 13px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
     transition: background .2s;
+    flex-shrink: 0;
   }
-  .cf-cta:hover { background: #B23C0E; }
-
-  .cf-divider { height: 1px; background: rgba(43,42,39,.10); margin: 14px 0 10px; }
-
-  .cf-disclaimer {
-    margin: 0;
-    font-family: 'Source Sans 3', system-ui, sans-serif;
-    font-size: 11px; line-height: 1.4; color: #7A756C; opacity: .8;
-  }
-
-  .cf-nav-btn {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    width: 52px; height: 52px; border-radius: 50%; cursor: pointer;
-    border: 1.5px solid rgba(255,255,255,.55);
-    background: rgba(255,255,255,.16); color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    backdrop-filter: blur(6px);
-    box-shadow: 0 8px 20px rgba(0,0,0,.18);
-    transition: transform .15s; z-index: 40;
-  }
-  .cf-nav-btn:hover { transform: translateY(-50%) scale(1.08); }
-  .cf-nav-btn:disabled { opacity: .35; pointer-events: none; }
-
-  .cf-dot {
-    height: 9px; border-radius: 5px; cursor: pointer;
-    border: none; padding: 0; transition: all .25s;
-  }
+  .dc-kraft-btn:hover { background: #E64A19; }
+  .dc-kraft-btn svg { width: 14px; height: 14px; fill: white; flex-shrink: 0; }
 </style>
 </head>
 
@@ -273,6 +299,66 @@ tailwind.config = {
       <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#6F5648" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
       <input type="search" placeholder="Buscar produtos" aria-label="Buscar produtos"
              class="flex-1 min-w-0 bg-transparent border-0 outline-none text-[14px] font-source font-medium text-ink-nav placeholder:text-ink-nav-sub"/>
+<nav class="sticky top-0 z-[200] bg-[rgba(244,241,234,0.96)] backdrop-blur-md border-b border-areia-borda">
+  <div class="flex items-center justify-between h-[68px] px-5 max-w-[1200px] mx-auto md:px-12">
+
+    <!-- Logo -->
+    <a href="#topo" class="flex items-center gap-3 no-underline shrink-0">
+      <div class="relative w-[40px] h-[40px] shrink-0">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gr-grad-nav" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#FF7043"/>
+              <stop offset="100%" stop-color="#D84315"/>
+            </linearGradient>
+          </defs>
+          <rect width="40" height="40" rx="8" fill="url(#gr-grad-nav)"/>
+          <!-- Losango G — aura externa -->
+          <rect x="1" y="10" width="17" height="17" rx="3.5" fill="none" stroke="rgba(255,255,255,0.38)" stroke-width="1.2" transform="rotate(45 9.5 18.5)"/>
+          <!-- Losango G — sólido interno -->
+          <rect x="3.5" y="12.5" width="12" height="12" rx="2.5" fill="white" stroke="rgba(255,255,255,0.85)" stroke-width="0.6" transform="rotate(45 9.5 18.5)"/>
+          <text x="9.5" y="22" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="800" fill="#C0390A">G</text>
+          <!-- Losango R — aura externa -->
+          <rect x="22" y="10" width="17" height="17" rx="3.5" fill="none" stroke="rgba(255,255,255,0.38)" stroke-width="1.2" transform="rotate(45 30.5 18.5)"/>
+          <!-- Losango R — sólido interno -->
+          <rect x="24.5" y="12.5" width="12" height="12" rx="2.5" fill="white" stroke="rgba(255,255,255,0.85)" stroke-width="0.6" transform="rotate(45 30.5 18.5)"/>
+          <text x="30.5" y="22" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="800" fill="#C0390A">R</text>
+        </svg>
+      </div>
+      <!-- Texto: nome + tagline -->
+      <div class="flex flex-col justify-center">
+        <div class="font-body text-[16px] font-bold text-oliva leading-none tracking-[-0.3px]">Grupo Real</div>
+        <div class="hidden md:flex items-center gap-1 mt-[3px]">
+          <div class="w-[14px] h-[1.5px] bg-ambar rounded-full"></div>
+          <span class="text-[10px] text-ambar font-semibold tracking-[0.06em] uppercase">Empréstimos</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- Links desktop -->
+    <nav class="hidden md:flex items-center gap-8">
+      <a href="#sobre-nos" class="text-[13px] font-medium text-[#5A5550] no-underline transition-colors duration-200 hover:text-coral">Por que nós</a>
+      <a href="#produtos"  class="text-[13px] font-medium text-[#5A5550] no-underline transition-colors duration-200 hover:text-coral">Produtos</a>
+      <a href="#filiais"   class="text-[13px] font-medium text-[#5A5550] no-underline transition-colors duration-200 hover:text-coral">Filiais</a>
+      <a href="#sobre"     class="text-[13px] font-medium text-[#5A5550] no-underline transition-colors duration-200 hover:text-coral">Quem somos</a>
+    </nav>
+
+    <div class="flex items-center gap-2.5">
+      <!-- CTA WhatsApp -->
+      <a href="https://wa.me/5521986862308?text=Olá!+Vim+pelo+site+e+gostaria+de+saber+mais+sobre+os+produtos+do+Grupo+Real."
+         target="_blank" rel="noopener"
+         onclick="trackWA('wa_nav')"
+         class="flex items-center gap-[7px] bg-coral text-white font-body text-[13px] font-bold py-2.5 px-4 rounded-btn no-underline transition-colors duration-300 hover:bg-coral-dark">
+        <svg class="w-3.5 h-3.5 fill-white shrink-0" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Falar agora
+      </a>
+      <!-- Hambúrguer -->
+      <button class="nav-ham md:hidden flex flex-col justify-center gap-[5px] bg-transparent border border-[1.5px] border-areia-borda cursor-pointer p-2 rounded-[6px]"
+              id="hamBtn" aria-label="Abrir menu" onclick="toggleMenu()">
+        <span class="block w-5 h-[2px] bg-oliva rounded-[2px] transition-all duration-[250ms]"></span>
+        <span class="block w-5 h-[2px] bg-oliva rounded-[2px] transition-all duration-[250ms]"></span>
+        <span class="block w-5 h-[2px] bg-oliva rounded-[2px] transition-all duration-[250ms]"></span>
+      </button>
     </div>
 
     <!-- Links desktop -->
@@ -296,6 +382,11 @@ tailwind.config = {
     <a href="#produtos"  onclick="toggleMenu()" class="block px-5 py-[14px] min-h-[48px] flex items-center text-base font-semibold text-ink-nav no-underline border-b border-[rgba(43,42,39,0.08)] active:text-laranja-acao font-source">Produtos</a>
     <a href="#filiais"   onclick="toggleMenu()" class="block px-5 py-[14px] min-h-[48px] flex items-center text-base font-semibold text-ink-nav no-underline border-b border-[rgba(43,42,39,0.08)] active:text-laranja-acao font-source">Filiais</a>
     <a href="#sobre"     onclick="toggleMenu()" class="block px-5 py-[14px] min-h-[48px] flex items-center text-base font-semibold text-ink-nav no-underline active:text-laranja-acao font-source">Quem somos</a>
+  <div class="nav-drawer hidden absolute top-[68px] left-0 right-0 bg-areia border-b-2 border-areia-borda shadow-[0_12px_32px_rgba(43,42,39,0.08)] z-[199]" id="navDrawer">
+    <a href="#sobre-nos" onclick="toggleMenu()" class="block px-5 py-4 text-base font-medium text-grafite no-underline border-b border-areia-borda active:text-coral active:bg-areia-escura">Por que nos escolher</a>
+    <a href="#produtos"  onclick="toggleMenu()" class="block px-5 py-4 text-base font-medium text-grafite no-underline border-b border-areia-borda active:text-coral active:bg-areia-escura">Produtos</a>
+    <a href="#filiais"   onclick="toggleMenu()" class="block px-5 py-4 text-base font-medium text-grafite no-underline border-b border-areia-borda active:text-coral active:bg-areia-escura">Filiais</a>
+    <a href="#sobre"     onclick="toggleMenu()" class="block px-5 py-4 text-base font-medium text-grafite no-underline active:text-coral active:bg-areia-escura">Quem somos</a>
   </div>
 </nav>
 
@@ -488,6 +579,227 @@ tailwind.config = {
     <div class="flex-1 max-w-[220px] py-[18px] px-4 text-center">
       <div class="font-bitter text-xl font-bold text-white leading-none mb-1">Autorizado</div>
       <div class="font-source text-[11px] font-medium leading-[1.4]" style="color:rgba(255,247,240,.7)">Banco Central do Brasil</div>
+     DECK CAROUSEL
+     ═══════════════════════ -->
+<section class="deck-section-accent bg-areia py-11 lg:py-14 relative" id="topo">
+  <!-- Header -->
+  <div class="text-center px-5 mb-8 max-w-[640px] mx-auto">
+    <div class="eyebrow inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-ambar mb-3.5 justify-center">Nossas soluções</div>
+    <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-oliva mb-4">Qual crédito combina <em class="not-italic font-extrabold text-coral">com a sua vida?</em></h2>
+    <p class="text-base leading-relaxed text-[#6B6560] max-w-[520px] mx-auto">Deslize entre os convênios e veja um exemplo de cenário. Quando quiser, um consultor sênior explica tudo com calma pelo WhatsApp.</p>
+  </div>
+
+  <!-- Viewport -->
+  <div class="relative overflow-hidden py-3 pb-7">
+    <!-- Seta anterior -->
+    <button class="deck-arrow-btn absolute top-1/2 -translate-y-1/2 left-3 sm:left-5 lg:left-8 w-12 h-12 rounded-full bg-white border border-[1.5px] border-areia-borda shadow-[0_4px_16px_rgba(43,42,39,0.10)] flex items-center justify-center cursor-pointer z-10 transition-colors duration-200 hover:bg-oliva hover:border-oliva group disabled:opacity-35 disabled:pointer-events-none"
+            id="deckPrev" aria-label="Anterior">
+      <svg class="w-5 h-5 stroke-oliva fill-none stroke-[2.5] transition-[stroke] duration-200 group-hover:stroke-white" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+
+    <!-- Track -->
+    <div class="deck-track flex gap-6 transition-transform duration-[450ms] ease-[cubic-bezier(.4,0,.2,1)] will-change-transform" id="deckTrack">
+
+      <!-- WA SVG reutilizável inline -->
+
+      <!-- Card 1: INSS -->
+      <div class="dc active w-[340px] sm:w-[380px] lg:w-[420px] shrink-0 transition-all duration-[450ms] ease-[cubic-bezier(.4,0,.2,1)] cursor-pointer select-none">
+        <div class="dc-header">
+          <div class="dc-header-tag">Aposentados e Pensionistas</div>
+          <div class="dc-header-index">01 / 05</div>
+        </div>
+        <div class="dc-inner">
+          <h3 class="dc-kraft-title">O respeito e a segurança que o seu benefício merece.</h3>
+          <div class="dc-numbers">
+            <div class="dc-num-cell">
+              <div class="dc-num-lbl">Crédito</div>
+              <div class="dc-num-val">R$ 10.000</div>
+              <div class="dc-num-sub">liberado</div>
+            </div>
+            <div class="dc-num-cell">
+              <div class="dc-num-lbl">Parcela</div>
+              <div class="dc-num-val accent">R$ 245</div>
+              <div class="dc-num-sub">a partir de / mês</div>
+            </div>
+          </div>
+          <div class="dc-kraft-disc">*Exemplo ilustrativo. O valor e as parcelas dependem da sua margem consignável no INSS.</div>
+          <a href="https://wa.me/5521986862308?text=Ol%C3%A1!+Gostaria+de+falar+com+um+especialista+sobre+Empr%C3%A9stimo+Consignado+INSS."
+             target="_blank" rel="noopener" onclick="trackWA('wa_deck_inss')" class="dc-kraft-btn">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Falar com Especialista INSS
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 2: CLT -->
+      <div class="dc w-[340px] sm:w-[380px] lg:w-[420px] shrink-0 transition-all duration-[450ms] ease-[cubic-bezier(.4,0,.2,1)] cursor-pointer select-none">
+        <div class="dc-header">
+          <div class="dc-header-tag">Crédito Consignado CLT</div>
+          <div class="dc-header-index">02 / 05</div>
+        </div>
+        <div class="dc-inner">
+          <h3 class="dc-kraft-title">Tranquilidade para quem faz a engrenagem girar.</h3>
+          <div class="dc-numbers">
+            <div class="dc-num-cell">
+              <div class="dc-num-lbl">Crédito</div>
+              <div class="dc-num-val">R$ 5.000</div>
+              <div class="dc-num-sub">liberado</div>
+            </div>
+            <div class="dc-num-cell">
+              <div class="dc-num-lbl">Parcela</div>
+              <div class="dc-num-val accent">R$ 142</div>
+              <div class="dc-num-sub">a partir de / mês</div>
+            </div>
+          </div>
+          <div class="dc-kraft-disc">*Exemplo ilustrativo. A taxa depende do convênio da sua empresa e da margem disponível.</div>
+          <a href="https://wa.me/5521986862308?text=Ol%C3%A1!+Gostaria+de+avaliar+o+conv%C3%AAnio+da+minha+empresa+para+Empr%C3%A9stimo+Consignado+CLT."
+             target="_blank" rel="noopener" onclick="trackWA('wa_deck_clt')" class="dc-kraft-btn">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Avaliar Convênio da Empresa
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 3: SIAPE -->
+      <div class="dc w-[340px] sm:w-[380px] lg:w-[420px] shrink-0 transition-all duration-[450ms] ease-[cubic-bezier(.4,0,.2,1)] cursor-pointer select-none">
+        <div class="dc-header">
+          <div class="dc-header-tag">Servidor Público Federal</div>
+          <div class="dc-header-index">03 / 05</div>
+        </div>
+        <div class="dc-inner">
+          <h3 class="dc-kraft-title">A estabilidade que você conquistou, valorizada.</h3>
+          <div class="dc-numbers">
+            <div class="dc-num-cell">
+              <div class="dc-num-lbl">Crédito</div>
+              <div class="dc-num-val">R$ 15.000</div>
+              <div class="dc-num-sub">liberado</div>
+            </div>
+            <div class="dc-num-cell">
+              <div class="dc-num-lbl">Parcela</div>
+              <div class="dc-num-val accent">R$ 340</div>
+              <div class="dc-num-sub">a partir de / mês</div>
+            </div>
+          </div>
+          <div class="dc-kraft-disc">*Exemplo ilustrativo para servidores ativos, aposentados ou pensionistas do executivo federal.</div>
+          <a href="https://wa.me/5521986862308?text=Ol%C3%A1!+Gostaria+de+verificar+as+condi%C3%A7%C3%B5es+de+Empr%C3%A9stimo+Consignado+SIAPE."
+             target="_blank" rel="noopener" onclick="trackWA('wa_deck_siape')" class="dc-kraft-btn">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Verificar Condições SIAPE
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 4: Forças Armadas -->
+      <div class="dc w-[340px] sm:w-[380px] lg:w-[420px] shrink-0 transition-all duration-[450ms] ease-[cubic-bezier(.4,0,.2,1)] cursor-pointer select-none">
+        <div class="dc-header">
+          <div class="dc-header-tag">Forças Armadas e Pensionistas</div>
+          <div class="dc-header-index">04 / 05</div>
+        </div>
+        <div class="dc-inner">
+          <h3 class="dc-kraft-title">Atendimento sob medida para quem serve à nação.</h3>
+          <div class="dc-numbers">
+            <div class="dc-num-cell">
+              <div class="dc-num-lbl">Crédito</div>
+              <div class="dc-num-val">R$ 8.000</div>
+              <div class="dc-num-sub">liberado</div>
+            </div>
+            <div class="dc-num-cell">
+              <div class="dc-num-lbl">Parcela</div>
+              <div class="dc-num-val accent">R$ 198</div>
+              <div class="dc-num-sub">a partir de / mês</div>
+            </div>
+          </div>
+          <div class="dc-kraft-disc">*Exemplo ilustrativo. As taxas variam conforme as diretrizes de cada comando militar e sua margem.</div>
+          <a href="https://wa.me/5521986862308?text=Ol%C3%A1!+Gostaria+de+iniciar+uma+simula%C3%A7%C3%A3o+de+cr%C3%A9dito+para+For%C3%A7as+Armadas."
+             target="_blank" rel="noopener" onclick="trackWA('wa_deck_militar')" class="dc-kraft-btn">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Iniciar Simulação Militar
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 5: Cartão -->
+      <div class="dc w-[340px] sm:w-[380px] lg:w-[420px] shrink-0 transition-all duration-[450ms] ease-[cubic-bezier(.4,0,.2,1)] cursor-pointer select-none">
+        <div class="dc-header">
+          <div class="dc-header-tag">Crédito Sem Comprometer a Margem</div>
+          <div class="dc-header-index">05 / 05</div>
+        </div>
+        <div class="dc-inner">
+          <h3 class="dc-kraft-title">Use o limite do seu cartão a seu favor.</h3>
+          <div class="dc-numbers">
+            <div class="dc-num-cell">
+              <div class="dc-num-lbl">Liberado</div>
+              <div class="dc-num-val">R$ 3.000</div>
+              <div class="dc-num-sub">na conta</div>
+            </div>
+            <div class="dc-num-cell">
+              <div class="dc-num-lbl">Parcelas</div>
+              <div class="dc-num-val accent">até 12x</div>
+              <div class="dc-num-sub">no cartão</div>
+            </div>
+          </div>
+          <div class="dc-kraft-disc">*Exemplo ilustrativo. Não consome sua margem consignável e depende de limite disponível no cartão.</div>
+          <a href="https://wa.me/5521986862308?text=Ol%C3%A1!+Gostaria+de+saber+como+liberar+meu+limite+de+cart%C3%A3o+de+cr%C3%A9dito."
+             target="_blank" rel="noopener" onclick="trackWA('wa_deck_cartao')" class="dc-kraft-btn">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Liberar meu Limite
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /deck-track -->
+
+    <!-- Seta próxima -->
+    <button class="deck-arrow-btn absolute top-1/2 -translate-y-1/2 right-3 sm:right-5 lg:right-8 w-12 h-12 rounded-full bg-white border border-[1.5px] border-areia-borda shadow-[0_4px_16px_rgba(43,42,39,0.10)] flex items-center justify-center cursor-pointer z-10 transition-colors duration-200 hover:bg-oliva hover:border-oliva group disabled:opacity-35 disabled:pointer-events-none"
+            id="deckNext" aria-label="Próximo">
+      <svg class="w-5 h-5 stroke-oliva fill-none stroke-[2.5] transition-[stroke] duration-200 group-hover:stroke-white" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div><!-- /viewport -->
+
+  <!-- Dots -->
+  <div class="flex gap-[7px] justify-center mt-7" id="deckDots"></div>
+</section>
+
+<!-- ═══════════════════════
+     HERO
+     ═══════════════════════ -->
+<section class="bg-white relative overflow-hidden border-t border-areia-borda">
+  <div class="max-w-[860px] mx-auto px-6 pt-16 pb-12 text-center lg:pt-20 lg:pb-14">
+    <!-- Chip -->
+    <div class="hero-chip inline-flex items-center gap-2 text-[10px] font-bold tracking-[.16em] uppercase text-ambar border border-[rgba(217,131,36,0.25)] bg-[rgba(217,131,36,0.06)] py-1.5 px-3.5 rounded-full mb-5">Correspondente Bancário</div>
+    <!-- H1 -->
+    <h1 class="hero-h1 font-body font-bold leading-[1.15] tracking-[-0.5px] text-oliva mb-[18px]">
+      Há 20 anos, gente de verdade ajudando você a decidir com <em class="not-italic font-extrabold text-coral">calma.</em>
+    </h1>
+    <p class="text-[17px] leading-[1.8] text-[#6B6560] max-w-[560px] mx-auto mb-8">
+      Cada simulação é feita por um consultor que conhece o seu convênio. Aqui você é tratado como pessoa, não como um CPF — análise honesta, sem pressão e sem letra miúda escondida.
+    </p>
+    <div class="flex flex-wrap gap-3 justify-center">
+      <a href="https://wa.me/5521986862308?text=Olá!+Gostaria+de+conversar+com+um+consultor+sobre+crédito+consignado."
+         target="_blank" rel="noopener" onclick="trackWA('wa_hero')"
+         class="inline-flex items-center justify-center gap-2.5 bg-coral text-white font-body text-[15px] font-bold py-[15px] px-[26px] rounded-btn no-underline transition-all duration-300 hover:bg-coral-dark hover:-translate-y-px active:scale-[.98]">
+        <svg class="w-[18px] h-[18px] fill-white shrink-0" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Conversar com um consultor
+      </a>
+      <a href="#sobre-nos"
+         class="inline-flex items-center justify-center gap-2 bg-transparent text-grafite font-body text-[15px] font-medium py-[14px] px-6 rounded-btn border border-[1.5px] border-areia-borda no-underline transition-colors duration-200 hover:border-oliva hover:text-oliva">
+        Por que confiar em nós
+      </a>
+    </div>
+  </div>
+  <!-- Selos -->
+  <div class="flex justify-center border-t border-b border-areia-borda bg-areia">
+    <div class="flex-1 max-w-[220px] py-[18px] px-4 text-center border-r border-areia-borda">
+      <div class="font-body text-xl font-bold text-coral leading-none mb-1">+20 anos</div>
+      <div class="text-[11px] text-[#8A857F] font-medium leading-[1.4]">de mercado na Zona Oeste</div>
+    </div>
+    <div class="flex-1 max-w-[220px] py-[18px] px-4 text-center border-r border-areia-borda">
+      <div class="font-body text-xl font-bold text-coral leading-none mb-1">2 filiais</div>
+      <div class="text-[11px] text-[#8A857F] font-medium leading-[1.4]">físicas em Bangu e Realengo</div>
+    </div>
+    <div class="flex-1 max-w-[220px] py-[18px] px-4 text-center">
+      <div class="font-body text-xl font-bold text-coral leading-none mb-1">Autorizado</div>
+      <div class="text-[11px] text-[#8A857F] font-medium leading-[1.4]">Banco Central do Brasil</div>
     </div>
   </div>
 
@@ -882,6 +1194,23 @@ tailwind.config = {
     d.className = 'cf-dot';
     d.setAttribute('aria-label', 'Produto ' + (i + 1));
     d.addEventListener('click', () => goTo(i));
+// ── DECK CAROUSEL ──
+(function(){
+  const track   = document.getElementById('deckTrack');
+  const dotsWrap= document.getElementById('deckDots');
+  const btnPrev = document.getElementById('deckPrev');
+  const btnNext = document.getElementById('deckNext');
+  if (!track) return;
+
+  const cards = Array.from(track.querySelectorAll('.dc'));
+  const N = cards.length;
+  let current = 0;
+
+  const dots = cards.map((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'ddot w-[7px] h-[7px] rounded-full bg-areia-borda border-0 p-0 cursor-pointer transition-all duration-300' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Card ' + (i+1));
+    d.onclick = () => goTo(i);
     dotsWrap.appendChild(d);
     return d;
   });
@@ -935,18 +1264,47 @@ tailwind.config = {
   outer.addEventListener('mousedown', e => { isDown = true; startX = e.clientX; });
   window.addEventListener('mouseup',  e => {
     if (!isDown) return; isDown = false;
+    current = Math.max(0, Math.min(N-1, idx));
+    const vw = track.parentElement.offsetWidth;
+    const card = cards[current];
+    const offset = card.offsetLeft - (vw - card.offsetWidth) / 2;
+    track.style.transform = `translateX(${-offset}px)`;
+
+    cards.forEach((c, i) => c.classList.toggle('active', i === current));
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    btnPrev.disabled = current === 0;
+    btnNext.disabled = current === N-1;
+  }
+
+  btnPrev.addEventListener('click', () => goTo(current - 1));
+  btnNext.addEventListener('click', () => goTo(current + 1));
+
+  let touchStartX = 0;
+  track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) goTo(current + (dx < 0 ? 1 : -1));
+  }, {passive:true});
+
+  let isDown = false, startX;
+  track.addEventListener('mousedown', e => { isDown = true; startX = e.clientX; });
+  window.addEventListener('mouseup', e => {
+    if (!isDown) return;
+    isDown = false;
     const dx = e.clientX - startX;
     if (Math.abs(dx) > 60) goTo(current + (dx < 0 ? 1 : -1));
   });
 
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowLeft')  goTo(current - 1);
+    if (e.key === 'ArrowLeft') goTo(current - 1);
     if (e.key === 'ArrowRight') goTo(current + 1);
   });
 
   goTo(0);
   window.addEventListener('resize', () => goTo(current));
   window.addEventListener('load',   () => goTo(current));
+  window.addEventListener('load', () => goTo(current));
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(() => goTo(current));
   }
@@ -966,6 +1324,115 @@ document.addEventListener('click', function(e) {
     drawer.classList.remove('open');
     btn.classList.remove('open');
   }
+});
+
+// ── TRACKING WA ──
+function trackWA(label) {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'whatsapp_click', { event_category: 'engagement', event_label: label });
+  }
+  if (typeof clarity !== 'undefined') {
+    clarity('set', 'wa_click', label);
+  }
+}
+
+// ── ACORDEÃO DE CONVÊNIOS ──
+const CONVS = [
+  {
+    id: 'clt', label: 'CLT', icon: '<path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="2"/>',
+    prods: [
+      { n: 'Empréstimo Consignado CLT', d: 'Desconto em folha para trabalhadores com carteira assinada.', msg: 'Olá! Tenho interesse no Empréstimo Consignado CLT.' },
+      { n: 'Portabilidade CLT', d: 'Transfira seu contrato atual para melhores condições.', msg: 'Olá! Quero saber sobre Portabilidade CLT.' }
+    ]
+  },
+  {
+    id: 'fgts', label: 'FGTS', icon: '<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>',
+    prods: [
+      { n: 'Antecipação Saque-Aniversário', d: 'Antecipe as parcelas do seu saque-aniversário do FGTS.', msg: 'Olá! Tenho interesse na Antecipação Saque-Aniversário FGTS.' }
+    ]
+  },
+  {
+    id: 'inss', label: 'INSS', icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+    prods: [
+      { n: 'Empréstimo Consignado', d: 'Crédito com desconto direto no benefício INSS.', msg: 'Olá! Quero saber sobre Empréstimo Consignado INSS.' },
+      { n: 'Portabilidade', d: 'Mude seu contrato para melhores taxas.', msg: 'Olá! Quero saber sobre Portabilidade INSS.' },
+      { n: 'Refinanciamento', d: 'Renegocie seu contrato e obtenha saldo extra.', msg: 'Olá! Quero saber sobre Refinanciamento INSS.' },
+      { n: 'Cartão Consignado', d: 'Cartão com limite descontado em folha, sem anuidade.', msg: 'Olá! Quero saber sobre Cartão Consignado INSS.' },
+      { n: 'Cartão Benefício', d: 'Cartão vinculado ao benefício com vantagens exclusivas.', msg: 'Olá! Quero saber sobre Cartão Benefício INSS.' }
+    ]
+  },
+  {
+    id: 'forcas', label: 'Forças Armadas', icon: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+    prods: [
+      { n: 'Empréstimo Consignado', d: 'Crédito com desconto em folha para militares.', msg: 'Olá! Quero saber sobre Empréstimo Consignado Forças Armadas.' },
+      { n: 'Refinanciamento', d: 'Renegocie condições com saldo disponível.', msg: 'Olá! Quero saber sobre Refinanciamento Forças Armadas.' }
+    ]
+  },
+  {
+    id: 'siape', label: 'SIAPE', icon: '<rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>',
+    prods: [
+      { n: 'Empréstimo Consignado', d: 'Para servidores federais ativos e aposentados.', msg: 'Olá! Quero saber sobre Empréstimo Consignado SIAPE.' },
+      { n: 'Refinanciamento', d: 'Renegocie e obtenha saldo adicional.', msg: 'Olá! Quero saber sobre Refinanciamento SIAPE.' },
+      { n: 'Portabilidade', d: 'Transfira seu contrato para melhores condições.', msg: 'Olá! Quero saber sobre Portabilidade SIAPE.' },
+      { n: 'Cartão Consignado', d: 'Cartão com desconto em folha.', msg: 'Olá! Quero saber sobre Cartão Consignado SIAPE.' },
+      { n: 'Cartão Benefício', d: 'Benefícios e vantagens exclusivas para servidores.', msg: 'Olá! Quero saber sobre Cartão Benefício SIAPE.' }
+    ]
+  },
+  {
+    id: 'gov', label: 'Governos', icon: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+    prods: [
+      { n: 'Empréstimo Consignado', d: 'Para servidores estaduais e municipais.', msg: 'Olá! Quero saber sobre Empréstimo Consignado Governos.' },
+      { n: 'Cartão Consignado', d: 'Limite com desconto em folha.', msg: 'Olá! Quero saber sobre Cartão Consignado Governos.' },
+      { n: 'Cartão Benefício', d: 'Vantagens para servidores governamentais.', msg: 'Olá! Quero saber sobre Cartão Benefício Governos.' }
+    ]
+  },
+  {
+    id: 'pref', label: 'Prefeituras', icon: '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+    prods: [
+      { n: 'Empréstimo Consignado', d: 'Para servidores de prefeituras conveniadas.', msg: 'Olá! Quero saber sobre Empréstimo Consignado Prefeituras.' },
+      { n: 'Cartão Consignado', d: 'Crédito rotativo com desconto em folha.', msg: 'Olá! Quero saber sobre Cartão Consignado Prefeituras.' },
+      { n: 'Cartão Benefício', d: 'Benefícios exclusivos para servidores municipais.', msg: 'Olá! Quero saber sobre Cartão Benefício Prefeituras.' }
+    ]
+  }
+];
+
+const WA = '5521986862308';
+const acordEl = document.getElementById('acord');
+
+CONVS.forEach(conv => {
+  const item = document.createElement('div');
+  item.className = 'ac-item';
+  item.innerHTML = `
+    <button class="w-full bg-white border-0 py-5 px-6 flex items-center justify-between cursor-pointer text-left font-body transition-colors duration-200 hover:bg-[#FDFCFA] [-webkit-tap-highlight-color:transparent]"
+            onclick="toggleAcord(this)">
+      <div class="flex items-center gap-3.5">
+        <div class="w-[38px] h-[38px] rounded-[8px] bg-areia border border-areia-borda flex items-center justify-center shrink-0">
+          <svg class="w-[18px] h-[18px] stroke-oliva fill-none stroke-2" viewBox="0 0 24 24">${conv.icon}</svg>
+        </div>
+        <div>
+          <div class="text-[15px] font-bold text-oliva">${conv.label}</div>
+          <div class="text-[12px] text-[#9A9590] mt-[1px]">${conv.prods.length} produto${conv.prods.length > 1 ? 's' : ''}</div>
+        </div>
+      </div>
+      <svg class="ac-chev w-5 h-5 stroke-[#9A9590] fill-none stroke-2 transition-transform duration-[250ms] shrink-0" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="ac-body hidden bg-areia border-t border-areia-borda">
+      <div class="flex flex-col gap-px bg-areia-borda md:grid md:grid-cols-2">
+        ${conv.prods.map(p => `
+          <div class="bg-white py-[18px] px-6 flex items-center justify-between gap-3.5">
+            <div>
+              <div class="text-[15px] font-bold text-oliva mb-[3px]">${p.n}</div>
+              <div class="text-[13px] text-[#9A9590] leading-[1.5]">${p.d}</div>
+            </div>
+            <a class="flex items-center gap-[5px] bg-coral text-white py-[9px] px-3.5 rounded-btn text-[12px] font-bold no-underline whitespace-nowrap shrink-0 transition-colors duration-[250ms] hover:bg-coral-dark"
+               href="https://wa.me/${WA}?text=${encodeURIComponent(p.msg)}" target="_blank" rel="noopener" onclick="trackWA('wa_prod_${conv.id}')">
+              <svg class="w-[13px] h-[13px] fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Quero
+            </a>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  acordEl.appendChild(item);
 });
 
 // ── TRACKING WA ──
