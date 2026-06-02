@@ -41,19 +41,17 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        oliva:        '#1E2E22',
-        'oliva-meio': '#2E4233',
-        'oliva-claro':'#3A5040',
-        coral:        '#FF5722',
-        'coral-dark': '#E64A19',
         ambar:        '#D98324',
         areia:        '#F4F1EA',
         'areia-borda':'#E8E3D9',
         'areia-escura':'#E5DFD3',
         grafite:      '#2B2A27',
+        /* superfícies escuras de marca (substituem o oliva descontinuado) */
+        cafe:         '#2B1D14',
+        'cafe-claro': '#3A2A1E',
         /* hero / navbar tokens */
         'laranja-acao':  '#E8501A',
-        'laranja-acao-d':'#B23C0E',
+        'laranja-acao-d':'#C2410C',
         'verde-wa':      '#16A34A',
         'verde-hi':      '#17A24B',
         'areia-nav':     '#FDFAF5',
@@ -76,9 +74,10 @@ tailwind.config = {
         img:  '12px',
       },
       boxShadow: {
-        card: '0px 4px 20px rgba(43,42,39,0.06)',
+        card: '0px 4px 20px rgba(43,42,39,0.04)',
         wa:   '0px 8px 24px rgba(255,87,34,0.20)',
         dc:   '0 18px 48px rgba(30,46,34,0.16)',
+        hero: '0 24px 48px -16px rgba(120,40,0,0.45), 0 6px 16px rgba(40,12,0,0.18)',
       },
       transitionDuration: {
         '450': '450ms',
@@ -110,7 +109,7 @@ tailwind.config = {
   /* Sobre photo overlay */
   .sobre-photo-overlay::after {
     content: ''; position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(30,46,34,0.95) 0%, transparent 55%);
+    background: linear-gradient(to top, rgba(43,29,20,0.95) 0%, transparent 55%);
   }
 
   /* Accordion / Nav / Hamburger */
@@ -130,6 +129,20 @@ tailwind.config = {
     background:
       radial-gradient(110% 82% at 50% -2%, #FF8A3D 0%, rgba(255,138,61,0) 60%),
       linear-gradient(158deg, #FB6516 0%, #ED4A05 50%, #CE3A00 100%);
+  }
+
+  /* ─── Sombreamento do hero (camadas de profundidade) ───── */
+  /* Vinheta de foco + poço de sombra que "aterra" os cards flutuantes */
+  .hero-vignette {
+    background:
+      radial-gradient(58% 40% at 50% 60%, rgba(86,22,0,.30) 0%, rgba(86,22,0,0) 72%),
+      radial-gradient(130% 75% at 50% -8%, rgba(255,186,128,.16) 0%, rgba(255,186,128,0) 42%),
+      radial-gradient(120% 100% at 50% 50%, rgba(120,38,0,0) 62%, rgba(120,38,0,.20) 100%);
+  }
+  /* Scrim inferior: transição suave do laranja para a seção clara seguinte */
+  .hero-scrim {
+    height: 190px;
+    background: linear-gradient(to bottom, rgba(74,18,0,0) 0%, rgba(74,18,0,.32) 100%);
   }
 
   /* ─── Coverflow ──────────────────────────── */
@@ -302,10 +315,14 @@ tailwind.config = {
 <!-- ═══════════════════════
      HERO + COVERFLOW
      ═══════════════════════ -->
-<section class="hero-orange relative overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.18)]" id="topo">
+<section class="hero-orange relative overflow-hidden shadow-hero" id="topo">
+
+  <!-- Camadas de profundidade (decorativas, não-conteúdo) -->
+  <div aria-hidden="true" class="hero-vignette pointer-events-none absolute inset-0 z-0"></div>
+  <div aria-hidden="true" class="hero-scrim pointer-events-none absolute inset-x-0 bottom-0 z-0"></div>
 
   <!-- TitleBlock -->
-  <div class="text-center px-5 pt-[clamp(32px,5vh,52px)] pb-8 max-w-[680px] mx-auto">
+  <div class="relative z-10 text-center px-5 pt-[clamp(32px,5vh,52px)] pb-8 max-w-[680px] mx-auto">
     <div class="font-source text-[13px] font-bold tracking-[.14em] uppercase mb-4" style="color:#FFE3CC">• Correspondente Bancário</div>
     <h1 class="font-bitter font-bold text-white mb-4 tracking-[-0.5px]" style="font-size:clamp(30px,4.4vw,46px);line-height:1.08">
       Escolha o crédito <span style="background:#17A24B;color:#fff;border-radius:8px;font-style:italic;padding:2px .26em">certo</span> pra você
@@ -316,7 +333,7 @@ tailwind.config = {
   </div>
 
   <!-- Coverflow -->
-  <div class="relative" id="cfOuter">
+  <div class="relative z-10" id="cfOuter">
 
     <!-- Seta anterior -->
     <button class="cf-nav-btn left-3 sm:left-5 lg:left-8" id="cfPrev" aria-label="Anterior">
@@ -473,10 +490,10 @@ tailwind.config = {
   </div><!-- /cfOuter -->
 
   <!-- Dots -->
-  <div class="flex gap-2 justify-center pt-4 pb-8" id="cfDots"></div>
+  <div class="relative z-10 flex gap-2 justify-center pt-4 pb-8" id="cfDots"></div>
 
   <!-- Selos -->
-  <div class="flex justify-center border-t border-white/10">
+  <div class="relative z-10 flex justify-center border-t-2 border-verde-hi/30">
     <div class="flex-1 max-w-[220px] py-[18px] px-4 text-center border-r border-white/10">
       <div class="font-bitter text-xl font-bold text-white leading-none mb-1">+20 anos</div>
       <div class="font-source text-[11px] font-medium leading-[1.4]" style="color:rgba(255,247,240,.7)">de mercado na Zona Oeste</div>
@@ -496,11 +513,11 @@ tailwind.config = {
 <!-- ═══════════════════════
      BLOCO DE SEGURANÇA / FILIAIS
      ═══════════════════════ -->
-<section class="bg-white border-t-[3px] border-coral py-12 px-5 md:py-[72px] md:px-12" id="filiais">
+<section class="bg-white border-t-[3px] border-laranja-acao py-12 px-5 md:py-[72px] md:px-12" id="filiais">
   <div class="max-w-[1200px] mx-auto">
     <div class="text-center mb-10">
       <div class="eyebrow inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-ambar mb-3.5">Onde estamos</div>
-      <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-oliva mb-4">Nossas <span class="text-coral">filiais</span></h2>
+      <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-grafite mb-4">Nossas <span class="text-laranja-acao">filiais</span></h2>
       <p class="text-base text-[#6B6560] leading-[1.7] max-w-[480px] mx-auto">Venha nos conhecer. Somos uma empresa com endereço físico que você pode visitar pessoalmente.</p>
     </div>
 
@@ -508,11 +525,11 @@ tailwind.config = {
       <!-- Filial 01 — Realengo -->
       <div class="border border-[1.5px] border-areia-borda rounded-card overflow-hidden shadow-card">
         <div class="h-[180px] overflow-hidden relative">
-          <div class="w-full h-full bg-gradient-to-br from-oliva to-oliva-claro flex items-center justify-center font-body text-5xl font-bold text-white/[.15] tracking-[-2px]">Realengo</div>
+          <div class="w-full h-full bg-gradient-to-br from-cafe to-cafe-claro flex items-center justify-center font-body text-5xl font-bold text-white/[.15] tracking-[-2px]">Realengo</div>
         </div>
         <div class="p-6">
-          <div class="text-[10px] font-bold tracking-[.1em] uppercase text-coral mb-1.5">Filial 01</div>
-          <h3 class="font-body text-[22px] font-bold text-oliva mb-3.5">Realengo</h3>
+          <div class="text-[10px] font-bold tracking-[.1em] uppercase text-laranja-acao mb-1.5">Filial 01</div>
+          <h3 class="font-body text-[22px] font-bold text-grafite mb-3.5">Realengo</h3>
           <div class="flex flex-col gap-2.5 mb-[18px]">
             <div class="flex gap-2.5 items-start text-[14px] text-[#6B6560] leading-[1.5]">
               <svg class="w-4 h-4 stroke-ambar fill-none stroke-2 shrink-0 mt-[1px]" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -528,7 +545,7 @@ tailwind.config = {
             </div>
           </div>
           <a href="https://www.google.com/maps/place/Av.+de+Santa+Cruz,+1028+-+Realengo,+Rio+de+Janeiro+-+RJ,+21710-232" target="_blank" rel="noopener"
-             class="flex items-center justify-center gap-[7px] border border-[1.5px] border-areia-borda rounded-btn py-[11px] text-[13px] font-semibold text-grafite no-underline transition-colors duration-200 hover:border-oliva hover:text-oliva">
+             class="flex items-center justify-center gap-[7px] border border-[1.5px] border-areia-borda rounded-btn py-[11px] text-[13px] font-semibold text-grafite no-underline transition-colors duration-200 hover:border-laranja-acao hover:text-laranja-acao">
             <svg class="w-[15px] h-[15px] stroke-ambar fill-none stroke-2" viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
             Abrir no Google Maps
           </a>
@@ -538,11 +555,11 @@ tailwind.config = {
       <!-- Filial 02 — Bangu -->
       <div class="border border-[1.5px] border-areia-borda rounded-card overflow-hidden shadow-card">
         <div class="h-[180px] overflow-hidden relative">
-          <div class="w-full h-full bg-gradient-to-br from-oliva to-oliva-claro flex items-center justify-center font-body text-5xl font-bold text-white/[.15] tracking-[-2px]">Bangu</div>
+          <div class="w-full h-full bg-gradient-to-br from-cafe to-cafe-claro flex items-center justify-center font-body text-5xl font-bold text-white/[.15] tracking-[-2px]">Bangu</div>
         </div>
         <div class="p-6">
-          <div class="text-[10px] font-bold tracking-[.1em] uppercase text-coral mb-1.5">Filial 02</div>
-          <h3 class="font-body text-[22px] font-bold text-oliva mb-3.5">Bangu</h3>
+          <div class="text-[10px] font-bold tracking-[.1em] uppercase text-laranja-acao mb-1.5">Filial 02</div>
+          <h3 class="font-body text-[22px] font-bold text-grafite mb-3.5">Bangu</h3>
           <div class="flex flex-col gap-2.5 mb-[18px]">
             <div class="flex gap-2.5 items-start text-[14px] text-[#6B6560] leading-[1.5]">
               <svg class="w-4 h-4 stroke-ambar fill-none stroke-2 shrink-0 mt-[1px]" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -558,7 +575,7 @@ tailwind.config = {
             </div>
           </div>
           <a href="https://www.google.com/maps/search/Rua+Professor+Clemente+Ferreira,1764,loja+c" target="_blank" rel="noopener"
-             class="flex items-center justify-center gap-[7px] border border-[1.5px] border-areia-borda rounded-btn py-[11px] text-[13px] font-semibold text-grafite no-underline transition-colors duration-200 hover:border-oliva hover:text-oliva">
+             class="flex items-center justify-center gap-[7px] border border-[1.5px] border-areia-borda rounded-btn py-[11px] text-[13px] font-semibold text-grafite no-underline transition-colors duration-200 hover:border-laranja-acao hover:text-laranja-acao">
             <svg class="w-[15px] h-[15px] stroke-ambar fill-none stroke-2" viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
             Abrir no Google Maps
           </a>
@@ -574,35 +591,35 @@ tailwind.config = {
 <section class="bg-areia py-16 px-5 md:py-[100px] md:px-12" id="sobre-nos">
   <div class="max-w-[1200px] mx-auto">
     <div class="eyebrow inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-ambar mb-3.5">Por que nos escolher</div>
-    <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-oliva mb-4">Uma empresa <span class="text-coral">real</span>,<br>que você pode visitar</h2>
+    <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-grafite mb-4">Uma empresa <span class="text-laranja-acao">real</span>,<br>que você pode visitar</h2>
     <p class="text-base leading-[1.75] text-[#6B6560] max-w-[520px]">Nossas lojas ficam em Bangu e Realengo — você pode ir pessoalmente, sentar e resolver tudo com calma e atenção.</p>
 
     <div class="mt-11 grid grid-cols-1 md:grid-cols-4 gap-px bg-areia-borda border border-areia-borda rounded-card overflow-hidden">
       <div class="bg-white p-7 px-6 flex md:flex-col gap-5 items-start md:border-r md:border-areia-borda">
         <div class="diff-num font-body text-[42px] font-bold text-transparent leading-none shrink-0 w-11 tracking-[-1px]">01</div>
         <div>
-          <h3 class="text-base font-bold text-oliva mb-1.5 font-body">Loja física</h3>
+          <h3 class="text-base font-bold text-grafite mb-1.5 font-body">Loja física</h3>
           <p class="text-[15px] text-[#6B6560] leading-[1.7]">Duas filiais abertas de segunda a sexta. Sem chatbot, sem fila de e-mail.</p>
         </div>
       </div>
       <div class="bg-white p-7 px-6 flex md:flex-col gap-5 items-start md:border-r md:border-areia-borda">
         <div class="diff-num font-body text-[42px] font-bold text-transparent leading-none shrink-0 w-11 tracking-[-1px]">02</div>
         <div>
-          <h3 class="text-base font-bold text-oliva mb-1.5 font-body">Transparência total</h3>
+          <h3 class="text-base font-bold text-grafite mb-1.5 font-body">Transparência total</h3>
           <p class="text-[15px] text-[#6B6560] leading-[1.7]">Correspondente bancário autorizado. Mostramos todas as condições antes de assinar qualquer coisa.</p>
         </div>
       </div>
       <div class="bg-white p-7 px-6 flex md:flex-col gap-5 items-start md:border-r md:border-areia-borda">
         <div class="diff-num font-body text-[42px] font-bold text-transparent leading-none shrink-0 w-11 tracking-[-1px]">03</div>
         <div>
-          <h3 class="text-base font-bold text-oliva mb-1.5 font-body">Múltiplos bancos</h3>
+          <h3 class="text-base font-bold text-grafite mb-1.5 font-body">Múltiplos bancos</h3>
           <p class="text-[15px] text-[#6B6560] leading-[1.7]">Intermediamos com vários bancos parceiros para garantir a melhor taxa para o seu perfil.</p>
         </div>
       </div>
       <div class="bg-white p-7 px-6 flex md:flex-col gap-5 items-start">
         <div class="diff-num font-body text-[42px] font-bold text-transparent leading-none shrink-0 w-11 tracking-[-1px]">04</div>
         <div>
-          <h3 class="text-base font-bold text-oliva mb-1.5 font-body">Sem burocracia</h3>
+          <h3 class="text-base font-bold text-grafite mb-1.5 font-body">Sem burocracia</h3>
           <p class="text-[15px] text-[#6B6560] leading-[1.7]">Nossa equipe cuida de tudo. Você só precisa trazer seus documentos e vontade de resolver.</p>
         </div>
       </div>
@@ -613,17 +630,17 @@ tailwind.config = {
 <!-- ═══════════════════════
      BANNER HUMANO
      ═══════════════════════ -->
-<div class="bg-grafite overflow-hidden md:grid md:grid-cols-2">
+<div class="bg-cafe overflow-hidden md:grid md:grid-cols-2">
   <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=900&q=80&auto=format&fit=crop"
        alt="Atendimento presencial Grupo Real" loading="lazy"
        class="w-full h-[260px] md:h-full md:min-h-[420px] object-cover object-[center_25%] brightness-50 saturate-[.7]"/>
   <div class="px-5 py-11 pb-14 md:px-14 md:py-20">
     <div class="eyebrow-white eyebrow inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-areia/40 mb-3.5">Atendimento presencial</div>
-    <h2 class="banner-h2 font-body font-bold leading-[1.2] tracking-[-0.3px] text-white mb-4">Gente<br>cuidando<br>de <em class="not-italic font-extrabold text-coral">gente</em></h2>
+    <h2 class="banner-h2 font-body font-bold leading-[1.2] tracking-[-0.3px] text-white mb-4">Gente<br>cuidando<br>de <em class="not-italic font-extrabold text-laranja-acao">gente</em></h2>
     <p class="text-base leading-[1.75] text-areia/55 max-w-[520px]">Nossa equipe está aqui para explicar tudo com clareza, sem pressa e sem letras miúdas escondidas.</p>
     <a href="https://wa.me/5521986862308?text=Olá!+Gostaria+de+tirar+uma+dúvida+com+a+equipe+do+Grupo+Real."
        target="_blank" rel="noopener" onclick="trackWA('wa_humano')"
-       class="inline-flex items-center justify-center gap-2.5 bg-coral text-white font-body text-[15px] font-bold py-[15px] px-[26px] rounded-btn no-underline mt-7 transition-all duration-300 hover:bg-coral-dark hover:-translate-y-px active:scale-[.98]">
+       class="inline-flex items-center justify-center gap-2.5 bg-laranja-acao text-white font-body text-[15px] font-bold py-[15px] px-[26px] rounded-btn no-underline mt-7 transition-all duration-300 hover:bg-laranja-acao-d hover:-translate-y-px active:scale-[.98]">
       <svg class="w-[18px] h-[18px] fill-white shrink-0" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Falar com a equipe
     </a>
@@ -637,18 +654,18 @@ tailwind.config = {
   <div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-[1fr_0.45fr] gap-10 md:gap-16 items-center">
     <div>
       <div class="eyebrow inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-ambar mb-3.5">Cobertura financeira</div>
-      <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-oliva mb-4">Trabalhamos com <span class="text-coral">30+ Bancos</span></h2>
+      <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-grafite mb-4">Trabalhamos com <span class="text-laranja-acao">30+ Bancos</span></h2>
       <p class="text-base text-[#6B6560] leading-[1.75] mb-4">Das maiores instituições financeiras às plataformas digitais mais inovadoras. Se você tem conta em banco, a gente consegue intermediar seu crédito consignado.</p>
-      <p class="text-[15px] text-[#6B6560] leading-[1.7] mb-7">Não sabe se seu banco está na nossa lista? <strong class="text-coral font-bold">Sem problema.</strong> Nos chame no WhatsApp e vamos verificar juntos!</p>
+      <p class="text-[15px] text-[#6B6560] leading-[1.7] mb-7">Não sabe se seu banco está na nossa lista? <strong class="text-laranja-acao font-bold">Sem problema.</strong> Nos chame no WhatsApp e vamos verificar juntos!</p>
       <a href="https://wa.me/5521986862308?text=Olá!+Gostaria+de+saber+se+meu+banco+é+elegível+para+empréstimo+consignado+com+o+Grupo+Real."
          target="_blank" rel="noopener" onclick="trackWA('wa_bancos')"
-         class="inline-flex items-center justify-center gap-2.5 bg-coral text-white font-body text-[15px] font-bold py-[15px] px-[26px] rounded-btn no-underline transition-all duration-300 hover:bg-coral-dark hover:-translate-y-px active:scale-[.98]">
+         class="inline-flex items-center justify-center gap-2.5 bg-laranja-acao text-white font-body text-[15px] font-bold py-[15px] px-[26px] rounded-btn no-underline transition-all duration-300 hover:bg-laranja-acao-d hover:-translate-y-px active:scale-[.98]">
         <svg class="w-[18px] h-[18px] fill-white shrink-0" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Verificar meu banco
       </a>
     </div>
-    <div class="bg-areia border-2 border-oliva rounded-[16px] py-12 px-8 text-center">
-      <div class="font-body text-[72px] font-bold text-oliva leading-none tracking-[-3px] mb-2">30<span class="text-coral">+</span></div>
+    <div class="bg-areia border-2 border-laranja-acao rounded-[16px] py-12 px-8 text-center">
+      <div class="font-body text-[72px] font-bold text-grafite leading-none tracking-[-3px] mb-2">30<span class="text-laranja-acao">+</span></div>
       <div class="text-sm font-semibold text-[#6B6560] tracking-[.05em] uppercase">Bancos parceiros</div>
     </div>
   </div>
@@ -660,7 +677,7 @@ tailwind.config = {
 <section class="bg-areia py-16 px-5 md:py-[100px] md:px-12" id="produtos">
   <div class="max-w-[1200px] mx-auto">
     <div class="eyebrow inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-ambar mb-3.5">Soluções financeiras</div>
-    <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-oliva mb-4">Escolha seu <span class="text-coral">convênio</span></h2>
+    <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-grafite mb-4">Escolha seu <span class="text-laranja-acao">convênio</span></h2>
     <p class="text-base leading-[1.75] text-[#6B6560] max-w-[520px]">Toque no seu convênio para ver os produtos disponíveis e falar direto com nossa equipe no WhatsApp.</p>
     <div class="mt-10 flex flex-col gap-px bg-areia-borda border border-areia-borda rounded-card overflow-hidden" id="acord"></div>
   </div>
@@ -669,19 +686,19 @@ tailwind.config = {
 <!-- ═══════════════════════
      SOBRE / QUEM SOMOS
      ═══════════════════════ -->
-<section class="bg-oliva overflow-hidden" id="sobre">
+<section class="bg-cafe overflow-hidden" id="sobre">
   <div class="max-w-[1200px] mx-auto md:grid md:grid-cols-2">
 
     <!-- Texto -->
     <div class="px-5 pt-16 pb-12 md:px-12 md:pt-20 md:pb-16">
       <div class="eyebrow-white eyebrow inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-areia/40 mb-3.5">Quem somos</div>
-      <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-white mb-4">O Grupo <span class="text-coral">Real</span></h2>
+      <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-white mb-4">O Grupo <span class="text-laranja-acao">Real</span></h2>
       <p class="text-base leading-[1.75] text-areia/55 max-w-[520px] mb-9">Somos um correspondente bancário autorizado, com presença física na Zona Oeste do Rio de Janeiro. Há anos conectando famílias a crédito acessível, com transparência e respeito.</p>
 
       <div class="flex flex-col gap-px bg-white/[.08] border border-white/[.1] rounded-card overflow-hidden">
         <div class="bg-white/[.04] p-[22px_20px] flex items-start gap-4 border-b border-white/[.06]">
-          <div class="w-[42px] h-[42px] rounded-[8px] bg-coral/[.12] border border-coral/[.2] flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5 stroke-coral fill-none stroke-2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div class="w-[42px] h-[42px] rounded-[8px] bg-laranja-acao/[.12] border border-laranja-acao/[.2] flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 stroke-laranja-acao fill-none stroke-2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
           <div>
             <div class="text-[15px] font-bold text-white mb-1">Autorizado pelo Banco Central</div>
@@ -689,8 +706,8 @@ tailwind.config = {
           </div>
         </div>
         <div class="bg-white/[.04] p-[22px_20px] flex items-start gap-4 border-b border-white/[.06]">
-          <div class="w-[42px] h-[42px] rounded-[8px] bg-coral/[.12] border border-coral/[.2] flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5 stroke-coral fill-none stroke-2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <div class="w-[42px] h-[42px] rounded-[8px] bg-laranja-acao/[.12] border border-laranja-acao/[.2] flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 stroke-laranja-acao fill-none stroke-2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           </div>
           <div>
             <div class="text-[15px] font-bold text-white mb-1">2 filiais físicas — Bangu e Realengo</div>
@@ -698,8 +715,8 @@ tailwind.config = {
           </div>
         </div>
         <div class="bg-white/[.04] p-[22px_20px] flex items-start gap-4 border-b border-white/[.06]">
-          <div class="w-[42px] h-[42px] rounded-[8px] bg-coral/[.12] border border-coral/[.2] flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5 stroke-coral fill-none stroke-2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <div class="w-[42px] h-[42px] rounded-[8px] bg-laranja-acao/[.12] border border-laranja-acao/[.2] flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 stroke-laranja-acao fill-none stroke-2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           </div>
           <div>
             <div class="text-[15px] font-bold text-white mb-1">Parceria com múltiplos bancos</div>
@@ -707,8 +724,8 @@ tailwind.config = {
           </div>
         </div>
         <div class="bg-white/[.04] p-[22px_20px] flex items-start gap-4">
-          <div class="w-[42px] h-[42px] rounded-[8px] bg-coral/[.12] border border-coral/[.2] flex items-center justify-center shrink-0">
-            <svg class="w-5 h-5 stroke-coral fill-none stroke-2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <div class="w-[42px] h-[42px] rounded-[8px] bg-laranja-acao/[.12] border border-laranja-acao/[.2] flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 stroke-laranja-acao fill-none stroke-2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
           <div>
             <div class="text-[15px] font-bold text-white mb-1">Atendimento especializado</div>
@@ -748,14 +765,14 @@ tailwind.config = {
 <section class="bg-areia py-16 px-5 md:py-[100px] md:px-12 border-t border-b border-areia-borda" id="instagram">
   <div class="max-w-[1200px] mx-auto">
     <div class="eyebrow inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-ambar mb-3.5">Nos acompanhe</div>
-    <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-oliva mb-4">Visite nosso <span class="text-coral">Instagram</span></h2>
+    <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-grafite mb-4">Visite nosso <span class="text-laranja-acao">Instagram</span></h2>
     <p class="text-base leading-[1.75] text-[#6B6560] max-w-[520px]">Acompanhe nossos posts, veja dicas sobre crédito consignado e fique por dentro das novidades do Grupo Real.</p>
     <div class="flex justify-center my-9">
       <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DIR3GfeReiI/" data-instgrm-version="14" style="background:#FFF;border:0;border-radius:3px;box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15);margin:1px;max-width:540px;min-width:326px;padding:0;width:99.375%;width:-webkit-calc(100% - 2px);width:calc(100% - 2px);"></blockquote>
     </div>
     <div class="flex justify-center mt-1">
       <a href="https://www.instagram.com/gruporealintermediacao/" target="_blank" rel="noopener"
-         class="inline-flex items-center gap-2 border border-[1.5px] border-areia-borda rounded-btn py-3 px-5 text-[14px] font-semibold text-grafite no-underline transition-colors duration-200 hover:border-oliva hover:text-oliva">
+         class="inline-flex items-center gap-2 border border-[1.5px] border-areia-borda rounded-btn py-3 px-5 text-[14px] font-semibold text-grafite no-underline transition-colors duration-200 hover:border-laranja-acao hover:text-laranja-acao">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         @gruporealintermediacao
       </a>
@@ -766,7 +783,7 @@ tailwind.config = {
 <!-- ═══════════════════════
      FOOTER
      ═══════════════════════ -->
-<footer class="bg-grafite text-areia/40 px-5 pt-14 pb-8 md:px-12 md:pt-[72px] md:pb-9">
+<footer class="bg-cafe text-areia/40 px-5 pt-14 pb-8 md:px-12 md:pt-[72px] md:pb-9">
   <div class="max-w-[1200px] mx-auto">
     <a href="#topo" class="flex items-center gap-2.5 no-underline mb-2.5">
       <div class="relative w-[34px] h-[34px] shrink-0">
@@ -798,31 +815,31 @@ tailwind.config = {
       <div>
         <h4 class="text-[10px] font-bold tracking-[.12em] uppercase text-areia/60 mb-3">Produtos</h4>
         <ul class="flex flex-col gap-2 list-none">
-          <li><a href="#produtos" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-coral">CLT</a></li>
-          <li><a href="#produtos" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-coral">INSS</a></li>
-          <li><a href="#produtos" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-coral">FGTS</a></li>
-          <li><a href="#produtos" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-coral">SIAPE</a></li>
+          <li><a href="#produtos" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-laranja-acao">CLT</a></li>
+          <li><a href="#produtos" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-laranja-acao">INSS</a></li>
+          <li><a href="#produtos" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-laranja-acao">FGTS</a></li>
+          <li><a href="#produtos" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-laranja-acao">SIAPE</a></li>
         </ul>
       </div>
       <div>
         <h4 class="text-[10px] font-bold tracking-[.12em] uppercase text-areia/60 mb-3">Filiais</h4>
         <ul class="flex flex-col gap-2 list-none">
-          <li><a href="#filiais" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-coral">Bangu</a></li>
-          <li><a href="#filiais" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-coral">Realengo</a></li>
+          <li><a href="#filiais" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-laranja-acao">Bangu</a></li>
+          <li><a href="#filiais" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-laranja-acao">Realengo</a></li>
         </ul>
       </div>
       <div>
         <h4 class="text-[10px] font-bold tracking-[.12em] uppercase text-areia/60 mb-3">Empresa</h4>
         <ul class="flex flex-col gap-2 list-none">
-          <li><a href="#sobre-nos" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-coral">Diferenciais</a></li>
-          <li><a href="#sobre"     class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-coral">Sobre nós</a></li>
+          <li><a href="#sobre-nos" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-laranja-acao">Diferenciais</a></li>
+          <li><a href="#sobre"     class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-laranja-acao">Sobre nós</a></li>
         </ul>
       </div>
       <div>
         <h4 class="text-[10px] font-bold tracking-[.12em] uppercase text-areia/60 mb-3">Contato</h4>
         <ul class="flex flex-col gap-2 list-none">
-          <li><a href="https://wa.me/5521986862308" target="_blank" rel="noopener" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-coral">WhatsApp</a></li>
-          <li><a href="https://www.instagram.com/gruporealintermediacao/" target="_blank" rel="noopener" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-coral">Instagram</a></li>
+          <li><a href="https://wa.me/5521986862308" target="_blank" rel="noopener" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-laranja-acao">WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/gruporealintermediacao/" target="_blank" rel="noopener" class="text-[13px] text-areia/35 no-underline transition-colors duration-200 hover:text-laranja-acao">Instagram</a></li>
         </ul>
       </div>
     </div>
@@ -1049,10 +1066,10 @@ CONVS.forEach(conv => {
             onclick="toggleAcord(this)">
       <div class="flex items-center gap-3.5">
         <div class="w-[38px] h-[38px] rounded-[8px] bg-areia border border-areia-borda flex items-center justify-center shrink-0">
-          <svg class="w-[18px] h-[18px] stroke-oliva fill-none stroke-2" viewBox="0 0 24 24">${conv.icon}</svg>
+          <svg class="w-[18px] h-[18px] stroke-grafite fill-none stroke-2" viewBox="0 0 24 24">${conv.icon}</svg>
         </div>
         <div>
-          <div class="text-[15px] font-bold text-oliva">${conv.label}</div>
+          <div class="text-[15px] font-bold text-grafite">${conv.label}</div>
           <div class="text-[12px] text-[#9A9590] mt-[1px]">${conv.prods.length} produto${conv.prods.length > 1 ? 's' : ''}</div>
         </div>
       </div>
@@ -1063,10 +1080,10 @@ CONVS.forEach(conv => {
         ${conv.prods.map(p => `
           <div class="bg-white py-[18px] px-6 flex items-center justify-between gap-3.5">
             <div>
-              <div class="text-[15px] font-bold text-oliva mb-[3px]">${p.n}</div>
+              <div class="text-[15px] font-bold text-grafite mb-[3px]">${p.n}</div>
               <div class="text-[13px] text-[#9A9590] leading-[1.5]">${p.d}</div>
             </div>
-            <a class="flex items-center gap-[5px] bg-coral text-white py-[9px] px-3.5 rounded-btn text-[12px] font-bold no-underline whitespace-nowrap shrink-0 transition-colors duration-[250ms] hover:bg-coral-dark"
+            <a class="flex items-center gap-[5px] bg-laranja-acao text-white py-[9px] px-3.5 rounded-btn text-[12px] font-bold no-underline whitespace-nowrap shrink-0 transition-colors duration-[250ms] hover:bg-laranja-acao-d"
                href="https://wa.me/${WA}?text=${encodeURIComponent(p.msg)}" target="_blank" rel="noopener" onclick="trackWA('wa_prod_${conv.id}')">
               <svg class="w-[13px] h-[13px] fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
               Quero
