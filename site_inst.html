@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="description" content="Grupo Real — Empréstimo consignado em Bangu e Realengo. Atendimento presencial, sem burocracia."/>
 <title>Grupo Real — Empréstimo Consignado</title>
+<link rel="icon" href="assets/logo/grupo-real-mark.svg" type="image/svg+xml"/>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='200' height='200' rx='40' fill='%231E2E22'/><text x='100' y='140' font-size='110' font-weight='700' text-anchor='middle' fill='%23FF5722' font-family='Georgia'>GR</text></svg>" type="image/svg+xml"/>
 <meta property="og:title" content="Quem já fez com a gente, aprovou! — Grupo Real"/>
 <meta property="og:description" content="Crédito consignado com atendimento rápido, sem enrolação e com muito respeito."/>
@@ -30,6 +31,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500;0,600;0,700;1,600;1,700&family=Source+Sans+3:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <script async defer crossorigin="anonymous" src="https://www.instagram.com/embed.js"></script>
 
@@ -50,10 +53,24 @@ tailwind.config = {
         'areia-borda':'#E8E3D9',
         'areia-escura':'#E5DFD3',
         grafite:      '#2B2A27',
+        /* hero / navbar tokens */
+        'laranja-acao':  '#E8501A',
+        'laranja-acao-d':'#B23C0E',
+        'verde-wa':      '#16A34A',
+        'verde-hi':      '#17A24B',
+        'areia-nav':     '#FDFAF5',
+        'ink-nav':       '#241F1A',
+        'ink-nav-sub':   '#6F5648',
+        'card-ink':      '#2B2A27',
+        'card-sub':      '#7A756C',
+        'hero-eyebrow':  '#FFE3CC',
+        amber:           '#D98324',
       },
       fontFamily: {
         display: ['"Plus Jakarta Sans"', 'Helvetica', 'sans-serif'],
         body:    ['"Plus Jakarta Sans"', 'Helvetica', 'sans-serif'],
+        bitter:  ['Bitter', 'Georgia', 'serif'],
+        source:  ['"Source Sans 3"', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         card: '8px',
@@ -264,6 +281,24 @@ tailwind.config = {
 <!-- ═══════════════════════
      NAV
      ═══════════════════════ -->
+<nav class="sticky top-0 z-[200] bg-[rgba(253,250,245,0.9)] backdrop-blur-md border-b border-[rgba(43,42,39,0.10)]">
+  <div class="flex items-center justify-between h-[69px] px-5 max-w-[1200px] mx-auto md:px-12">
+
+    <!-- Logo -->
+    <a href="#topo" class="flex items-center gap-3 no-underline shrink-0">
+      <div class="relative shrink-0">
+        <img src="assets/logo/grupo-real-mark.svg" alt="Grupo Real" height="38" style="display:block"/>
+      </div>
+      <div class="flex flex-col justify-center">
+        <div class="font-bitter text-[20px] font-bold text-ink-nav leading-none tracking-[-0.3px]">Grupo Real</div>
+      </div>
+    </a>
+
+    <!-- Campo de busca (desktop) -->
+    <div class="hidden md:flex items-center gap-2 flex-1 max-w-[300px] mx-6 px-4 py-[9px] rounded-full bg-[rgba(43,42,39,0.05)] border border-[rgba(43,42,39,0.12)]">
+      <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#6F5648" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+      <input type="search" placeholder="Buscar produtos" aria-label="Buscar produtos"
+             class="flex-1 min-w-0 bg-transparent border-0 outline-none text-[14px] font-source font-medium text-ink-nav placeholder:text-ink-nav-sub"/>
 <nav class="sticky top-0 z-[200] bg-[rgba(244,241,234,0.96)] backdrop-blur-md border-b border-areia-borda">
   <div class="flex items-center justify-between h-[68px] px-5 max-w-[1200px] mx-auto md:px-12">
 
@@ -325,9 +360,28 @@ tailwind.config = {
         <span class="block w-5 h-[2px] bg-oliva rounded-[2px] transition-all duration-[250ms]"></span>
       </button>
     </div>
+
+    <!-- Links desktop -->
+    <nav class="hidden md:flex items-center gap-8">
+      <a href="#produtos"  class="text-[13.5px] font-semibold text-ink-nav-sub no-underline transition-colors duration-200 hover:text-laranja-acao font-source">Produtos</a>
+      <a href="#filiais"   class="text-[13.5px] font-semibold text-ink-nav-sub no-underline transition-colors duration-200 hover:text-laranja-acao font-source">Filiais</a>
+      <a href="#sobre"     class="text-[13.5px] font-semibold text-ink-nav-sub no-underline transition-colors duration-200 hover:text-laranja-acao font-source">Quem somos</a>
+    </nav>
+
+    <!-- Hambúrguer (mobile only) -->
+    <button class="nav-ham md:hidden flex flex-col justify-center gap-[5px] bg-transparent border border-[1.5px] border-[rgba(43,42,39,0.15)] cursor-pointer p-2 rounded-[6px]"
+            id="hamBtn" aria-label="Abrir menu" onclick="toggleMenu()">
+      <span class="block w-5 h-[2px] bg-ink-nav rounded-[2px] transition-all duration-[250ms]"></span>
+      <span class="block w-5 h-[2px] bg-ink-nav rounded-[2px] transition-all duration-[250ms]"></span>
+      <span class="block w-5 h-[2px] bg-ink-nav rounded-[2px] transition-all duration-[250ms]"></span>
+    </button>
   </div>
 
   <!-- Mobile drawer -->
+  <div class="nav-drawer hidden absolute top-[69px] left-0 right-0 bg-areia-nav border-b-2 border-[rgba(43,42,39,0.10)] shadow-[0_12px_32px_rgba(43,42,39,0.08)] z-[199]" id="navDrawer">
+    <a href="#produtos"  onclick="toggleMenu()" class="block px-5 py-[14px] min-h-[48px] flex items-center text-base font-semibold text-ink-nav no-underline border-b border-[rgba(43,42,39,0.08)] active:text-laranja-acao font-source">Produtos</a>
+    <a href="#filiais"   onclick="toggleMenu()" class="block px-5 py-[14px] min-h-[48px] flex items-center text-base font-semibold text-ink-nav no-underline border-b border-[rgba(43,42,39,0.08)] active:text-laranja-acao font-source">Filiais</a>
+    <a href="#sobre"     onclick="toggleMenu()" class="block px-5 py-[14px] min-h-[48px] flex items-center text-base font-semibold text-ink-nav no-underline active:text-laranja-acao font-source">Quem somos</a>
   <div class="nav-drawer hidden absolute top-[68px] left-0 right-0 bg-areia border-b-2 border-areia-borda shadow-[0_12px_32px_rgba(43,42,39,0.08)] z-[199]" id="navDrawer">
     <a href="#sobre-nos" onclick="toggleMenu()" class="block px-5 py-4 text-base font-medium text-grafite no-underline border-b border-areia-borda active:text-coral active:bg-areia-escura">Por que nos escolher</a>
     <a href="#produtos"  onclick="toggleMenu()" class="block px-5 py-4 text-base font-medium text-grafite no-underline border-b border-areia-borda active:text-coral active:bg-areia-escura">Produtos</a>
@@ -337,6 +391,194 @@ tailwind.config = {
 </nav>
 
 <!-- ═══════════════════════
+     HERO + COVERFLOW
+     ═══════════════════════ -->
+<section class="hero-orange relative overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.18)]" id="topo">
+
+  <!-- TitleBlock -->
+  <div class="text-center px-5 pt-[clamp(32px,5vh,52px)] pb-8 max-w-[680px] mx-auto">
+    <div class="font-source text-[13px] font-bold tracking-[.14em] uppercase mb-4" style="color:#FFE3CC">• Correspondente Bancário</div>
+    <h1 class="font-bitter font-bold text-white mb-4 tracking-[-0.5px]" style="font-size:clamp(30px,4.4vw,46px);line-height:1.08">
+      Escolha o crédito <span style="background:#17A24B;color:#fff;border-radius:8px;font-style:italic;padding:2px .26em">certo</span> pra você
+    </h1>
+    <p class="font-source mx-auto" style="color:rgba(255,247,240,0.92);font-size:clamp(15px,1.6vw,17px);line-height:1.55;max-width:540px">
+      Um consultor analisa seu convênio e mostra as condições reais — sem pressão, sem letra miúda escondida.
+    </p>
+  </div>
+
+  <!-- Coverflow -->
+  <div class="relative" id="cfOuter">
+
+    <!-- Seta anterior -->
+    <button class="cf-nav-btn left-3 sm:left-5 lg:left-8" id="cfPrev" aria-label="Anterior">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+    </button>
+
+    <!-- Stage wrapper (altura controlada por JS) -->
+    <div style="overflow:hidden;padding:17px 0" id="cfStageWrap">
+      <div id="cfStage" style="position:relative;left:50%;transform-origin:top center">
+
+        <!-- Card 1: CLT -->
+        <div class="cf-card-wrap" id="cfCard0">
+          <div class="cf-card">
+            <div class="cf-panel">
+              <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 64% 24%, rgba(255,196,140,.35) 0%, rgba(255,196,140,0) 58%);z-index:1"></div>
+              <div class="cf-art" style="width:288px;height:217px;top:-22px;left:144px;transform:rotate(-3deg);filter:drop-shadow(0 14px 22px rgba(0,0,0,.42));background-image:url(assets/notas-leque.png);background-position:top center;z-index:1"></div>
+              <div class="cf-art" style="width:138px;height:164px;top:46px;left:185px;transform:rotate(-12deg);filter:drop-shadow(0 16px 26px rgba(0,0,0,.5));background-image:url(assets/carteira-trabalho.png);background-position:bottom center;z-index:2"></div>
+              <div class="cf-legib"></div>
+              <span class="cf-tag">CLT</span>
+              <h3 class="cf-title" style="font-size:23px;right:70px">Empréstimo do<br>Trabalhador</h3>
+            </div>
+            <div class="cf-info">
+              <p class="cf-sub">Crédito rápido e seguro para quem tem carteira assinada.</p>
+              <div class="cf-footer">
+                <div class="cf-badge">
+                  <span class="cf-badge-lbl">Parcelas a partir de</span>
+                  <span class="cf-badge-val">R$ 142</span>
+                </div>
+                <a href="https://wa.me/5521986862308?text=Ol%C3%A1!+Gostaria+de+avaliar+o+conv%C3%AAnio+da+minha+empresa+para+Empr%C3%A9stimo+Consignado+CLT." target="_blank" rel="noopener" onclick="trackWA('wa_deck_clt')" class="cf-cta">
+                  Consultar já <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+              </div>
+              <div class="cf-divider"></div>
+              <p class="cf-disclaimer">Sujeito a análise e contratação. Taxas, prazos e CET informados na simulação com o consultor.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: INSS -->
+        <div class="cf-card-wrap" id="cfCard1">
+          <div class="cf-card">
+            <div class="cf-panel">
+              <div class="cf-art" style="width:150px;height:130px;top:-26px;left:-34px;transform:rotate(20deg);opacity:.92;filter:drop-shadow(0 10px 18px rgba(0,0,0,.4));background-image:url(assets/money-bundle.png);background-position:center;z-index:1"></div>
+              <div class="cf-art" style="width:280px;height:200px;bottom:-30px;right:-42px;transform:rotate(-10deg);filter:drop-shadow(0 18px 26px rgba(0,0,0,.5)) drop-shadow(0 0 40px rgba(232,80,26,.34));background-image:url(assets/money-bundle.png);background-position:bottom right;z-index:1"></div>
+              <div class="cf-legib"></div>
+              <span class="cf-tag">INSS</span>
+              <h3 class="cf-title" style="font-size:27px;right:110px">Empréstimo<br>Consignado</h3>
+            </div>
+            <div class="cf-info">
+              <p class="cf-sub">Para aposentados e pensionistas, com desconto em folha.</p>
+              <div class="cf-footer">
+                <div class="cf-badge">
+                  <span class="cf-badge-lbl">Parcelas a partir de</span>
+                  <span class="cf-badge-val">R$ 245</span>
+                </div>
+                <a href="https://wa.me/5521986862308?text=Ol%C3%A1!+Gostaria+de+falar+com+um+especialista+sobre+Empr%C3%A9stimo+Consignado+INSS." target="_blank" rel="noopener" onclick="trackWA('wa_deck_inss')" class="cf-cta">
+                  Consultar já <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+              </div>
+              <div class="cf-divider"></div>
+              <p class="cf-disclaimer">Sujeito a análise e contratação. Taxas, prazos e CET informados na simulação com o consultor.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: SIAPE -->
+        <div class="cf-card-wrap" id="cfCard2">
+          <div class="cf-card">
+            <div class="cf-panel">
+              <div class="cf-art" style="width:150px;height:130px;top:-26px;left:-34px;transform:rotate(20deg);opacity:.92;filter:drop-shadow(0 10px 18px rgba(0,0,0,.4));background-image:url(assets/money-bundle.png);background-position:center;z-index:1"></div>
+              <div class="cf-art" style="width:280px;height:200px;bottom:-30px;right:-42px;transform:rotate(-10deg);filter:drop-shadow(0 18px 26px rgba(0,0,0,.5)) drop-shadow(0 0 40px rgba(232,80,26,.34));background-image:url(assets/money-bundle.png);background-position:bottom right;z-index:1"></div>
+              <div class="cf-legib"></div>
+              <span class="cf-tag">SIAPE</span>
+              <h3 class="cf-title" style="font-size:27px;right:110px">Empréstimo<br>Federal Civil</h3>
+            </div>
+            <div class="cf-info">
+              <p class="cf-sub">Condições dedicadas a servidores públicos federais civis.</p>
+              <div class="cf-footer">
+                <div class="cf-badge">
+                  <span class="cf-badge-lbl">Parcelas a partir de</span>
+                  <span class="cf-badge-val">R$ 340</span>
+                </div>
+                <a href="https://wa.me/5521986862308?text=Ol%C3%A1!+Gostaria+de+verificar+as+condi%C3%A7%C3%B5es+de+Empr%C3%A9stimo+Consignado+SIAPE." target="_blank" rel="noopener" onclick="trackWA('wa_deck_siape')" class="cf-cta">
+                  Consultar já <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+              </div>
+              <div class="cf-divider"></div>
+              <p class="cf-disclaimer">Sujeito a análise e contratação. Taxas, prazos e CET informados na simulação com o consultor.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: Cartão -->
+        <div class="cf-card-wrap" id="cfCard3">
+          <div class="cf-card">
+            <div class="cf-panel">
+              <div class="cf-art" style="width:150px;height:130px;top:-26px;left:-34px;transform:rotate(20deg);opacity:.92;filter:drop-shadow(0 10px 18px rgba(0,0,0,.4));background-image:url(assets/money-bundle.png);background-position:center;z-index:1"></div>
+              <div class="cf-art" style="width:280px;height:200px;bottom:-30px;right:-42px;transform:rotate(-10deg);filter:drop-shadow(0 18px 26px rgba(0,0,0,.5)) drop-shadow(0 0 40px rgba(232,80,26,.34));background-image:url(assets/money-bundle.png);background-position:bottom right;z-index:1"></div>
+              <div class="cf-legib"></div>
+              <span class="cf-tag">Cartão</span>
+              <h3 class="cf-title" style="font-size:22px;right:20px">Empréstimo no<br>Cartão de Crédito</h3>
+            </div>
+            <div class="cf-info">
+              <p class="cf-sub">Use o limite do seu cartão sem comprometer o salário.</p>
+              <div class="cf-footer">
+                <div class="cf-badge">
+                  <span class="cf-badge-lbl">Parcelas a partir de</span>
+                  <span class="cf-badge-val">até 12x</span>
+                </div>
+                <a href="https://wa.me/5521986862308?text=Ol%C3%A1!+Gostaria+de+saber+como+liberar+meu+limite+de+cart%C3%A3o+de+cr%C3%A9dito." target="_blank" rel="noopener" onclick="trackWA('wa_deck_cartao')" class="cf-cta">
+                  Consultar já <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+              </div>
+              <div class="cf-divider"></div>
+              <p class="cf-disclaimer">Sujeito a análise e contratação. Taxas, prazos e CET informados na simulação com o consultor.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5: Militar -->
+        <div class="cf-card-wrap" id="cfCard4">
+          <div class="cf-card">
+            <div class="cf-panel">
+              <div class="cf-art" style="width:150px;height:130px;top:-26px;left:-34px;transform:rotate(20deg);opacity:.92;filter:drop-shadow(0 10px 18px rgba(0,0,0,.4));background-image:url(assets/money-bundle.png);background-position:center;z-index:1"></div>
+              <div class="cf-art" style="width:280px;height:200px;bottom:-30px;right:-42px;transform:rotate(-10deg);filter:drop-shadow(0 18px 26px rgba(0,0,0,.5)) drop-shadow(0 0 40px rgba(232,80,26,.34));background-image:url(assets/money-bundle.png);background-position:bottom right;z-index:1"></div>
+              <div class="cf-legib"></div>
+              <span class="cf-tag">Militar</span>
+              <h3 class="cf-title" style="font-size:27px;right:110px">Empréstimo<br>Militares</h3>
+            </div>
+            <div class="cf-info">
+              <p class="cf-sub">Crédito com condições próprias para as Forças Armadas.</p>
+              <div class="cf-footer">
+                <div class="cf-badge">
+                  <span class="cf-badge-lbl">Parcelas a partir de</span>
+                  <span class="cf-badge-val">R$ 198</span>
+                </div>
+                <a href="https://wa.me/5521986862308?text=Ol%C3%A1!+Gostaria+de+iniciar+uma+simula%C3%A7%C3%A3o+de+cr%C3%A9dito+para+For%C3%A7as+Armadas." target="_blank" rel="noopener" onclick="trackWA('wa_deck_militar')" class="cf-cta">
+                  Consultar já <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+              </div>
+              <div class="cf-divider"></div>
+              <p class="cf-disclaimer">Sujeito a análise e contratação. Taxas, prazos e CET informados na simulação com o consultor.</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /cfStage -->
+    </div><!-- /cfStageWrap -->
+
+    <!-- Seta próxima -->
+    <button class="cf-nav-btn right-3 sm:right-5 lg:right-8" id="cfNext" aria-label="Próximo">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div><!-- /cfOuter -->
+
+  <!-- Dots -->
+  <div class="flex gap-2 justify-center pt-4 pb-8" id="cfDots"></div>
+
+  <!-- Selos -->
+  <div class="flex justify-center border-t border-white/10">
+    <div class="flex-1 max-w-[220px] py-[18px] px-4 text-center border-r border-white/10">
+      <div class="font-bitter text-xl font-bold text-white leading-none mb-1">+20 anos</div>
+      <div class="font-source text-[11px] font-medium leading-[1.4]" style="color:rgba(255,247,240,.7)">de mercado na Zona Oeste</div>
+    </div>
+    <div class="flex-1 max-w-[220px] py-[18px] px-4 text-center border-r border-white/10">
+      <div class="font-bitter text-xl font-bold text-white leading-none mb-1">2 filiais</div>
+      <div class="font-source text-[11px] font-medium leading-[1.4]" style="color:rgba(255,247,240,.7)">físicas em Bangu e Realengo</div>
+    </div>
+    <div class="flex-1 max-w-[220px] py-[18px] px-4 text-center">
+      <div class="font-bitter text-xl font-bold text-white leading-none mb-1">Autorizado</div>
+      <div class="font-source text-[11px] font-medium leading-[1.4]" style="color:rgba(255,247,240,.7)">Banco Central do Brasil</div>
      DECK CAROUSEL
      ═══════════════════════ -->
 <section class="deck-section-accent bg-areia py-11 lg:py-14 relative" id="topo">
@@ -560,6 +802,7 @@ tailwind.config = {
       <div class="text-[11px] text-[#8A857F] font-medium leading-[1.4]">Banco Central do Brasil</div>
     </div>
   </div>
+
 </section>
 
 <!-- ═══════════════════════
@@ -913,6 +1156,44 @@ tailwind.config = {
 </a>
 
 <script>
+// ── COVERFLOW ──
+(function () {
+  const CARD_W = 340, CARD_H = 452, STAGE_H = CARD_H + 34;
+
+  const outer     = document.getElementById('cfOuter');
+  const stageWrap = document.getElementById('cfStageWrap');
+  const stage     = document.getElementById('cfStage');
+  const prevBtn   = document.getElementById('cfPrev');
+  const nextBtn   = document.getElementById('cfNext');
+  const dotsWrap  = document.getElementById('cfDots');
+  if (!outer) return;
+
+  const cards = Array.from(stage.querySelectorAll('.cf-card-wrap'));
+  const N = cards.length;
+  let current = 0;
+  const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function getBand() { return window.innerWidth >= 768 ? 1000 : 398; }
+
+  function conf(off) {
+    const a = Math.abs(off), s = Math.sign(off) || 1;
+    const mob = window.innerWidth < 768;
+    if (mob) {
+      if (a === 0) return { x: 0,              sc: 1,    z: 30, op: 1,    ry: 0 };
+      if (a === 1) return { x: s * CARD_W * .9, sc: 0.82, z: 20, op: 0.5,  ry: 0 };
+      return               { x: s * CARD_W * 1.5, sc: 0.65, z: 0,  op: 0,    ry: 0 };
+    }
+    if (a === 0) return { x: 0,                sc: 1,    z: 30, op: 1,    ry: 0 };
+    if (a === 1) return { x: s * CARD_W * .62,  sc: 0.84, z: 20, op: 0.82, ry: -s * 16 };
+    if (a === 2) return { x: s * CARD_W * 1.06, sc: 0.66, z: 10, op: 0.42, ry: -s * 22 };
+    return               { x: s * CARD_W * 1.4,  sc: 0.55, z: 0,  op: 0,    ry: -s * 26 };
+  }
+
+  const dots = cards.map((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'cf-dot';
+    d.setAttribute('aria-label', 'Produto ' + (i + 1));
+    d.addEventListener('click', () => goTo(i));
 // ── DECK CAROUSEL ──
 (function(){
   const track   = document.getElementById('deckTrack');
@@ -935,6 +1216,54 @@ tailwind.config = {
   });
 
   function goTo(idx) {
+    current = Math.max(0, Math.min(N - 1, idx));
+    const vw   = outer.offsetWidth || window.innerWidth;
+    const band = getBand();
+    const rf   = Math.min(1, (vw - 24) / band);
+
+    stageWrap.style.height = (STAGE_H * rf) + 'px';
+    stage.style.width      = band + 'px';
+    stage.style.height     = STAGE_H + 'px';
+    stage.style.transform  = `translateX(-50%) scale(${rf})`;
+    stage.style.perspective = '1500px';
+
+    cards.forEach((wrap, i) => {
+      const c  = conf(i - current);
+      const ry = reduced() ? 0 : c.ry;
+      wrap.style.transform    = `translate(-50%,-50%) translateX(${c.x}px) scale(${c.sc}) rotateY(${ry}deg)`;
+      wrap.style.zIndex       = c.z;
+      wrap.style.opacity      = c.op;
+      wrap.style.pointerEvents = c.op === 0 ? 'none' : 'auto';
+      wrap.style.cursor       = i === current ? 'default' : 'pointer';
+    });
+
+    dots.forEach((d, i) => {
+      d.style.width      = i === current ? '26px' : '9px';
+      d.style.background = i === current ? '#FFFFFF' : 'rgba(255,255,255,0.45)';
+    });
+
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === N - 1;
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  cards.forEach((wrap, i) => {
+    wrap.addEventListener('click', () => { if (i !== current) goTo(i); });
+  });
+
+  let touchStartX = 0;
+  outer.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  outer.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 45) goTo(current + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
+  let isDown = false, startX = 0;
+  outer.addEventListener('mousedown', e => { isDown = true; startX = e.clientX; });
+  window.addEventListener('mouseup',  e => {
+    if (!isDown) return; isDown = false;
     current = Math.max(0, Math.min(N-1, idx));
     const vw = track.parentElement.offsetWidth;
     const card = cards[current];
@@ -967,12 +1296,14 @@ tailwind.config = {
   });
 
   document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft')  goTo(current - 1);
     if (e.key === 'ArrowLeft') goTo(current - 1);
     if (e.key === 'ArrowRight') goTo(current + 1);
   });
 
   goTo(0);
   window.addEventListener('resize', () => goTo(current));
+  window.addEventListener('load',   () => goTo(current));
   window.addEventListener('load', () => goTo(current));
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(() => goTo(current));
@@ -993,6 +1324,115 @@ document.addEventListener('click', function(e) {
     drawer.classList.remove('open');
     btn.classList.remove('open');
   }
+});
+
+// ── TRACKING WA ──
+function trackWA(label) {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'whatsapp_click', { event_category: 'engagement', event_label: label });
+  }
+  if (typeof clarity !== 'undefined') {
+    clarity('set', 'wa_click', label);
+  }
+}
+
+// ── ACORDEÃO DE CONVÊNIOS ──
+const CONVS = [
+  {
+    id: 'clt', label: 'CLT', icon: '<path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="2"/>',
+    prods: [
+      { n: 'Empréstimo Consignado CLT', d: 'Desconto em folha para trabalhadores com carteira assinada.', msg: 'Olá! Tenho interesse no Empréstimo Consignado CLT.' },
+      { n: 'Portabilidade CLT', d: 'Transfira seu contrato atual para melhores condições.', msg: 'Olá! Quero saber sobre Portabilidade CLT.' }
+    ]
+  },
+  {
+    id: 'fgts', label: 'FGTS', icon: '<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>',
+    prods: [
+      { n: 'Antecipação Saque-Aniversário', d: 'Antecipe as parcelas do seu saque-aniversário do FGTS.', msg: 'Olá! Tenho interesse na Antecipação Saque-Aniversário FGTS.' }
+    ]
+  },
+  {
+    id: 'inss', label: 'INSS', icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+    prods: [
+      { n: 'Empréstimo Consignado', d: 'Crédito com desconto direto no benefício INSS.', msg: 'Olá! Quero saber sobre Empréstimo Consignado INSS.' },
+      { n: 'Portabilidade', d: 'Mude seu contrato para melhores taxas.', msg: 'Olá! Quero saber sobre Portabilidade INSS.' },
+      { n: 'Refinanciamento', d: 'Renegocie seu contrato e obtenha saldo extra.', msg: 'Olá! Quero saber sobre Refinanciamento INSS.' },
+      { n: 'Cartão Consignado', d: 'Cartão com limite descontado em folha, sem anuidade.', msg: 'Olá! Quero saber sobre Cartão Consignado INSS.' },
+      { n: 'Cartão Benefício', d: 'Cartão vinculado ao benefício com vantagens exclusivas.', msg: 'Olá! Quero saber sobre Cartão Benefício INSS.' }
+    ]
+  },
+  {
+    id: 'forcas', label: 'Forças Armadas', icon: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+    prods: [
+      { n: 'Empréstimo Consignado', d: 'Crédito com desconto em folha para militares.', msg: 'Olá! Quero saber sobre Empréstimo Consignado Forças Armadas.' },
+      { n: 'Refinanciamento', d: 'Renegocie condições com saldo disponível.', msg: 'Olá! Quero saber sobre Refinanciamento Forças Armadas.' }
+    ]
+  },
+  {
+    id: 'siape', label: 'SIAPE', icon: '<rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>',
+    prods: [
+      { n: 'Empréstimo Consignado', d: 'Para servidores federais ativos e aposentados.', msg: 'Olá! Quero saber sobre Empréstimo Consignado SIAPE.' },
+      { n: 'Refinanciamento', d: 'Renegocie e obtenha saldo adicional.', msg: 'Olá! Quero saber sobre Refinanciamento SIAPE.' },
+      { n: 'Portabilidade', d: 'Transfira seu contrato para melhores condições.', msg: 'Olá! Quero saber sobre Portabilidade SIAPE.' },
+      { n: 'Cartão Consignado', d: 'Cartão com desconto em folha.', msg: 'Olá! Quero saber sobre Cartão Consignado SIAPE.' },
+      { n: 'Cartão Benefício', d: 'Benefícios e vantagens exclusivas para servidores.', msg: 'Olá! Quero saber sobre Cartão Benefício SIAPE.' }
+    ]
+  },
+  {
+    id: 'gov', label: 'Governos', icon: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+    prods: [
+      { n: 'Empréstimo Consignado', d: 'Para servidores estaduais e municipais.', msg: 'Olá! Quero saber sobre Empréstimo Consignado Governos.' },
+      { n: 'Cartão Consignado', d: 'Limite com desconto em folha.', msg: 'Olá! Quero saber sobre Cartão Consignado Governos.' },
+      { n: 'Cartão Benefício', d: 'Vantagens para servidores governamentais.', msg: 'Olá! Quero saber sobre Cartão Benefício Governos.' }
+    ]
+  },
+  {
+    id: 'pref', label: 'Prefeituras', icon: '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+    prods: [
+      { n: 'Empréstimo Consignado', d: 'Para servidores de prefeituras conveniadas.', msg: 'Olá! Quero saber sobre Empréstimo Consignado Prefeituras.' },
+      { n: 'Cartão Consignado', d: 'Crédito rotativo com desconto em folha.', msg: 'Olá! Quero saber sobre Cartão Consignado Prefeituras.' },
+      { n: 'Cartão Benefício', d: 'Benefícios exclusivos para servidores municipais.', msg: 'Olá! Quero saber sobre Cartão Benefício Prefeituras.' }
+    ]
+  }
+];
+
+const WA = '5521986862308';
+const acordEl = document.getElementById('acord');
+
+CONVS.forEach(conv => {
+  const item = document.createElement('div');
+  item.className = 'ac-item';
+  item.innerHTML = `
+    <button class="w-full bg-white border-0 py-5 px-6 flex items-center justify-between cursor-pointer text-left font-body transition-colors duration-200 hover:bg-[#FDFCFA] [-webkit-tap-highlight-color:transparent]"
+            onclick="toggleAcord(this)">
+      <div class="flex items-center gap-3.5">
+        <div class="w-[38px] h-[38px] rounded-[8px] bg-areia border border-areia-borda flex items-center justify-center shrink-0">
+          <svg class="w-[18px] h-[18px] stroke-oliva fill-none stroke-2" viewBox="0 0 24 24">${conv.icon}</svg>
+        </div>
+        <div>
+          <div class="text-[15px] font-bold text-oliva">${conv.label}</div>
+          <div class="text-[12px] text-[#9A9590] mt-[1px]">${conv.prods.length} produto${conv.prods.length > 1 ? 's' : ''}</div>
+        </div>
+      </div>
+      <svg class="ac-chev w-5 h-5 stroke-[#9A9590] fill-none stroke-2 transition-transform duration-[250ms] shrink-0" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="ac-body hidden bg-areia border-t border-areia-borda">
+      <div class="flex flex-col gap-px bg-areia-borda md:grid md:grid-cols-2">
+        ${conv.prods.map(p => `
+          <div class="bg-white py-[18px] px-6 flex items-center justify-between gap-3.5">
+            <div>
+              <div class="text-[15px] font-bold text-oliva mb-[3px]">${p.n}</div>
+              <div class="text-[13px] text-[#9A9590] leading-[1.5]">${p.d}</div>
+            </div>
+            <a class="flex items-center gap-[5px] bg-coral text-white py-[9px] px-3.5 rounded-btn text-[12px] font-bold no-underline whitespace-nowrap shrink-0 transition-colors duration-[250ms] hover:bg-coral-dark"
+               href="https://wa.me/${WA}?text=${encodeURIComponent(p.msg)}" target="_blank" rel="noopener" onclick="trackWA('wa_prod_${conv.id}')">
+              <svg class="w-[13px] h-[13px] fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Quero
+            </a>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  acordEl.appendChild(item);
 });
 
 // ── TRACKING WA ──
