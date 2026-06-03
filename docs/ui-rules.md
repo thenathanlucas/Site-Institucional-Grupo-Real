@@ -47,7 +47,7 @@ A tipografia deve misturar a autoridade de uma marca nacional com a legibilidade
 As sombras devem ser suaves e orgânicas, simulando elementos reais flutuando sobre o fundo areia macio, sem o visual artificial das fintechs.
 
 *   **Sombra de Cartão (Card Shadow):** `box-shadow: 0px 4px 20px rgba(43, 42, 39, 0.04);` (Sombra extremamente sutil utilizando o Grafite Escuro).
-*   **Sombra de Botão Flutuante (WhatsApp):** `box-shadow: 0px 8px 24px rgba(255, 87, 34, 0.2);` (Sombra em tom Coral, gerando brilho sutil para atrair cliques).
+*   **Sombra de Botão Flutuante (WhatsApp):** `box-shadow: 0px 8px 24px rgba(255, 87, 34, 0.2);` (tom de brilho **legado** — o coral foi descontinuado como cor de marca, mas este valor RGBA permanece **apenas** como brilho sutil do botão flutuante para atrair cliques; não é cor de marca).
 
 ### Sombreamento do Hero (profundidade)
 O hero laranja recebe **camadas de profundidade decorativas** (`aria-hidden`, `pointer-events:none`) para "aterrar" os cards flutuantes e melhorar a experiência. Três peças:
@@ -101,7 +101,7 @@ Foco no "respiro" visual. Seções apertadas transmitem desespero de venda. O Gr
 #### Regra de cor dos CTAs — **misto por hierarquia**
 Os botões do corpo do site obedecem à hierarquia, não ao destino do link:
 *   **CTA principal de cada seção (filled):** **Laranja Ação `#E8501A`** (hover `#C2410C`), mesmo quando abre o WhatsApp. Ex.: "Falar com a equipe", "Verificar meu banco", "Quero" (acordeão), "Consultar já" (coverflow).
-*   **Ação rotulada "WhatsApp" / selo de confiança:** **Verde Confiança `#17A24B`**. Ex.: botão flutuante de WhatsApp, pílula de destaque do título, faixa de selos do hero.
+*   **Ação rotulada "WhatsApp" / selo de confiança:** **Verde Confiança `#17A24B`** para realces *inline* — pílula de destaque do título e faixa de selos do hero. **Exceção:** o **botão flutuante** de WhatsApp usa o **verde oficial do WhatsApp `#25D366`** (reconhecimento imediato — importante para o público idoso). *(Se preferir unificar com a marca, troque o botão flutuante para `#17A24B`.)*
 *   **Ação secundária (outline):** borda/texto neutros (`#2B2A27`), **hover** vira Laranja Ação. Ex.: "Abrir no Google Maps", link do Instagram.
 
 ### B. O Bloco de Segurança (Quebra de Objeção)
@@ -111,3 +111,29 @@ Os botões do corpo do site obedecem à hierarquia, não ao destino do link:
 ### C. Cartão do Consultor (Humanização)
 *   **Estrutura:** Foto profissional em alta qualidade do atendente, nome completo, cargo (Ex: *Consultor Sênior de Crédito*) e o slogan: *"Especialista em encontrar o melhor cenário para você"*.
 *   **Borda:** `1px solid #FAF1EA` para delimitar de forma sutil.
+
+---
+
+## 8. Componentes do corpo do site (reestruturação UI/UX)
+
+> Novos blocos definidos na reestruturação v1. Build detalhado em `docs/archive/body-restructure-spec-CONCLUIDO-2026-06-03.md`. Todos seguem as regras de acessibilidade da §2 (corpo ≥16px, `line-height` ≥1.6, alvos de toque ≥48px).
+
+### A. Passos "Como funciona"
+*   **Layout:** 3 a 4 passos numerados, grid horizontal no desktop (`md:grid-cols-4`), empilhados no mobile.
+*   **Cada passo:** número grande em estilo `diff-num` (contorno laranja) ou círculo `bg-laranja-acao/[.12]`, título curto (`font-bold text-grafite`) e 1 linha de apoio (`text-[#6B6560]`).
+*   **Objetivo UX:** reduzir o medo do processo — linguagem de "bater o olho", deixando claro que **quem responde é uma pessoa**, não um robô.
+
+### B. Depoimentos — Mockup de celular (WhatsApp)
+*   **Conceito:** moldura de celular exibindo a conversa real de WhatsApp do cliente (autenticidade = anti-golpe).
+*   **Moldura (`.zap-phone`):** largura ~288px, bezel escuro `#1f1b18`, `border-radius:40px`, sombra `dc`.
+*   **Tela (`.zap-screen`):** fundo `#ECE5DD`; topo verde `#075E54` (nome do contato + avatar); corpo com balões `.zap-in` (recebido, `#fff`, esquerda) e `.zap-out` (enviado, `#DCF8C6`, direita), horário em `#7A756C 10px`.
+*   **Duas opções de conteúdo:** (A) **print real** dentro da moldura via `<img>` — preferida pela autenticidade, **exige redigir/borrar dados sensíveis (nome completo, telefone)**; (B) balões reconstruídos com o **texto fiel** da conversa — mais legível para idosos. Em ambos: rótulo "depoimento real de cliente" + primeiro nome + convênio.
+*   **Nunca inventar depoimentos** — viola o valor anti-golpe da marca.
+
+### C. FAQ (acordeão)
+*   **Reuso:** usa as classes/CSS já existentes do acordeão de convênios (`.ac-item`, `.ac-item.open .ac-chev`, `.ac-body`) e a função `toggleAcord()`.
+*   **Item:** pergunta em `font-semibold text-grafite` + chevron animado; resposta em `text-[#6B6560]` ≥16px.
+*   **Tom:** respostas conservadoras, alinhadas a `brand.md` (sem promessa exagerada, sem urgência). Mensagem antifraude obrigatória: **nunca cobramos nada adiantado**.
+
+### D. CTA final / Contato
+> ~~**Descontinuado na reordenação de 2026-06-03.**~~ Bloco `#contato` removido. Energia de fechamento delegada ao **WhatsApp flutuante** (global) + CTAs de `#bancos` e dos cards de convênio. Telefones das filiais migrados para `#filiais` como links `tel:` clicáveis. Histórico: `docs/archive/body-restructure-spec-CONCLUIDO-2026-06-03.md` (Tarefa 8).

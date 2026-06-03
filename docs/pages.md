@@ -1,6 +1,7 @@
 # pages.md — Mapeamento completo do site Grupo Real
 
-> Gerado a partir da leitura do HTML atual. Reflete exatamente o que está no ar.
+> **Regenerado em 2026-06-03** após a reordenação v2 (`docs/body-reorder-spec.md`). Reflete exatamente o que está no ar **agora**.
+> Predecessor: reestruturação v1 concluída em 2026-06-03 (arquivada em `docs/archive/`).
 
 ---
 
@@ -13,284 +14,176 @@
 | `og:title` | Quem já fez com a gente, aprovou! — Grupo Real |
 | `og:description` | Crédito consignado com atendimento rápido, sem enrolação e com muito respeito. |
 | `og:type` | website |
-| `og:image` | SVG inline (imagem de depoimentos gerada em código) |
 | `twitter:card` | summary_large_image |
-| Favicon | SVG inline com ícone "GR" laranja |
-| Fontes | Fraunces (display) + Inter (corpo) via Google Fonts |
+| `og:image` | **Ausente** |
+| Favicon | `assets/logo/grupo-real-icon.svg` (SVG externo) |
+| Fontes | **Bitter** (títulos do hero) · **Source Sans 3** (corpo do hero/cards) · **Plus Jakarta Sans** (corpo do restante) — via Google Fonts |
 | Analytics | Google Analytics 4 → `G-RJH4XR0J4H` |
 | Heatmap | Microsoft Clarity → `wx5l1wztnj` |
 | Embed externo | `instagram.com/embed.js` (async defer) |
+
+### Design tokens (tailwind.config inline)
+
+**Cores:** `ambar #D98324` · `areia #F4F1EA` · `areia-borda #E8E3D9` · `areia-escura #E5DFD3` · `grafite #2B2A27` · `cafe #2B1D14` · `cafe-claro #3A2A1E` · `laranja-acao #E8501A` · `laranja-acao-d #C2410C` · `verde-wa #16A34A` · `verde-hi #17A24B` · `areia-nav #FDFAF5` · `ink-nav #241F1A` · `ink-nav-sub #6F5648` · `card-ink #2B2A27` · `card-sub #7A756C` · `hero-eyebrow #FFE3CC` · `amber #D98324`
+
+**Fontes:** `display`/`body` = Plus Jakarta Sans · `bitter` = Bitter · `source` = Source Sans 3
+**Radius:** `card 8px` · `btn 6px` · `img 12px`
+**Shadow:** `card` · `wa` · `dc` · `hero`
 
 ---
 
 ## 1. Navbar
 
-**Comportamento:** `position: sticky` — fica fixo no topo ao rolar. Backdrop blur ativo.
+**Comportamento:** `sticky top-0 z-[200]`, fundo `rgba(253,250,245,0.9)` + `backdrop-blur-md`, borda inferior sutil.
 
-### Logo
-- SVG inline "GR" com fundo laranja `#E8501A` + border-radius 10px
-- Texto: **"Grupo Real"** (negrito)
-- Subtítulo: **"Empréstimo Consignado"** (visível só em `≥768px`)
-
-### Links de navegação (visíveis apenas em desktop `≥768px`)
-| Label | Âncora |
-|-------|--------|
-| Por que nós | `#sobre-nos` |
-| Produtos | `#produtos` |
-| Filiais | `#filiais` |
-| Quem somos | `#sobre` |
-
-### CTA (sempre visível)
-- Botão verde, pill shape → **"Falar agora"** com ícone SVG do WhatsApp
-- Link: `wa.me/5521986862308?text=Olá!+Vim+pelo+site...`
-- Tracking: `gtag` + `clarity` via `trackWA('wa_hero')`
-
-### Mobile
-- Botão hambúrguer com animação (3 linhas → X)
-- Drawer deslizante abaixo da nav com os 4 links
-- Fecha ao clicar em qualquer link ou fora do menu
+- **Logo:** `assets/logo/grupo-real-mark.svg` + texto **"Grupo Real"** (fonte Bitter, `ink-nav`).
+- **Campo de busca** (visível só em `≥768px`): input "Busque em nosso site" — pill cinza claro.
+- **Links desktop** (`≥768px`): `Produtos #produtos` · `Filiais #filiais` · `Quem somos #sobre`. Hover → `laranja-acao`.
+- **Sem botão WhatsApp** na navbar.
+- **Mobile:** hambúrguer animado (3 linhas → X) + drawer com os mesmos 3 links.
 
 ---
 
-## 2. Hero
+## 2. Hero + Coverflow
 
-**ID:** `#topo` | **Background:** `var(--s50)` (pedra claro)
-**Layout desktop:** grid 2 colunas (texto + foto)
+**ID:** `#topo` | **Fundo:** `.hero-orange` (gradiente laranja) + camadas de profundidade.
 
-### Coluna esquerda — Texto
-- **Chip/badge:** `• CORRESPONDENTE BANCÁRIO` (laranja, caixa alta)
-- **H1:** "20 anos ajudando você a tomar a *decisão certa*."
-  - Fonte: Fraunces, `clamp(36px, 10vw, 56px)`
-  - "decisão certa" em itálico laranja
-- **Subtítulo:** "Cada simulação é feita por um consultor que conhece seu convênio. Análise honesta pelo WhatsApp — sem pressão, sem letra miúda."
+### TitleBlock (centralizado)
+- **Eyebrow:** `• Correspondente Bancário` (cor `#FFE3CC`, caixa alta).
+- **H1** (Bitter, branco): "Escolha o crédito **certo** pra você" — "certo" em `<span>` com fundo Verde Confiança `#17A24B`, itálico.
+- **Subtítulo:** "Um consultor analisa seu convênio e mostra as condições reais — sem pressão, sem letra miúda escondida."
 
-### Botões
-| Botão | Estilo | Destino |
-|-------|--------|---------|
-| "Iniciar minha simulação" | Verde sólido + ícone WhatsApp | `wa.me/5521986862308` (nova aba) |
-| "Por que confiar em nós" | Outline cinza | `#sobre-nos` |
+### Coverflow (carrossel 3D, JS vanilla)
+5 cards brancos com painel laranja, setas prev/next, dots, swipe touch, drag mouse e setas de teclado.
 
-### Selos de credibilidade (3 itens)
-| Número/Ícone | Label |
-|---|---|
-| +20 | anos de mercado |
-| 2 | filiais físicas |
-| ✓ | Correspondente Banco Central |
+| # | Tag | Título | Parcela | trackWA |
+|---|-----|--------|---------|---------|
+| 1 | CLT | Empréstimo do Trabalhador | R$ 142 | `wa_deck_clt` |
+| 2 | INSS | Empréstimo Consignado | R$ 245 | `wa_deck_inss` |
+| 3 | SIAPE | Empréstimo Federal Civil | R$ 340 | `wa_deck_siape` |
+| 4 | Cartão | Empréstimo no Cartão de Crédito | até 12x | `wa_deck_cartao` |
+| 5 | Militar | Empréstimo Militares | R$ 198 | `wa_deck_militar` |
 
-### Coluna direita — Foto
-- Imagem: `images.unsplash.com/photo-1556742049-0cfed4f6a45d`
-- Alt: "Atendimento ao cliente Grupo Real"
-- `object-position: center 20%`
-- Mobile: altura fixa 260px, sangra nas margens (`margin: 0 -20px`)
-- Desktop: altura 100% (mín. 420px), border-radius topo
+### Faixa de selos
+`+20 anos` · `2 filiais` · `Autorizado` (Banco Central do Brasil).
+
+> ✅ Navbar e Hero estão **aprovados pelo cliente** — fora de escopo de mudanças.
 
 ---
 
-## 3. Bancos Parceiros
+# CORPO DO SITE (ordem real atual)
 
-**Sem ID de âncora** | **Background:** gradiente laranja claro → branco
-**Layout desktop:** grid 2 colunas (conteúdo + destaque numérico)
+## 3. Como Funciona
 
-### Conteúdo (coluna esquerda)
-- **Eyebrow:** "Cobertura financeira"
-- **H2:** "Trabalhamos com **30+ Bancos**" (hi laranja)
-- **Descrição:** Das maiores instituições às plataformas digitais. Se tem conta em banco, a gente intermedia.
-- **Texto CTA:** "Não sabe se seu banco está na lista? **Sem problema.** Nos chame no WhatsApp..."
-- **Botão:** "Verificar meu banco" verde com ícone WhatsApp → `wa.me/5521986862308?text=...elegivel...`
+**ID:** `#como-funciona` | **Fundo:** areia.
+- **Eyebrow:** "Simples e sem burocracia" · **H2:** "Como **funciona**"
+- 4 passos numerados (grid horizontal desktop / empilhados mobile) — **conteúdo a preencher pelo cliente** (placeholders comentados).
 
-### Destaque (coluna direita)
-- Card branco com borda laranja, border-radius 20px
-- Número: **"30+"** (Fraunces, 64px, laranja)
-- Label: "Bancos parceiros"
+> ⏳ Pendência: cliente precisa fornecer conteúdo dos 4 passos + subtítulo da seção.
 
----
+## 4. Produtos / Convênios
 
-## 4. Diferenciais
-
-**ID:** `#sobre-nos` | **Background:** branco
-
-- **Eyebrow:** "Por que nos escolher"
-- **H2:** "Uma empresa **real**, que você pode visitar"
-- **Subtítulo:** "Nossas lojas ficam em Bangu e Realengo..."
-
-### 4 cards de diferencial
-| Nº | Título | Descrição |
-|----|--------|-----------|
-| 01 | Loja física | Duas filiais abertas de segunda a sexta. Sem chatbot, sem fila de e-mail. |
-| 02 | Transparência total | Correspondente bancário autorizado. Condições mostradas antes de assinar. |
-| 03 | Múltiplos bancos | Intermediamos com vários bancos parceiros para garantir a melhor taxa. |
-| 04 | Sem burocracia | Nossa equipe cuida de tudo. Só traga os documentos. |
-
-> Layout: coluna única (mobile) → linha horizontal com flex (desktop, bordas entre cards)
-
----
-
-## 5. Banner Humano
-
-**Sem ID de âncora** | **Background:** `var(--s900)` (pedra escuro)
-**Layout desktop:** grid 2 colunas (foto esquerda + texto direita)
-
-### Foto
-- Imagem: `images.unsplash.com/photo-1573497620053-ea5300f94f21`
-- Alt: "Atendimento presencial Grupo Real"
-- `filter: brightness(.65)` | Mobile: altura 260px
-
-### Texto
-- **Eyebrow:** "Atendimento presencial" (branco opaco)
-- **H2:** "Gente cuidando de *gente*" (branco, "gente" em laranja)
-- **Subtítulo:** "Nossa equipe está aqui para explicar tudo com clareza, sem pressa e sem letras miúdas escondidas." (branco 60%)
-- **Botão:** "Falar com a equipe" laranja sólido → `wa.me/5521986862308?text=...dúvida...`
-
----
-
-## 6. Produtos / Convênios
-
-**ID:** `#produtos` | **Background:** `var(--s50)`
-
-- **Eyebrow:** "Soluções financeiras"
-- **H2:** "Escolha seu **convênio**"
-- **Subtítulo:** "Toque no seu convênio para ver os produtos disponíveis..."
-
-### Acordeão de convênios (gerado dinamicamente por JavaScript)
-
-Cada item tem: ícone SVG + label + contagem de produtos + chevron animado. Ao clicar, expande o grid de produtos.
+**ID:** `#produtos` | **Fundo:** branco.
+- **Eyebrow:** "Soluções financeiras" · **H2:** "Escolha seu **convênio**"
+- **Acordeão** gerado por JS (array `CONVS`) → `#acord`.
 
 | Convênio | Qtd | Produtos |
 |----------|-----|---------|
-| **CLT** | 2 | Empréstimo Consignado CLT · Portabilidade CLT |
-| **FGTS** | 1 | Antecipação Saque-Aniversário |
-| **INSS** | 5 | Empréstimo Consignado · Portabilidade · Refinanciamento · Cartão Consignado · Cartão Benefício |
-| **Forças Armadas** | 2 | Empréstimo Consignado · Refinanciamento |
-| **SIAPE** | 5 | Empréstimo Consignado · Refinanciamento · Portabilidade · Cartão Consignado · Cartão Benefício |
-| **Governos** | 3 | Empréstimo Consignado · Cartão Consignado · Cartão Benefício |
-| **Prefeituras** | 3 | Empréstimo Consignado · Cartão Consignado · Cartão Benefício |
+| CLT | 2 | Empréstimo Consignado CLT · Portabilidade CLT |
+| FGTS | 1 | Antecipação Saque-Aniversário |
+| INSS | 5 | Empréstimo Consignado · Portabilidade · Refinanciamento · Cartão Consignado · Cartão Benefício |
+| Forças Armadas | 2 | Empréstimo Consignado · Refinanciamento |
+| SIAPE | 5 | Empréstimo Consignado · Refinanciamento · Portabilidade · Cartão Consignado · Cartão Benefício |
+| Governos | 3 | Empréstimo Consignado · Cartão Consignado · Cartão Benefício |
+| Prefeituras | 3 | Empréstimo Consignado · Cartão Consignado · Cartão Benefício |
 
-> Total: **7 convênios · 21 produtos**
+> Total: **7 convênios · 21 produtos.**
 
-Cada produto tem: nome, descrição curta + botão **"Quero"** verde → WhatsApp com mensagem pré-preenchida específica por produto.
+## 5. Bancos Parceiros
 
----
+**ID:** `#bancos` | **Fundo:** **areia** (faixa compacta, sem bordas).
+- **H2:** "Bancos parceiros" · número **"30+"** em destaque.
+- **CTA:** "Verificar meu banco" (laranja) → WhatsApp, `trackWA('wa_bancos')`.
 
-## 7. Filiais
+## 6. Onde Estamos (Filiais)
 
-**ID:** `#filiais` | **Background:** branco
+**ID:** `#filiais` | **Fundo:** branco, borda-topo `laranja-acao` (3px).
+- **Eyebrow:** "Onde estamos" · **H2:** "Nossas **filiais**"
 
-- **Eyebrow:** "Onde estamos"
-- **H2:** "Nossas **filiais**"
-- **Subtítulo:** "Venha nos conhecer! Somos uma empresa com endereço físico..."
+| | Matriz — Realengo | Filial — Bangu |
+|---|---|---|
+| Endereço | Av. Santa Cruz, 1028 — Realengo, RJ | Rua Professor Clemente Ferreira, 1764, loja c — Bangu, RJ |
+| Horário | Seg–Qui: 08h–18h · Sex: 09h–18h | Seg–Qui: 08h–18h · Sex: 09h–18h |
+| Telefone | [(21) 96478-1371](tel:+5521964781371) ✅ clicável | [(21) 98888-3917](tel:+5521988883917) ✅ clicável |
+| Maps | Link direto | Link direto |
 
-### Filial 01 — Realengo
-| Campo | Dado |
-|-------|------|
-| Endereço | Av. Santa Cruz, 1028 — Realengo, Rio de Janeiro / RJ |
-| Horário | Seg–Qui: 08h às 18h · Sex: 09h às 18h |
-| Telefone | (21) 96478-1371 |
-| Google Maps | Link direto para o endereço |
+> Placeholders de foto: gradiente `from-cafe to-cafe-claro` com o nome do bairro (sem foto real ainda).
 
-### Filial 02 — Bangu
-| Campo | Dado |
-|-------|------|
-| Endereço | Rua Professor Clemente Ferreira, 1764, loja c — Bangu, Rio de Janeiro / RJ |
-| Horário | Seg–Qui: 08h às 18h · Sex: 09h às 18h |
-| Telefone | (21) 98888-3917 |
-| Google Maps | Link direto para o endereço |
+## 7. Depoimentos
 
----
+**ID:** `#depoimentos` | **Fundo:** areia.
+- **Eyebrow:** "Quem já fez, aprovou" · **H2:** "O que dizem nossos **clientes**"
+- 3 mockups de celular WhatsApp (balões reconstruídos com conversas reais de exemplo).
+- Rodapé: "Depoimentos reais de clientes. Nomes abreviados para privacidade."
 
-## 8. Sobre / Quem Somos
+> ⏳ Pendência: trocar balões por prints reais (`assets/depoimentos/dep-N.png`) quando o cliente fornecer.
 
-**ID:** `#sobre` | **Background:** `var(--s900)` (escuro)
-**Layout desktop:** grid 2 colunas (texto esquerda + foto direita)
+## 8. Quem Somos
 
-### Coluna esquerda — Texto
-- **Eyebrow:** "Quem somos"
-- **H2:** "O Grupo **Real**" ("Real" em laranja)
-- **Lead:** "Somos um correspondente bancário autorizado, com presença física na Zona Oeste do Rio de Janeiro..."
+**ID:** `#sobre` | **Fundo:** `cafe` (escuro), grid 2 colunas (texto + foto).
+- **Eyebrow:** "Quem somos" · **H2:** "O Grupo **Real**"
+- Lead: "...de **humano para humano**, com transparência e respeito."
+- **4 pilares:** Autorizado pelo BC · 2 filiais físicas · Múltiplos bancos · Atendimento especializado.
+- Foto (Unsplash) com caption "Zona Oeste do Rio de Janeiro · Desde 2012".
+- Tags de convênios: CLT · FGTS · INSS · SIAPE · Forças Armadas · Governos · Prefeituras.
 
-#### 4 Pilares institucionais
-| Ícone | Título | Descrição |
-|-------|--------|-----------|
-| Escudo | Autorizado pelo Banco Central | Resolução nº 4.935/2021. |
-| Casa | 2 filiais físicas — Bangu e Realengo | Visita presencial, sai com tudo resolvido. |
-| Cifrão | Parceria com múltiplos bancos | Melhor taxa entre vários bancos para o perfil. |
-| Pessoas | Atendimento especializado | Orientação com atenção, sem pressa e sem letras miúdas. |
+## 9. FAQ
 
-#### Tags de convênios (rodapé da seção)
-`CLT` `FGTS` `INSS` `SIAPE` `Forças Armadas` `Governos` `Prefeituras`
+**ID:** `#faq` | **Fundo:** areia.
+- **Eyebrow:** "Tire suas dúvidas" · **H2:** "Perguntas **frequentes**"
+- 10 itens de acordeão (reusa `.ac-item` / `toggleAcord()`).
+- Mensagem antifraude obrigatória: "**Não. Nunca cobramos nada adiantado.**"
 
-### Coluna direita — Foto
-- Imagem: `images.unsplash.com/photo-1521791136064-7986c2920216`
-- Alt: "Equipe Grupo Real"
-- `filter: brightness(.55)` + gradiente overlay escuro de baixo para cima
-- **Caption sobreposta:**
-  - Título: "Uma equipe que você pode confiar"
-  - Sub: "Zona Oeste do Rio de Janeiro · Desde sempre"
+> ⏳ Pendência: cliente valida as 10 respostas (rascunhos implementados, marcados `[confirmar]` no spec).
 
----
+## 10. Instagram
 
-## 9. Instagram
+**ID:** `#instagram` | **Fundo:** branco (bordas topo/base).
+- **Eyebrow:** "Nos acompanhe" · **H2:** "Visite nosso **Instagram**"
+- Embed: post `/p/DIR3GfeReiI/` (depoimentos via WhatsApp).
+- Link: "@gruporealintermediacao".
 
-**ID:** `#instagram` | **Background:** `var(--s50)`
+## 11. Footer
 
-- **Eyebrow:** "Nos acompanhe"
-- **H2:** "Visite nosso **Instagram**"
-- **Subtítulo:** "Acompanhe nossos posts, veja dicas sobre crédito consignado..."
-- **Embed:** Post do Instagram (`/p/DIR3GfeReiI/`) via `blockquote.instagram-media` + script oficial
-- **Link:** Botão outline → `instagram.com/gruporealintermediacao/` — "@gruporealintermediacao"
+**Fundo:** `cafe`.
+- Logo SVG (losangos G+R) + "Grupo Real" + tagline.
+- **4 colunas:** Produtos (CLT·INSS·FGTS·SIAPE → `#produtos`) · Filiais (Bangu·Realengo → `#filiais`) · Empresa (Como funciona → `#como-funciona` · Sobre nós → `#sobre` · Depoimentos → `#depoimentos` · Dúvidas → `#faq`) · Contato (Falar com consultor → WhatsApp · Instagram · E-mail).
+- **Legal:** Correspondente bancário Res. 4.935/2021 BC · CNPJ 15.191.039/0001-00 · Grupo Real Intermediação LTDA - ME · © 2026 · [Política de Privacidade](privacidade.html).
+
+## 12. WhatsApp Flutuante
+
+`fixed` canto inferior direito, círculo verde `#25D366`, 58×58px. Link global → WhatsApp, `trackWA('wa_flutuante')`.
 
 ---
 
-## 10. Footer
+## Resumo de Seções (ordem real)
 
-**Background:** `var(--s900)` (escuro)
+| # | Seção | ID | Fundo | CTA |
+|---|-------|----|-------|-----|
+| 1 | Navbar | — | areia-nav | — |
+| 2 | Hero + Coverflow | `#topo` | laranja | WhatsApp por card |
+| 3 | Como funciona | `#como-funciona` | areia | — (scaffold) |
+| 4 | Produtos / Convênios | `#produtos` | branco | WhatsApp por produto |
+| 5 | Bancos Parceiros | `#bancos` | **areia** | WhatsApp |
+| 6 | Onde Estamos (Filiais) | `#filiais` | branco | Google Maps + `tel:` |
+| 7 | Depoimentos | `#depoimentos` | areia | — |
+| 8 | Quem Somos | `#sobre` | café | — |
+| 9 | FAQ | `#faq` | areia | — |
+| 10 | Instagram | `#instagram` | branco | Link Instagram |
+| 11 | Footer | — | café | WhatsApp (consultor) |
+| 12 | WhatsApp Flutuante | — | — | WhatsApp (global) |
 
-### Topo
-- Logo: "Grupo Real" (texto branco)
-- Tagline: "Empréstimo consignado com transparência e presença física na Zona Oeste do Rio de Janeiro."
-
-### 4 colunas de links
-| Coluna | Links |
-|--------|-------|
-| Produtos | CLT · INSS · FGTS · SIAPE → `#produtos` |
-| Filiais | Bangu · Realengo → `#filiais` |
-| Empresa | Diferenciais → `#sobre-nos` · Sobre nós → `#sobre` |
-| Contato | WhatsApp → `wa.me/5521986862308` |
-
-### Rodapé legal
-- "Correspondente bancário nos termos da Resolução nº 4.935/2021 do Banco Central do Brasil."
-- CNPJ: **15.191.039/0001-00**
-- Razão social: Grupo Real Intermediação LTDA - ME
-- Copyright: © 2026 Grupo Real. Todos os direitos reservados.
-
----
-
-## 11. WhatsApp Flutuante
-
-**Posição:** `fixed` — canto inferior direito (bottom: 20px, right: 20px)
-- Botão circular verde (`#22C55E`), 58×58px
-- Ícone SVG do WhatsApp branco (30px)
-- `box-shadow` verde
-- Link: `wa.me/5521986862308?text=Olá!+Vim+pelo+site...`
-- Tracking: `trackWA('wa_flutuante')`
-- Visível em **todas as seções** durante toda a rolagem
-
----
-
-## Resumo de Seções
-
-| # | Seção | ID | CTA |
-|---|-------|----|-----|
-| 1 | Navbar | — | WhatsApp |
-| 2 | Hero | `#topo` | WhatsApp + âncora |
-| 3 | Bancos Parceiros | — | WhatsApp |
-| 4 | Diferenciais | `#sobre-nos` | — |
-| 5 | Banner Humano | — | WhatsApp |
-| 6 | Produtos / Convênios | `#produtos` | WhatsApp por produto |
-| 7 | Filiais | `#filiais` | Google Maps |
-| 8 | Sobre / Quem Somos | `#sobre` | — |
-| 9 | Instagram | `#instagram` | Link Instagram |
-| 10 | Footer | — | WhatsApp |
-| 11 | WhatsApp Flutuante | — | WhatsApp (global) |
+**Ritmo de fundos:** areia → branco → **areia** → branco → areia → café → areia → branco → café. Alternância limpa, sem dois claros idênticos colados.
 
 ---
 
@@ -298,12 +191,14 @@ Cada produto tem: nome, descrição curta + botão **"Quero"** verde → WhatsAp
 
 | Item | Detalhe |
 |------|---------|
-| Paleta | Laranja `#E8501A` · Verde `#22C55E` · Pedra `#1C1917` |
-| Tipografia | Display: **Fraunces** · Corpo: **Inter** |
-| Breakpoint principal | `768px` |
-| Acordeão | Gerado por JavaScript (array `CONVS` com 7 convênios) |
-| Tracking WhatsApp | Função `trackWA(label)` → GA4 + Clarity |
+| Paleta | Laranja `#E8501A` · Café Profundo `#2B1D14` · Areia `#F4F1EA` · Verde Confiança `#17A24B` (oliva e coral **descontinuados**) |
+| Tipografia | Hero: **Bitter** + **Source Sans 3** · Corpo: **Plus Jakarta Sans** |
+| Breakpoint principal | `768px` (`md`) |
+| Coverflow | IIFE JS vanilla (sem React) |
+| Acordeão convênios | Gerado por JS (array `CONVS`, 7 convênios) → `#acord` |
+| Acordeão FAQ | HTML estático, reusa `toggleAcord()` e `.ac-item` |
+| Tracking WhatsApp | `trackWA(label)` → GA4 + Clarity |
 | WhatsApp número | `5521986862308` |
-| Instagram handle | `@gruporealintermediacao` |
-| GA4 | `G-RJH4XR0J4H` |
-| Clarity | `wx5l1wztnj` |
+| Instagram | `@gruporealintermediacao` |
+| GA4 / Clarity | `G-RJH4XR0J4H` / `wx5l1wztnj` |
+| CSS mockup depoimentos | `.zap-phone` / `.zap-screen` / `.zap-bubble` / `.zap-in` / `.zap-out` |
