@@ -2,9 +2,9 @@
 
 ## 1. Sobre a Empresa
 
-* Grupo Real Intermedições é uma empresa de capital fechado que atua como intermediação financeira para concessão de crédito
+* Grupo Real Intermediações é uma empresa de capital fechado que atua como intermediação financeira para concessão de crédito
 * empresa criada no ano de 2012
-* Matriz em realengo e uma filial em Bangu
+* Matriz em Realengo e uma filial em Bangu
 * A Grupo Real atua como correspondente bancário, oferecendo atendimento especializado e orientação financeira responsável para clientes que buscam soluções de crédito com mais segurança, clareza e acompanhamento humano.
 * Atender o publico nas suas demandas, respeitando o cliente nao o tratando como apenas cpf para emprestimo, como um humano que busca solucao financeira em alguem confiavel
 
