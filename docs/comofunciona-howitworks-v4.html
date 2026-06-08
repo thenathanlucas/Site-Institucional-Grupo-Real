@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Como funciona — cards conectados (v4 caprichada)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500;0,600;0,700;1,600;1,700&family=Source+Sans+3:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        ambar:'#D98324', areia:'#F4F1EA', 'areia-borda':'#E8E3D9', grafite:'#2B2A27',
+        cafe:'#2B1D14', 'laranja-acao':'#E8501A', 'laranja-acao-d':'#C2410C', 'verde-hi':'#17A24B',
+      },
+      fontFamily: {
+        body:['"Plus Jakarta Sans"','Helvetica','sans-serif'],
+        bitter:['Bitter','Georgia','serif'],
+        source:['"Source Sans 3"','system-ui','sans-serif'],
+      },
+      borderRadius: { card:'8px', btn:'6px', img:'12px' },
+      boxShadow: {
+        card:'0 10px 30px rgba(160,72,18,0.08)',
+        cardh:'0 20px 44px rgba(160,72,18,0.16)',
+      },
+    }
+  }
+}
+</script>
+<style>
+  .eyebrow::before { content:''; display:block; width:24px; height:2px; background:#D98324; border-radius:2px; flex-shrink:0; }
+  .section-title { font-size: clamp(28px, 4vw, 40px); }
+  .mock-label { font-family:'Source Sans 3', sans-serif; }
+  .step-card { transition: transform .3s ease, box-shadow .3s ease; }
+  @media (min-width:768px){ .step-card:hover { transform: translateY(-5px); } }
+</style>
+</head>
+<body class="font-body text-grafite">
+
+<div class="bg-grafite text-white text-center py-3 px-5 text-sm mock-label">
+  <strong>v4 — caprichada.</strong> Cards maiores · fundo quente + sombra alaranjada · losango com brilho e anel · rótulo da fase · hover. Teste 360 / 768 / 1280px (passe o mouse nos cards).
+</div>
+
+<section class="bg-areia py-16 px-5 md:py-[100px] md:px-12">
+  <div class="max-w-[1040px] mx-auto">
+
+    <!-- Cabeçalho -->
+    <div class="text-center max-w-[580px] mx-auto mb-14 md:mb-20">
+      <div class="eyebrow inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-ambar mb-3.5">Simples e sem burocracia</div>
+      <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-grafite mb-4">Como <span class="text-laranja-acao">funciona</span></h2>
+      <p class="text-[17px] leading-[1.75] text-[#5f5a54]">Do primeiro “oi” até o dinheiro na conta, você sempre fala com uma pessoa de verdade.</p>
+    </div>
+
+    <!-- Trilha de etapas -->
+    <div class="max-w-[960px] mx-auto flex flex-col">
+
+      <!-- ░░ PASSO 01 (esquerda) ░░ -->
+      <div class="self-center md:self-start w-full md:max-w-[480px]">
+        <div class="step-card relative rounded-[20px] shadow-card hover:shadow-cardh border border-areia-borda p-6 md:p-8 flex items-center gap-5 md:gap-6" style="background:linear-gradient(140deg,#ffffff 0%,#FBF6EF 100%)">
+          <span aria-hidden="true" class="absolute -top-3.5 -left-3.5 w-10 h-10 rounded-full bg-laranja-acao text-white font-body font-bold text-lg flex items-center justify-center ring-[3px] ring-white shadow-card">1</span>
+          <!-- losango -->
+          <div class="relative w-[72px] h-[72px] md:w-[88px] md:h-[88px] shrink-0">
+            <div class="absolute inset-1 rounded-[22px] rotate-45 blur-[10px]" style="background:rgba(23,162,75,.28)"></div>
+            <div class="absolute inset-0 rounded-[22px] rotate-45 border border-white/70 shadow-card" style="background:linear-gradient(135deg,#E5F6EC,#CFEEDC)"></div>
+            <div class="absolute inset-[7px] rounded-[18px] rotate-45 border border-[#17A24B]/20"></div>
+            <div class="absolute inset-0 flex items-center justify-center" style="color:#17A24B" aria-hidden="true">
+              <svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884z"/></svg>
+            </div>
+          </div>
+          <!-- texto -->
+          <div>
+            <div class="text-[11px] font-bold tracking-[.14em] uppercase text-ambar mb-1.5">Atendimento</div>
+            <h3 class="text-xl md:text-[23px] font-bold text-grafite font-body leading-snug mb-1.5">Você fala com a gente</h3>
+            <p class="text-base md:text-[17px] leading-[1.65] text-[#5f5a54]">Manda uma mensagem no WhatsApp ou liga. Rápido e sem compromisso.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- conector 1→2 -->
+      <svg aria-hidden="true" class="hidden md:block w-full h-32" viewBox="0 0 960 130" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="218" cy="8" r="5" fill="#E8501A" fill-opacity="0.55"/>
+        <path d="M218,8 C 268,58 380,32 482,62 C 600,98 690,66 742,122" stroke="#E8501A" stroke-opacity="0.4" stroke-width="2.5" stroke-dasharray="2 13" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+        <circle cx="742" cy="122" r="5" fill="#E8501A" fill-opacity="0.55"/>
+      </svg>
+      <svg aria-hidden="true" class="md:hidden mx-auto w-12 h-16" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20,3 C 6,19 34,35 20,57" stroke="#E8501A" stroke-opacity="0.4" stroke-width="2.5" stroke-dasharray="2 11" stroke-linecap="round"/>
+      </svg>
+
+      <!-- ░░ PASSO 02 (direita) ░░ -->
+      <div class="self-center md:self-end w-full md:max-w-[480px]">
+        <div class="step-card relative rounded-[20px] shadow-card hover:shadow-cardh border border-areia-borda p-6 md:p-8 flex items-center gap-5 md:gap-6" style="background:linear-gradient(140deg,#ffffff 0%,#FBF6EF 100%)">
+          <span aria-hidden="true" class="absolute -top-3.5 -left-3.5 w-10 h-10 rounded-full bg-laranja-acao text-white font-body font-bold text-lg flex items-center justify-center ring-[3px] ring-white shadow-card">2</span>
+          <div class="relative w-[72px] h-[72px] md:w-[88px] md:h-[88px] shrink-0">
+            <div class="absolute inset-1 rounded-[22px] rotate-45 blur-[10px]" style="background:rgba(232,80,26,.24)"></div>
+            <div class="absolute inset-0 rounded-[22px] rotate-45 border border-white/70 shadow-card" style="background:linear-gradient(135deg,#FDEADF,#F9D2BC)"></div>
+            <div class="absolute inset-[7px] rounded-[18px] rotate-45 border border-laranja-acao/20"></div>
+            <div class="absolute inset-0 flex items-center justify-center text-laranja-acao" aria-hidden="true">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+            </div>
+          </div>
+          <div>
+            <div class="text-[11px] font-bold tracking-[.14em] uppercase text-ambar mb-1.5">Análise</div>
+            <h3 class="text-xl md:text-[23px] font-bold text-grafite font-body leading-snug mb-1.5">A gente te escuta</h3>
+            <p class="text-base md:text-[17px] leading-[1.65] text-[#5f5a54]">Um especialista entende o que você precisa e cuida de toda a papelada.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- conector 2→3 -->
+      <svg aria-hidden="true" class="hidden md:block w-full h-32" viewBox="0 0 960 130" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="742" cy="8" r="5" fill="#E8501A" fill-opacity="0.55"/>
+        <path d="M742,8 C 692,56 578,34 476,64 C 360,99 270,64 218,122" stroke="#E8501A" stroke-opacity="0.4" stroke-width="2.5" stroke-dasharray="2 13" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+        <circle cx="218" cy="122" r="5" fill="#E8501A" fill-opacity="0.55"/>
+      </svg>
+      <svg aria-hidden="true" class="md:hidden mx-auto w-12 h-16" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20,3 C 34,19 6,35 20,57" stroke="#E8501A" stroke-opacity="0.4" stroke-width="2.5" stroke-dasharray="2 11" stroke-linecap="round"/>
+      </svg>
+
+      <!-- ░░ PASSO 03 (esquerda) ░░ -->
+      <div class="self-center md:self-start w-full md:max-w-[480px]">
+        <div class="step-card relative rounded-[20px] shadow-card hover:shadow-cardh border border-areia-borda p-6 md:p-8 flex items-center gap-5 md:gap-6" style="background:linear-gradient(140deg,#ffffff 0%,#FBF6EF 100%)">
+          <span aria-hidden="true" class="absolute -top-3.5 -left-3.5 w-10 h-10 rounded-full bg-laranja-acao text-white font-body font-bold text-lg flex items-center justify-center ring-[3px] ring-white shadow-card">3</span>
+          <div class="relative w-[72px] h-[72px] md:w-[88px] md:h-[88px] shrink-0">
+            <div class="absolute inset-1 rounded-[22px] rotate-45 blur-[10px]" style="background:rgba(232,80,26,.24)"></div>
+            <div class="absolute inset-0 rounded-[22px] rotate-45 border border-white/70 shadow-card" style="background:linear-gradient(135deg,#FDEADF,#F9D2BC)"></div>
+            <div class="absolute inset-[7px] rounded-[18px] rotate-45 border border-laranja-acao/20"></div>
+            <div class="absolute inset-0 flex items-center justify-center text-laranja-acao" aria-hidden="true">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </div>
+          </div>
+          <div>
+            <div class="text-[11px] font-bold tracking-[.14em] uppercase text-ambar mb-1.5">Proposta</div>
+            <h3 class="text-xl md:text-[23px] font-bold text-grafite font-body leading-snug mb-1.5">Você vê a melhor opção</h3>
+            <p class="text-base md:text-[17px] leading-[1.65] text-[#5f5a54]">A gente mostra a parcela que cabe no seu bolso, sem pegadinha.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- conector 3→4 -->
+      <svg aria-hidden="true" class="hidden md:block w-full h-32" viewBox="0 0 960 130" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="218" cy="8" r="5" fill="#E8501A" fill-opacity="0.55"/>
+        <path d="M218,8 C 266,60 382,30 484,60 C 598,96 688,68 742,122" stroke="#E8501A" stroke-opacity="0.4" stroke-width="2.5" stroke-dasharray="2 13" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+        <circle cx="742" cy="122" r="5" fill="#E8501A" fill-opacity="0.55"/>
+      </svg>
+      <svg aria-hidden="true" class="md:hidden mx-auto w-12 h-16" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20,3 C 6,19 34,35 20,57" stroke="#E8501A" stroke-opacity="0.4" stroke-width="2.5" stroke-dasharray="2 11" stroke-linecap="round"/>
+      </svg>
+
+      <!-- ░░ PASSO 04 (direita) ░░ -->
+      <div class="self-center md:self-end w-full md:max-w-[480px]">
+        <div class="step-card relative rounded-[20px] shadow-card hover:shadow-cardh border border-areia-borda p-6 md:p-8 flex items-center gap-5 md:gap-6" style="background:linear-gradient(140deg,#ffffff 0%,#FBF6EF 100%)">
+          <span aria-hidden="true" class="absolute -top-3.5 -left-3.5 w-10 h-10 rounded-full bg-laranja-acao text-white font-body font-bold text-lg flex items-center justify-center ring-[3px] ring-white shadow-card">4</span>
+          <div class="relative w-[72px] h-[72px] md:w-[88px] md:h-[88px] shrink-0">
+            <div class="absolute inset-1 rounded-[22px] rotate-45 blur-[10px]" style="background:rgba(232,80,26,.24)"></div>
+            <div class="absolute inset-0 rounded-[22px] rotate-45 border border-white/70 shadow-card" style="background:linear-gradient(135deg,#FDEADF,#F9D2BC)"></div>
+            <div class="absolute inset-[7px] rounded-[18px] rotate-45 border border-laranja-acao/20"></div>
+            <div class="absolute inset-0 flex items-center justify-center text-laranja-acao" aria-hidden="true">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
+            </div>
+          </div>
+          <div>
+            <div class="text-[11px] font-bold tracking-[.14em] uppercase text-ambar mb-1.5">Liberação</div>
+            <h3 class="text-xl md:text-[23px] font-bold text-grafite font-body leading-snug mb-1.5">O dinheiro cai na conta</h3>
+            <p class="text-base md:text-[17px] leading-[1.65] text-[#5f5a54]">Com tudo certo, o crédito é depositado direto na sua conta.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="bg-grafite text-white text-center py-6 px-5 text-sm mock-label">
+  Cards maiores + fundo quente + losango com brilho/anel + rótulo da fase + pontos de conexão na linha + hover. Verde só no passo 01. Me diga se fechamos ou faço o último ajuste.
+</div>
+
+</body>
+</html>
