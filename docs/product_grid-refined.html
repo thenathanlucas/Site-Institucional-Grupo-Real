@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Produtos / Convênios — opção 5 refinada + opção 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500;0,600;0,700&family=Source+Sans+3:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      ambar:'#D98324', areia:'#F4F1EA', 'areia-borda':'#E8E3D9', grafite:'#2B2A27',
+      cafe:'#2B1D14', 'laranja-acao':'#E8501A', 'laranja-acao-d':'#C2410C', 'verde-hi':'#17A24B',
+    },
+    fontFamily: {
+      body:['"Plus Jakarta Sans"','Helvetica','sans-serif'],
+      bitter:['Bitter','Georgia','serif'],
+      source:['"Source Sans 3"','system-ui','sans-serif'],
+    },
+    borderRadius: { card:'8px', btn:'6px', img:'12px' },
+    boxShadow: {
+      card:'0 6px 22px rgba(160,72,18,0.07)',
+      cardup:'0 14px 36px rgba(160,72,18,0.15)',
+    },
+  } }
+}
+</script>
+<style>
+  body { background:#EDEAE3; }
+  .eyebrow::before { content:''; display:block; width:22px; height:2px; background:#D98324; border-radius:2px; flex-shrink:0; }
+  .mlabel { font-family:'Source Sans 3', sans-serif; }
+  .no-bar::-webkit-scrollbar { display:none; }
+  .no-bar { -ms-overflow-style:none; scrollbar-width:none; }
+
+  /* moldura de celular (opção 2 / preview mobile) */
+  .phone { width:100%; max-width:392px; margin:0 auto; height:760px; background:#F4F1EA;
+           border-radius:30px; border:1px solid #E2DCD0; box-shadow:0 18px 50px rgba(0,0,0,.16); position:relative; overflow:hidden; }
+  .screen { height:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:26px 18px 40px; }
+
+  /* bottom sheet (opção 2) */
+  .sheet-wrap { position:absolute; inset:0; z-index:40; pointer-events:none; }
+  .sheet-scrim { position:absolute; inset:0; background:rgba(20,12,6,.45); opacity:0; transition:opacity .3s ease; }
+  .sheet { position:absolute; left:0; right:0; bottom:0; background:#fff; border-radius:24px 24px 0 0;
+           transform:translateY(101%); transition:transform .4s cubic-bezier(.4,0,.2,1); max-height:84%; overflow-y:auto; box-shadow:0 -10px 40px rgba(20,12,6,.18); }
+  .sheet-wrap.open { pointer-events:auto; }
+  .sheet-wrap.open .sheet-scrim { opacity:1; }
+  .sheet-wrap.open .sheet { transform:translateY(0); }
+
+  /* ===== OPÇÃO 5 — vitrine fluida ===== */
+  .o5-rail { display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory; padding:8px 2px 16px; scroll-padding:0 50%; }
+  .o5-card { flex:0 0 auto; width:130px; scroll-snap-align:center; background:#fff; border:1px solid #E8E3D9;
+             border-radius:16px; padding:16px; text-align:left; cursor:pointer;
+             transition:transform .35s cubic-bezier(.4,0,.2,1), box-shadow .35s, border-color .35s, background-color .35s; }
+  .o5-card .o5-ico { width:44px; height:44px; border-radius:13px; background:#F4F1EA; color:#2B2A27;
+                     display:flex; align-items:center; justify-content:center; transition:.35s; }
+  .o5-card .o5-name { display:block; font-weight:700; font-size:15px; color:#2B2A27; margin-top:11px; line-height:1.15; }
+  .o5-card .o5-count { display:block; font-size:12px; color:#9A9590; margin-top:3px; transition:.35s; }
+  .o5-card.is-active { border-color:transparent; background:linear-gradient(135deg,#FB6516,#ED4A05);
+                       box-shadow:0 18px 38px rgba(232,80,26,.42); transform:translateY(-6px) scale(1.04); }
+  .o5-card.is-active .o5-ico { background:rgba(255,255,255,.20); color:#fff; }
+  .o5-card.is-active .o5-name { color:#fff; }
+  .o5-card.is-active .o5-count { color:rgba(255,255,255,.85); font-weight:600; }
+
+  .o5-detail { transition:opacity .24s ease, transform .24s ease; }
+  .o5-detail.swap { opacity:0; transform:translateY(8px); }
+
+  @media (min-width:768px){
+    .o5-card { width:150px; }
+  }
+</style>
+</head>
+<body class="font-body text-grafite">
+
+<div class="bg-grafite text-white text-center py-4 px-5 mlabel">
+  <div class="text-base font-bold">Produtos / Convênios — Opção 5 refinada (foco) + Opção 2</div>
+  <div class="text-[13px] text-white/70 mt-1">Opção 5: um único losango “herói”, seleção fluida ao deslizar, responsiva (redimensione a janela). CTAs em Laranja Ação · verde só em selo.</div>
+</div>
+
+<!-- ════════ OPÇÃO 5 — VITRINE FLUIDA (responsiva, foco) ════════ -->
+<div class="max-w-[1080px] mx-auto px-5 pt-12 pb-8">
+  <div class="mb-4">
+    <span class="inline-block text-[11px] font-bold tracking-widest uppercase text-white bg-laranja-acao rounded-full px-3 py-1 mb-2">Opção 5 · refinada</span>
+    <h3 class="font-bitter text-2xl font-bold text-grafite">Vitrine deslizante (fluida)</h3>
+    <p class="mlabel text-[14px] text-grafite/60 leading-relaxed mt-1">Deslize a vitrine: o convênio central é selecionado sozinho e o conteúdo troca com transição suave. Um losango só (do selecionado). <strong>Redimensione a janela</strong> para ver mobile → desktop.</p>
+  </div>
+
+  <section class="bg-areia rounded-[20px] border border-areia-borda p-5 sm:p-7 md:p-10 shadow-card">
+    <div class="eyebrow inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-ambar mb-3">Soluções financeiras</div>
+    <h2 class="font-bitter text-[28px] md:text-[34px] font-bold leading-[1.12] text-grafite mb-2">Nossas <span class="text-laranja-acao">soluções</span></h2>
+    <p class="text-base leading-[1.6] text-[#6B6560] mb-6 max-w-[520px]">Deslize e toque no seu convênio para ver os produtos disponíveis.</p>
+
+    <!-- vitrine -->
+    <div id="o5-rail" class="o5-rail no-bar -mx-1 px-1"></div>
+    <div class="md:hidden flex items-center gap-1.5 justify-center text-[12px] text-[#9A9590] -mt-2 mb-4">deslize para ver todos →</div>
+
+    <!-- detalhe -->
+    <div id="o5-detail" class="o5-detail mt-4"></div>
+  </section>
+</div>
+
+<!-- ════════ OPÇÃO 2 — referência (mobile) ════════ -->
+<div class="max-w-[1080px] mx-auto px-5 pb-16">
+  <div class="mb-4 mt-6">
+    <span class="inline-block text-[11px] font-bold tracking-widest uppercase text-white bg-grafite rounded-full px-3 py-1 mb-2">Opção 2 · referência</span>
+    <h3 class="font-bitter text-xl font-bold text-grafite">Grid Boutique + Painel inferior</h3>
+    <p class="mlabel text-[13.5px] text-grafite/60 leading-relaxed mt-1">Mantida como estava, para comparação.</p>
+  </div>
+  <div class="phone">
+    <div class="screen">
+      <div class="eyebrow inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-ambar mb-3">Soluções financeiras</div>
+      <h2 class="font-bitter text-[27px] font-bold leading-[1.15] text-grafite mb-2">Escolha seu <span class="text-laranja-acao">convênio</span></h2>
+      <p class="text-base leading-[1.6] text-[#6B6560] mb-6">Toque no seu convênio para ver os produtos disponíveis.</p>
+      <div id="opt2-grid" class="grid grid-cols-2 gap-3.5"></div>
+      <p class="mt-6 text-[13px] text-[#7A756C] flex items-center gap-1.5 justify-center">
+        <span class="w-2 h-2 rounded-full bg-verde-hi"></span> Atendimento humano no WhatsApp
+      </p>
+    </div>
+    <div class="sheet-wrap" id="opt2-sheet">
+      <div class="sheet-scrim" onclick="closeSheet()"></div>
+      <div class="sheet">
+        <div class="sticky top-0 bg-white px-5 pt-4 pb-4 border-b border-areia-borda z-10">
+          <div class="mx-auto w-10 h-1 rounded-full bg-areia-borda mb-4"></div>
+          <div class="flex items-center justify-between gap-3">
+            <div id="sheet-head" class="flex items-center gap-3.5 min-w-0"></div>
+            <button onclick="closeSheet()" aria-label="Fechar" class="w-9 h-9 rounded-full bg-areia flex items-center justify-center text-grafite text-2xl leading-none shrink-0">&times;</button>
+          </div>
+        </div>
+        <div id="sheet-body" class="p-4 flex flex-col gap-2.5"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-grafite text-white text-center py-6 px-5 mlabel text-sm">
+  TODO (depois): trocar os ícones dos convênios. Fonte H2 = Bitter · cards 8px · alvos ≥48px · corpo ≥16px.
+</div>
+
+<script>
+const WA = '5521986862308';
+const WA_PATH = 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884z';
+
+const CONVS = [
+  { id:'inss', label:'INSS', tag:'Aposentados e pensionistas', cmsg:'Olá! Quero saber as opções de crédito para INSS.', icon:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', prods:[
+    { n:'Empréstimo Consignado', d:'Crédito com desconto direto no benefício INSS.', msg:'Olá! Quero saber sobre Empréstimo Consignado INSS.' },
+    { n:'Portabilidade', d:'Mude seu contrato para melhores taxas.', msg:'Olá! Quero saber sobre Portabilidade INSS.' },
+    { n:'Refinanciamento', d:'Renegocie seu contrato e obtenha saldo extra.', msg:'Olá! Quero saber sobre Refinanciamento INSS.' },
+    { n:'Cartão Consignado', d:'Cartão com limite descontado em folha, sem anuidade.', msg:'Olá! Quero saber sobre Cartão Consignado INSS.' },
+    { n:'Cartão Benefício', d:'Cartão vinculado ao benefício com vantagens exclusivas.', msg:'Olá! Quero saber sobre Cartão Benefício INSS.' } ] },
+  { id:'clt', label:'CLT', tag:'Carteira assinada', cmsg:'Olá! Quero saber as opções de crédito para CLT.', icon:'<path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="2"/>', prods:[
+    { n:'Empréstimo Consignado CLT', d:'Desconto em folha para trabalhadores com carteira assinada.', msg:'Olá! Tenho interesse no Empréstimo Consignado CLT.' },
+    { n:'Portabilidade CLT', d:'Transfira seu contrato atual para melhores condições.', msg:'Olá! Quero saber sobre Portabilidade CLT.' } ] },
+  { id:'fgts', label:'FGTS', tag:'Saque-aniversário', cmsg:'Olá! Quero saber sobre a Antecipação do FGTS.', icon:'<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>', prods:[
+    { n:'Antecipação Saque-Aniversário', d:'Antecipe as parcelas do seu saque-aniversário do FGTS.', msg:'Olá! Tenho interesse na Antecipação Saque-Aniversário FGTS.' } ] },
+  { id:'siape', label:'SIAPE', tag:'Servidor federal', cmsg:'Olá! Quero saber as opções de crédito para SIAPE.', icon:'<rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', prods:[
+    { n:'Empréstimo Consignado', d:'Para servidores federais ativos e aposentados.', msg:'Olá! Quero saber sobre Empréstimo Consignado SIAPE.' },
+    { n:'Refinanciamento', d:'Renegocie e obtenha saldo adicional.', msg:'Olá! Quero saber sobre Refinanciamento SIAPE.' },
+    { n:'Portabilidade', d:'Transfira seu contrato para melhores condições.', msg:'Olá! Quero saber sobre Portabilidade SIAPE.' },
+    { n:'Cartão Consignado', d:'Cartão com desconto em folha.', msg:'Olá! Quero saber sobre Cartão Consignado SIAPE.' },
+    { n:'Cartão Benefício', d:'Benefícios e vantagens exclusivas para servidores.', msg:'Olá! Quero saber sobre Cartão Benefício SIAPE.' } ] },
+  { id:'forcas', label:'Forças Armadas', tag:'Militares', cmsg:'Olá! Quero saber as opções de crédito para Forças Armadas.', icon:'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>', prods:[
+    { n:'Empréstimo Consignado', d:'Crédito com desconto em folha para militares.', msg:'Olá! Quero saber sobre Empréstimo Consignado Forças Armadas.' },
+    { n:'Refinanciamento', d:'Renegocie condições com saldo disponível.', msg:'Olá! Quero saber sobre Refinanciamento Forças Armadas.' } ] },
+  { id:'gov', label:'Governos', tag:'Servidor estadual', cmsg:'Olá! Quero saber as opções de crédito para Governos.', icon:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>', prods:[
+    { n:'Empréstimo Consignado', d:'Para servidores estaduais e municipais.', msg:'Olá! Quero saber sobre Empréstimo Consignado Governos.' },
+    { n:'Cartão Consignado', d:'Limite com desconto em folha.', msg:'Olá! Quero saber sobre Cartão Consignado Governos.' },
+    { n:'Cartão Benefício', d:'Vantagens para servidores governamentais.', msg:'Olá! Quero saber sobre Cartão Benefício Governos.' } ] },
+  { id:'pref', label:'Prefeituras', tag:'Servidor municipal', cmsg:'Olá! Quero saber as opções de crédito para Prefeituras.', icon:'<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>', prods:[
+    { n:'Empréstimo Consignado', d:'Para servidores de prefeituras conveniadas.', msg:'Olá! Quero saber sobre Empréstimo Consignado Prefeituras.' },
+    { n:'Cartão Consignado', d:'Crédito rotativo com desconto em folha.', msg:'Olá! Quero saber sobre Cartão Consignado Prefeituras.' },
+    { n:'Cartão Benefício', d:'Benefícios exclusivos para servidores municipais.', msg:'Olá! Quero saber sobre Cartão Benefício Prefeituras.' } ] },
+];
+const byId = id => CONVS.find(c => c.id === id);
+const waLink = msg => `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+const plural = n => n + ' produto' + (n>1?'s':'');
+const convIcon = (conv, cls) => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${conv.icon}</svg>`;
+
+const waCta = (msg, label='Quero') => `<a href="${waLink(msg)}" target="_blank" rel="noopener"
+   class="inline-flex items-center justify-center gap-1.5 bg-laranja-acao hover:bg-laranja-acao-d text-white font-bold text-[14px] min-h-[48px] px-4 rounded-btn no-underline transition-colors shrink-0">
+   ${label}<svg class="w-[14px] h-[14px] fill-white" viewBox="0 0 24 24"><path d="${WA_PATH}"/></svg></a>`;
+
+// losango (herói) — laranja vibrante sólido, alto destaque
+const heroDiamond = (conv, size=108) => `
+  <span class="relative inline-block shrink-0" style="width:${size}px;height:${size}px">
+    <span class="absolute inset-0 rounded-[20px] rotate-45 blur-[16px]" style="background:rgba(251,101,22,.55)"></span>
+    <span class="absolute inset-0 rounded-[20px] rotate-45 border border-white/30" style="background:linear-gradient(135deg,#FB6516,#ED4A05);box-shadow:0 10px 26px rgba(232,80,26,.45)"></span>
+    <span class="absolute inset-[8px] rounded-[15px] rotate-45 border border-white/20"></span>
+    <span class="absolute inset-0 flex items-center justify-center text-white">${convIcon(conv,'w-9 h-9')}</span>
+  </span>`;
+
+// linha de produto clara (Opção 2 — sobre fundo claro)
+const prodRow = p => `
+  <div class="flex items-center justify-between gap-3.5 bg-white rounded-card border border-areia-borda p-4">
+    <div class="min-w-0">
+      <div class="text-[17px] font-bold text-grafite leading-snug">${p.n}</div>
+      <div class="text-base text-[#6B6560] leading-[1.55] mt-0.5">${p.d}</div>
+    </div>
+    ${waCta(p.msg)}
+  </div>`;
+
+// linha de produto escura (Opção 5 — conversa com o painel Café Profundo)
+const prodRowDark = p => `
+  <div class="flex items-center justify-between gap-3.5 rounded-card border p-4" style="background:#3A2A1E;border-color:rgba(255,255,255,.09)">
+    <div class="min-w-0">
+      <div class="text-[17px] font-bold text-white leading-snug">${p.n}</div>
+      <div class="text-base leading-[1.55] mt-0.5" style="color:#C9BBA8">${p.d}</div>
+    </div>
+    ${waCta(p.msg)}
+  </div>`;
+
+/* ═════ OPÇÃO 5 — vitrine fluida ═════ */
+const rail = document.getElementById('o5-rail');
+const detail = document.getElementById('o5-detail');
+let current = null;
+
+rail.innerHTML = CONVS.map(c => `
+  <button class="o5-card" data-id="${c.id}" onclick="pick('${c.id}')">
+    <span class="o5-ico">${convIcon(c,'w-[22px] h-[22px]')}</span>
+    <span class="o5-name">${c.label}</span>
+    <span class="o5-count">${plural(c.prods.length)}</span>
+  </button>`).join('');
+
+function renderDetail(id){
+  const c = byId(id);
+  detail.innerHTML = `
+    <div class="relative overflow-hidden rounded-[20px] p-6 md:p-9" style="background:linear-gradient(160deg,#2B1D14,#1F140D)">
+      <div aria-hidden="true" class="pointer-events-none absolute -top-16 left-8 w-80 h-80 rounded-full" style="background:radial-gradient(circle,rgba(251,101,22,.30),transparent 68%)"></div>
+      <div class="relative grid gap-6 md:gap-9 md:grid-cols-[minmax(200px,clamp(200px,24%,270px))_1fr] items-start">
+        <div class="flex md:flex-col items-center md:items-start gap-4 md:gap-5 text-center md:text-left">
+          ${heroDiamond(c)}
+          <div class="min-w-0">
+            <h3 class="font-bitter text-[25px] md:text-[30px] font-bold text-white leading-tight">${c.label}</h3>
+            <p class="text-[14px] text-[#D9CFC2] mt-1.5">${c.tag} · ${plural(c.prods.length)}</p>
+            <span class="inline-flex items-center gap-1.5 text-[13px] text-[#D9CFC2] mt-2.5"><span class="w-2.5 h-2.5 rounded-full bg-verde-hi"></span>Atendimento no WhatsApp</span>
+            <div class="mt-5 hidden md:block">
+              <a href="${waLink(c.cmsg)}" target="_blank" rel="noopener"
+                 class="inline-flex items-center justify-center gap-2 bg-laranja-acao hover:bg-laranja-acao-d text-white font-bold text-[15px] min-h-[48px] px-5 rounded-btn no-underline transition-colors shadow-[0_10px_26px_rgba(232,80,26,.40)]">
+                 Falar sobre ${c.label}<svg class="w-[15px] h-[15px] fill-white" viewBox="0 0 24 24"><path d="${WA_PATH}"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
+          ${c.prods.map(prodRowDark).join('')}
+        </div>
+      </div>
+    </div>`;
+}
+
+function setActive(id){
+  if(id === current) return;
+  current = id;
+  rail.querySelectorAll('.o5-card').forEach(b => b.classList.toggle('is-active', b.dataset.id === id));
+  detail.classList.add('swap');
+  setTimeout(() => { renderDetail(id); detail.classList.remove('swap'); }, 170);
+}
+function pick(id){
+  const card = rail.querySelector(`[data-id="${id}"]`);
+  if(card) card.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+  setActive(id);
+}
+
+// seleção automática e fluida ao deslizar: ativa o card que cruza o centro da vitrine
+const io = new IntersectionObserver(entries => {
+  let best = null, bestRatio = 0;
+  entries.forEach(e => { if(e.isIntersecting && e.intersectionRatio > bestRatio){ bestRatio = e.intersectionRatio; best = e.target; } });
+  if(best) setActive(best.dataset.id);
+}, { root: rail, rootMargin: '0px -42% 0px -42%', threshold:[0, .25, .5, .75, 1] });
+rail.querySelectorAll('.o5-card').forEach(c => io.observe(c));
+
+// estado inicial
+(function(){ const first = CONVS[0].id;
+  current = first;
+  rail.querySelector(`[data-id="${first}"]`).classList.add('is-active');
+  renderDetail(first);
+})();
+
+/* ═════ OPÇÃO 2 — grid + bottom sheet (referência, inalterada) ═════ */
+function diamond(conv, opts={}){
+  const size = opts.size || 60, ic = opts.iconCls || 'w-6 h-6';
+  return `<span class="relative inline-block shrink-0" style="width:${size}px;height:${size}px">
+    <span class="absolute inset-0 rounded-[16px] rotate-45 border border-white/70 shadow-card" style="background:linear-gradient(135deg,#FDEADF,#F9D2BC)"></span>
+    <span class="absolute inset-[6px] rounded-[11px] rotate-45 border border-laranja-acao/15"></span>
+    <span class="absolute inset-0 flex items-center justify-center text-laranja-acao">${convIcon(conv, ic)}</span>
+  </span>`;
+}
+const arrow = '<svg class="w-3.5 h-3.5 stroke-current fill-none stroke-[2.5]" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>';
+document.getElementById('opt2-grid').innerHTML = CONVS.map(c => `
+  <button onclick="openSheet('${c.id}')" class="bg-white rounded-card border border-areia-borda p-5 text-left flex flex-col gap-4 min-h-[168px] shadow-card hover:shadow-cardup hover:-translate-y-0.5 transition-all active:scale-[.98]">
+    ${diamond(c,{size:58})}
+    <span class="mt-auto block">
+      <span class="block text-[17px] font-bold text-grafite leading-tight">${c.label}</span>
+      <span class="block text-[12.5px] text-[#9A9590] mt-0.5 leading-snug">${c.tag}</span>
+      <span class="inline-flex items-center gap-1 text-[13px] text-laranja-acao font-bold mt-2.5">${plural(c.prods.length)} ${arrow}</span>
+    </span>
+  </button>`).join('');
+const sheetWrap = document.getElementById('opt2-sheet');
+function openSheet(id){ const c = byId(id);
+  document.getElementById('sheet-head').innerHTML = `
+    ${diamond(c,{size:46, iconCls:'w-5 h-5'})}
+    <div class="min-w-0"><h4 class="font-bitter text-xl font-bold text-grafite leading-tight truncate">${c.label}</h4><div class="text-[12.5px] text-[#9A9590]">${c.tag}</div></div>`;
+  document.getElementById('sheet-body').innerHTML = `
+    <div class="text-[13px] text-[#7A756C] flex items-center gap-1.5 mb-1"><span class="w-2 h-2 rounded-full bg-verde-hi"></span>Atendimento humano no WhatsApp</div>
+    ${c.prods.map(prodRow).join('')}`;
+  sheetWrap.classList.add('open');
+}
+function closeSheet(){ sheetWrap.classList.remove('open'); }
+</script>
+</body>
+</html>
