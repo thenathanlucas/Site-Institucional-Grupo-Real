@@ -135,6 +135,20 @@ tailwind.config = {
   .nav-ham.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
   .nav-ham.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+  /* ─── Seção Nossas Soluções ──────────────── */
+  .prod-section {
+    background:
+      radial-gradient(120% 80% at 50% -10%, #FF8A3D 0%, rgba(255,138,61,0) 56%),
+      linear-gradient(160deg, #FB6516 0%, #ED4A05 52%, #CE3A00 100%);
+  }
+  .prod-chip { background:rgba(255,255,255,.92); color:#2B2A27; border:0; cursor:pointer; box-shadow:0 4px 12px rgba(120,40,0,.15); transition:.25s; }
+  .prod-chip:hover { background:#fff; }
+  .prod-chip.is-on { background:#fff; color:#C2410C; box-shadow:0 0 0 2px #E8501A, 0 8px 18px rgba(120,40,0,.25); }
+  .prod-chip:focus-visible { outline:3px solid #2B2A27; outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce){
+    .prod-chip { transition:none; }
+  }
+
   /* Clamps tipográficos */
   .section-title { font-size: clamp(30px, 5vw, 44px); line-height: 1.2; }
   .banner-h2 { font-size: clamp(32px, 6vw, 50px); line-height: 1.2; }
@@ -675,14 +689,7 @@ tailwind.config = {
       <div class="self-center md:self-start w-full md:max-w-[480px]">
         <div class="step-card relative rounded-[20px] shadow-cardwarm hover:shadow-cardwarmh border border-areia-borda p-6 md:p-8 flex items-center gap-5 md:gap-6" style="background:linear-gradient(140deg,#ffffff 0%,#FBF6EF 100%)">
           <span aria-hidden="true" class="absolute -top-3.5 -left-3.5 w-10 h-10 rounded-full bg-laranja-acao text-white font-body font-bold text-lg flex items-center justify-center ring-[3px] ring-white shadow-card">1</span>
-          <div class="relative w-[72px] h-[72px] md:w-[88px] md:h-[88px] shrink-0">
-            <div class="absolute inset-1 rounded-[22px] rotate-45 blur-[10px]" style="background:rgba(23,162,75,.28)"></div>
-            <div class="absolute inset-0 rounded-[22px] rotate-45 border border-white/70 shadow-card" style="background:linear-gradient(135deg,#E5F6EC,#CFEEDC)"></div>
-            <div class="absolute inset-[7px] rounded-[18px] rotate-45 border border-[#17A24B]/20"></div>
-            <div class="absolute inset-0 flex items-center justify-center" style="color:#17A24B" aria-hidden="true">
-              <svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884z"/></svg>
-            </div>
-          </div>
+          <img src="assets/losangos/svg/losango-1-contato.svg" alt="" aria-hidden="true" class="w-[97px] h-[97px] md:w-[119px] md:h-[119px] shrink-0"/>
           <div>
             <div class="text-[11px] font-bold tracking-[.14em] uppercase text-ambar mb-1.5">Atendimento</div>
             <h3 class="text-xl md:text-[23px] font-bold text-grafite font-body leading-snug mb-1.5">Você fala com a gente</h3>
@@ -694,29 +701,22 @@ tailwind.config = {
       <!-- conector 1→2 (linha torta, decorativa) -->
       <svg aria-hidden="true" class="hidden md:block w-full h-32 pointer-events-none" viewBox="0 0 960 130" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="218" cy="8" r="5" fill="#E8501A" fill-opacity="0.55"/>
-        <path d="M218,8 C 268,58 380,32 482,62 C 600,98 690,66 742,122" stroke="#E8501A" stroke-opacity="0.4" stroke-width="2.5" stroke-dasharray="2 13" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+        <path d="M218,8 C 268,58 380,32 482,62 C 600,98 690,66 742,122" stroke="#E8501A" stroke-opacity="0.65" stroke-width="2.5" stroke-dasharray="2 13" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
         <circle cx="742" cy="122" r="5" fill="#E8501A" fill-opacity="0.55"/>
       </svg>
       <svg aria-hidden="true" class="md:hidden mx-auto w-12 h-16 pointer-events-none" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20,3 C 6,19 34,35 20,57" stroke="#E8501A" stroke-opacity="0.4" stroke-width="2.5" stroke-dasharray="2 11" stroke-linecap="round"/>
+        <path d="M20,3 C 6,19 34,35 20,57" stroke="#E8501A" stroke-opacity="0.65" stroke-width="2.5" stroke-dasharray="2 11" stroke-linecap="round"/>
       </svg>
 
       <!-- ░░ PASSO 02 (direita) ░░ -->
       <div class="self-center md:self-end w-full md:max-w-[480px]">
         <div class="step-card relative rounded-[20px] shadow-cardwarm hover:shadow-cardwarmh border border-areia-borda p-6 md:p-8 flex items-center gap-5 md:gap-6" style="background:linear-gradient(140deg,#ffffff 0%,#FBF6EF 100%)">
           <span aria-hidden="true" class="absolute -top-3.5 -left-3.5 w-10 h-10 rounded-full bg-laranja-acao text-white font-body font-bold text-lg flex items-center justify-center ring-[3px] ring-white shadow-card">2</span>
-          <div class="relative w-[72px] h-[72px] md:w-[88px] md:h-[88px] shrink-0">
-            <div class="absolute inset-1 rounded-[22px] rotate-45 blur-[10px]" style="background:rgba(232,80,26,.24)"></div>
-            <div class="absolute inset-0 rounded-[22px] rotate-45 border border-white/70 shadow-card" style="background:linear-gradient(135deg,#FDEADF,#F9D2BC)"></div>
-            <div class="absolute inset-[7px] rounded-[18px] rotate-45 border border-laranja-acao/20"></div>
-            <div class="absolute inset-0 flex items-center justify-center text-laranja-acao" aria-hidden="true">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-            </div>
-          </div>
+          <img src="assets/losangos/svg/losango-2-especialista.svg" alt="" aria-hidden="true" class="w-[97px] h-[97px] md:w-[119px] md:h-[119px] shrink-0"/>
           <div>
             <div class="text-[11px] font-bold tracking-[.14em] uppercase text-ambar mb-1.5">Análise</div>
-            <h3 class="text-xl md:text-[23px] font-bold text-grafite font-body leading-snug mb-1.5">A gente te escuta</h3>
-            <p class="text-base md:text-[17px] leading-[1.65] text-[#5f5a54]">Um especialista entende o que você precisa e cuida de toda a papelada.</p>
+            <h3 class="text-xl md:text-[23px] font-bold text-grafite font-body leading-snug mb-1.5">A gente te entende</h3>
+            <p class="text-base md:text-[17px] leading-[1.65] text-[#5f5a54]">Um especialista entende o que você precisa e encontra a melhor solução.</p>
           </div>
         </div>
       </div>
@@ -724,25 +724,18 @@ tailwind.config = {
       <!-- conector 2→3 -->
       <svg aria-hidden="true" class="hidden md:block w-full h-32 pointer-events-none" viewBox="0 0 960 130" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="742" cy="8" r="5" fill="#E8501A" fill-opacity="0.55"/>
-        <path d="M742,8 C 692,56 578,34 476,64 C 360,99 270,64 218,122" stroke="#E8501A" stroke-opacity="0.4" stroke-width="2.5" stroke-dasharray="2 13" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+        <path d="M742,8 C 692,56 578,34 476,64 C 360,99 270,64 218,122" stroke="#E8501A" stroke-opacity="0.65" stroke-width="2.5" stroke-dasharray="2 13" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
         <circle cx="218" cy="122" r="5" fill="#E8501A" fill-opacity="0.55"/>
       </svg>
       <svg aria-hidden="true" class="md:hidden mx-auto w-12 h-16 pointer-events-none" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20,3 C 34,19 6,35 20,57" stroke="#E8501A" stroke-opacity="0.4" stroke-width="2.5" stroke-dasharray="2 11" stroke-linecap="round"/>
+        <path d="M20,3 C 34,19 6,35 20,57" stroke="#E8501A" stroke-opacity="0.65" stroke-width="2.5" stroke-dasharray="2 11" stroke-linecap="round"/>
       </svg>
 
       <!-- ░░ PASSO 03 (esquerda) ░░ -->
       <div class="self-center md:self-start w-full md:max-w-[480px]">
         <div class="step-card relative rounded-[20px] shadow-cardwarm hover:shadow-cardwarmh border border-areia-borda p-6 md:p-8 flex items-center gap-5 md:gap-6" style="background:linear-gradient(140deg,#ffffff 0%,#FBF6EF 100%)">
           <span aria-hidden="true" class="absolute -top-3.5 -left-3.5 w-10 h-10 rounded-full bg-laranja-acao text-white font-body font-bold text-lg flex items-center justify-center ring-[3px] ring-white shadow-card">3</span>
-          <div class="relative w-[72px] h-[72px] md:w-[88px] md:h-[88px] shrink-0">
-            <div class="absolute inset-1 rounded-[22px] rotate-45 blur-[10px]" style="background:rgba(232,80,26,.24)"></div>
-            <div class="absolute inset-0 rounded-[22px] rotate-45 border border-white/70 shadow-card" style="background:linear-gradient(135deg,#FDEADF,#F9D2BC)"></div>
-            <div class="absolute inset-[7px] rounded-[18px] rotate-45 border border-laranja-acao/20"></div>
-            <div class="absolute inset-0 flex items-center justify-center text-laranja-acao" aria-hidden="true">
-              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            </div>
-          </div>
+          <img src="assets/losangos/svg/losango-3-melhor-opcao.svg" alt="" aria-hidden="true" class="w-[97px] h-[97px] md:w-[119px] md:h-[119px] shrink-0"/>
           <div>
             <div class="text-[11px] font-bold tracking-[.14em] uppercase text-ambar mb-1.5">Proposta</div>
             <h3 class="text-xl md:text-[23px] font-bold text-grafite font-body leading-snug mb-1.5">Você vê a melhor opção</h3>
@@ -754,25 +747,18 @@ tailwind.config = {
       <!-- conector 3→4 -->
       <svg aria-hidden="true" class="hidden md:block w-full h-32 pointer-events-none" viewBox="0 0 960 130" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="218" cy="8" r="5" fill="#E8501A" fill-opacity="0.55"/>
-        <path d="M218,8 C 266,60 382,30 484,60 C 598,96 688,68 742,122" stroke="#E8501A" stroke-opacity="0.4" stroke-width="2.5" stroke-dasharray="2 13" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+        <path d="M218,8 C 266,60 382,30 484,60 C 598,96 688,68 742,122" stroke="#E8501A" stroke-opacity="0.65" stroke-width="2.5" stroke-dasharray="2 13" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
         <circle cx="742" cy="122" r="5" fill="#E8501A" fill-opacity="0.55"/>
       </svg>
       <svg aria-hidden="true" class="md:hidden mx-auto w-12 h-16 pointer-events-none" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20,3 C 6,19 34,35 20,57" stroke="#E8501A" stroke-opacity="0.4" stroke-width="2.5" stroke-dasharray="2 11" stroke-linecap="round"/>
+        <path d="M20,3 C 6,19 34,35 20,57" stroke="#E8501A" stroke-opacity="0.65" stroke-width="2.5" stroke-dasharray="2 11" stroke-linecap="round"/>
       </svg>
 
       <!-- ░░ PASSO 04 (direita) ░░ -->
       <div class="self-center md:self-end w-full md:max-w-[480px]">
         <div class="step-card relative rounded-[20px] shadow-cardwarm hover:shadow-cardwarmh border border-areia-borda p-6 md:p-8 flex items-center gap-5 md:gap-6" style="background:linear-gradient(140deg,#ffffff 0%,#FBF6EF 100%)">
           <span aria-hidden="true" class="absolute -top-3.5 -left-3.5 w-10 h-10 rounded-full bg-laranja-acao text-white font-body font-bold text-lg flex items-center justify-center ring-[3px] ring-white shadow-card">4</span>
-          <div class="relative w-[72px] h-[72px] md:w-[88px] md:h-[88px] shrink-0">
-            <div class="absolute inset-1 rounded-[22px] rotate-45 blur-[10px]" style="background:rgba(232,80,26,.24)"></div>
-            <div class="absolute inset-0 rounded-[22px] rotate-45 border border-white/70 shadow-card" style="background:linear-gradient(135deg,#FDEADF,#F9D2BC)"></div>
-            <div class="absolute inset-[7px] rounded-[18px] rotate-45 border border-laranja-acao/20"></div>
-            <div class="absolute inset-0 flex items-center justify-center text-laranja-acao" aria-hidden="true">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
-            </div>
-          </div>
+          <img src="assets/losangos/svg/losango-4-pix.svg" alt="" aria-hidden="true" class="w-[97px] h-[97px] md:w-[119px] md:h-[119px] shrink-0"/>
           <div>
             <div class="text-[11px] font-bold tracking-[.14em] uppercase text-ambar mb-1.5">Liberação</div>
             <h3 class="text-xl md:text-[23px] font-bold text-grafite font-body leading-snug mb-1.5">O dinheiro cai na conta</h3>
@@ -788,12 +774,17 @@ tailwind.config = {
 <!-- ═══════════════════════
      PRODUTOS / CONVÊNIOS
      ═══════════════════════ -->
-<section class="bg-white py-16 px-5 md:py-[100px] md:px-12" id="produtos">
+<section class="prod-section relative overflow-hidden py-16 px-5 md:py-[100px] md:px-12" id="produtos">
   <div class="max-w-[1200px] mx-auto">
-    <div class="eyebrow inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-ambar mb-3.5">Soluções financeiras</div>
-    <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-grafite mb-4">Escolha seu <span class="text-laranja-acao">convênio</span></h2>
-    <p class="text-base leading-[1.75] text-[#6B6560] max-w-[520px]">Toque no seu convênio para ver os produtos disponíveis e falar direto com nossa equipe no WhatsApp.</p>
-    <div class="mt-10 flex flex-col gap-px bg-areia-borda border border-areia-borda rounded-card overflow-hidden" id="acord"></div>
+    <div class="eyebrow eyebrow-white inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-[#FFE3CC] mb-3.5">Soluções financeiras</div>
+    <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-white mb-4">Nossas <span class="text-grafite">soluções</span></h2>
+    <p class="text-base leading-[1.75] max-w-[520px]" style="color:rgba(255,247,240,.92)">Toque no seu convênio para ver só os produtos dele.</p>
+
+    <!-- chips de filtro (single-select) -->
+    <div id="prod-chips" class="flex flex-wrap gap-2.5 mt-8 mb-7" role="group" aria-label="Filtrar produtos por convênio"></div>
+
+    <!-- grade de produtos (vazia até escolher; anuncia mudanças a leitores de tela) -->
+    <div id="prod-grid" aria-live="polite"></div>
   </div>
 </section>
 
@@ -1165,27 +1156,7 @@ tailwind.config = {
 <footer class="bg-cafe text-areia/40 px-5 pt-14 pb-8 md:px-12 md:pt-[72px] md:pb-9">
   <div class="max-w-[1200px] mx-auto">
     <a href="#topo" class="flex items-center gap-2.5 no-underline mb-2.5">
-      <div class="relative w-[34px] h-[34px] shrink-0">
-        <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="gr-grad-footer" x1="0" y1="0" x2="34" y2="34" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#FF7043"/>
-              <stop offset="100%" stop-color="#D84315"/>
-            </linearGradient>
-          </defs>
-          <rect width="34" height="34" rx="7" fill="url(#gr-grad-footer)"/>
-          <!-- Losango G — aura -->
-          <rect x="0.5" y="8" width="14.5" height="14.5" rx="3" fill="none" stroke="rgba(255,255,255,0.38)" stroke-width="1" transform="rotate(45 8 15.5)"/>
-          <!-- Losango G — sólido -->
-          <rect x="2.5" y="10" width="10.5" height="10.5" rx="2.2" fill="white" stroke="rgba(255,255,255,0.85)" stroke-width="0.5" transform="rotate(45 8 15.5)"/>
-          <text x="8" y="18.8" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="9.5" font-weight="800" fill="#C0390A">G</text>
-          <!-- Losango R — aura -->
-          <rect x="19" y="8" width="14.5" height="14.5" rx="3" fill="none" stroke="rgba(255,255,255,0.38)" stroke-width="1" transform="rotate(45 26 15.5)"/>
-          <!-- Losango R — sólido -->
-          <rect x="21" y="10" width="10.5" height="10.5" rx="2.2" fill="white" stroke="rgba(255,255,255,0.85)" stroke-width="0.5" transform="rotate(45 26 15.5)"/>
-          <text x="26" y="18.8" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="9.5" font-weight="800" fill="#C0390A">R</text>
-        </svg>
-      </div>
+      <img src="assets/logo/logo-grupo-real.png" alt="Grupo Real — " width="60" height="60" class="w-[120px] h-[120px] shrink-0 rounded-full" />
       <span class="font-body text-base font-bold text-white">Grupo Real</span>
     </a>
     <p class="text-[13px] leading-[1.7] mb-9 max-w-[280px]">Empréstimo consignado com transparência e presença física na Zona Oeste do Rio de Janeiro.</p>
@@ -1379,104 +1350,123 @@ function trackWA(label) {
   }
 }
 
-// ── ACORDEÃO DE CONVÊNIOS ──
+// ── VITRINE DE CONVÊNIOS ──
+const WA = '5521986862308';
+const WA_PATH = 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884z';
+
 const CONVS = [
-  {
-    id: 'clt', label: 'CLT', icon: '<path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="2"/>',
-    prods: [
-      { n: 'Empréstimo Consignado CLT', d: 'Desconto em folha para trabalhadores com carteira assinada.', msg: 'Olá! Tenho interesse no Empréstimo Consignado CLT.' },
-      { n: 'Portabilidade CLT', d: 'Transfira seu contrato atual para melhores condições.', msg: 'Olá! Quero saber sobre Portabilidade CLT.' }
-    ]
-  },
-  {
-    id: 'fgts', label: 'FGTS', icon: '<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>',
-    prods: [
-      { n: 'Antecipação Saque-Aniversário', d: 'Antecipe as parcelas do seu saque-aniversário do FGTS.', msg: 'Olá! Tenho interesse na Antecipação Saque-Aniversário FGTS.' }
-    ]
-  },
-  {
-    id: 'inss', label: 'INSS', icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
-    prods: [
-      { n: 'Empréstimo Consignado', d: 'Crédito com desconto direto no benefício INSS.', msg: 'Olá! Quero saber sobre Empréstimo Consignado INSS.' },
-      { n: 'Portabilidade', d: 'Mude seu contrato para melhores taxas.', msg: 'Olá! Quero saber sobre Portabilidade INSS.' },
-      { n: 'Refinanciamento', d: 'Renegocie seu contrato e obtenha saldo extra.', msg: 'Olá! Quero saber sobre Refinanciamento INSS.' },
-      { n: 'Cartão Consignado', d: 'Cartão com limite descontado em folha, sem anuidade.', msg: 'Olá! Quero saber sobre Cartão Consignado INSS.' },
-      { n: 'Cartão Benefício', d: 'Cartão vinculado ao benefício com vantagens exclusivas.', msg: 'Olá! Quero saber sobre Cartão Benefício INSS.' }
-    ]
-  },
-  {
-    id: 'forcas', label: 'Forças Armadas', icon: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
-    prods: [
-      { n: 'Empréstimo Consignado', d: 'Crédito com desconto em folha para militares.', msg: 'Olá! Quero saber sobre Empréstimo Consignado Forças Armadas.' },
-      { n: 'Refinanciamento', d: 'Renegocie condições com saldo disponível.', msg: 'Olá! Quero saber sobre Refinanciamento Forças Armadas.' }
-    ]
-  },
-  {
-    id: 'siape', label: 'SIAPE', icon: '<rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>',
-    prods: [
-      { n: 'Empréstimo Consignado', d: 'Para servidores federais ativos e aposentados.', msg: 'Olá! Quero saber sobre Empréstimo Consignado SIAPE.' },
-      { n: 'Refinanciamento', d: 'Renegocie e obtenha saldo adicional.', msg: 'Olá! Quero saber sobre Refinanciamento SIAPE.' },
-      { n: 'Portabilidade', d: 'Transfira seu contrato para melhores condições.', msg: 'Olá! Quero saber sobre Portabilidade SIAPE.' },
-      { n: 'Cartão Consignado', d: 'Cartão com desconto em folha.', msg: 'Olá! Quero saber sobre Cartão Consignado SIAPE.' },
-      { n: 'Cartão Benefício', d: 'Benefícios e vantagens exclusivas para servidores.', msg: 'Olá! Quero saber sobre Cartão Benefício SIAPE.' }
-    ]
-  },
-  {
-    id: 'gov', label: 'Governos', icon: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
-    prods: [
-      { n: 'Empréstimo Consignado', d: 'Para servidores estaduais e municipais.', msg: 'Olá! Quero saber sobre Empréstimo Consignado Governos.' },
-      { n: 'Cartão Consignado', d: 'Limite com desconto em folha.', msg: 'Olá! Quero saber sobre Cartão Consignado Governos.' },
-      { n: 'Cartão Benefício', d: 'Vantagens para servidores governamentais.', msg: 'Olá! Quero saber sobre Cartão Benefício Governos.' }
-    ]
-  },
-  {
-    id: 'pref', label: 'Prefeituras', icon: '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
-    prods: [
-      { n: 'Empréstimo Consignado', d: 'Para servidores de prefeituras conveniadas.', msg: 'Olá! Quero saber sobre Empréstimo Consignado Prefeituras.' },
-      { n: 'Cartão Consignado', d: 'Crédito rotativo com desconto em folha.', msg: 'Olá! Quero saber sobre Cartão Consignado Prefeituras.' },
-      { n: 'Cartão Benefício', d: 'Benefícios exclusivos para servidores municipais.', msg: 'Olá! Quero saber sobre Cartão Benefício Prefeituras.' }
-    ]
-  }
+  { id:'clt',    label:'CLT',            tag:'Carteira assinada',           cmsg:'Olá! Quero saber as opções de crédito para CLT.',
+    icon:'<path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="2"/>',
+    prods:[
+      { n:'Empréstimo Consignado CLT',   d:'Desconto em folha para trabalhadores com carteira assinada.', msg:'Olá! Tenho interesse no Empréstimo Consignado CLT.' },
+      { n:'Portabilidade CLT',           d:'Transfira seu contrato atual para melhores condições.',        msg:'Olá! Quero saber sobre Portabilidade CLT.' }
+    ]},
+  { id:'fgts',   label:'FGTS',           tag:'Saque-aniversário',           cmsg:'Olá! Quero saber sobre a Antecipação do FGTS.',
+    icon:'<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>',
+    prods:[
+      { n:'Antecipação Saque-Aniversário', d:'Antecipe as parcelas do seu saque-aniversário do FGTS.', msg:'Olá! Tenho interesse na Antecipação Saque-Aniversário FGTS.' }
+    ]},
+  { id:'inss',   label:'INSS',           tag:'Aposentados e pensionistas',  cmsg:'Olá! Quero saber as opções de crédito para INSS.',
+    icon:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+    prods:[
+      { n:'Empréstimo Consignado', d:'Crédito com desconto direto no benefício INSS.',             msg:'Olá! Quero saber sobre Empréstimo Consignado INSS.' },
+      { n:'Portabilidade',         d:'Mude seu contrato para melhores taxas.',                     msg:'Olá! Quero saber sobre Portabilidade INSS.' },
+      { n:'Refinanciamento',       d:'Renegocie seu contrato e obtenha saldo extra.',              msg:'Olá! Quero saber sobre Refinanciamento INSS.' },
+      { n:'Cartão Consignado',     d:'Cartão com limite descontado em folha, sem anuidade.',      msg:'Olá! Quero saber sobre Cartão Consignado INSS.' },
+      { n:'Cartão Benefício',      d:'Cartão vinculado ao benefício com vantagens exclusivas.',   msg:'Olá! Quero saber sobre Cartão Benefício INSS.' }
+    ]},
+  { id:'forcas', label:'Forças Armadas', tag:'Militares',                   cmsg:'Olá! Quero saber as opções de crédito para Forças Armadas.',
+    icon:'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+    prods:[
+      { n:'Empréstimo Consignado', d:'Crédito com desconto em folha para militares.',             msg:'Olá! Quero saber sobre Empréstimo Consignado Forças Armadas.' },
+      { n:'Refinanciamento',       d:'Renegocie condições com saldo disponível.',                 msg:'Olá! Quero saber sobre Refinanciamento Forças Armadas.' }
+    ]},
+  { id:'siape',  label:'SIAPE',          tag:'Servidor federal',            cmsg:'Olá! Quero saber as opções de crédito para SIAPE.',
+    icon:'<rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>',
+    prods:[
+      { n:'Empréstimo Consignado', d:'Para servidores federais ativos e aposentados.',             msg:'Olá! Quero saber sobre Empréstimo Consignado SIAPE.' },
+      { n:'Refinanciamento',       d:'Renegocie e obtenha saldo adicional.',                       msg:'Olá! Quero saber sobre Refinanciamento SIAPE.' },
+      { n:'Portabilidade',         d:'Transfira seu contrato para melhores condições.',            msg:'Olá! Quero saber sobre Portabilidade SIAPE.' },
+      { n:'Cartão Consignado',     d:'Cartão com desconto em folha.',                             msg:'Olá! Quero saber sobre Cartão Consignado SIAPE.' },
+      { n:'Cartão Benefício',      d:'Benefícios e vantagens exclusivas para servidores.',        msg:'Olá! Quero saber sobre Cartão Benefício SIAPE.' }
+    ]},
+  { id:'gov',    label:'Governos',       tag:'Servidor estadual',           cmsg:'Olá! Quero saber as opções de crédito para Governos.',
+    icon:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+    prods:[
+      { n:'Empréstimo Consignado', d:'Para servidores estaduais e municipais.',                    msg:'Olá! Quero saber sobre Empréstimo Consignado Governos.' },
+      { n:'Cartão Consignado',     d:'Limite com desconto em folha.',                             msg:'Olá! Quero saber sobre Cartão Consignado Governos.' },
+      { n:'Cartão Benefício',      d:'Vantagens para servidores governamentais.',                 msg:'Olá! Quero saber sobre Cartão Benefício Governos.' }
+    ]},
+  { id:'pref',   label:'Prefeituras',    tag:'Servidor municipal',          cmsg:'Olá! Quero saber as opções de crédito para Prefeituras.',
+    icon:'<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+    prods:[
+      { n:'Empréstimo Consignado', d:'Para servidores de prefeituras conveniadas.',                msg:'Olá! Quero saber sobre Empréstimo Consignado Prefeituras.' },
+      { n:'Cartão Consignado',     d:'Crédito rotativo com desconto em folha.',                   msg:'Olá! Quero saber sobre Cartão Consignado Prefeituras.' },
+      { n:'Cartão Benefício',      d:'Benefícios exclusivos para servidores municipais.',         msg:'Olá! Quero saber sobre Cartão Benefício Prefeituras.' }
+    ]}
 ];
 
-const WA = '5521986862308';
-const acordEl = document.getElementById('acord');
+const byId = id => CONVS.find(c => c.id === id);
+const waLink = msg => `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+const plural = n => n + ' produto' + (n > 1 ? 's' : '');
+const convIcon = (conv, cls) => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${conv.icon}</svg>`;
 
-CONVS.forEach(conv => {
-  const item = document.createElement('div');
-  item.className = 'ac-item';
-  item.innerHTML = `
-    <button class="w-full bg-white border-0 py-5 px-6 flex items-center justify-between cursor-pointer text-left font-body transition-colors duration-200 hover:bg-[#FDFCFA] [-webkit-tap-highlight-color:transparent]"
-            onclick="toggleAcord(this)">
-      <div class="flex items-center gap-3.5">
-        <div class="w-[38px] h-[38px] rounded-[8px] bg-areia border border-areia-borda flex items-center justify-center shrink-0">
-          <svg class="w-[18px] h-[18px] stroke-grafite fill-none stroke-2" viewBox="0 0 24 24">${conv.icon}</svg>
-        </div>
-        <div>
-          <div class="text-[15px] font-bold text-grafite">${conv.label}</div>
-          <div class="text-[12px] text-[#9A9590] mt-[1px]">${conv.prods.length} produto${conv.prods.length > 1 ? 's' : ''}</div>
-        </div>
-      </div>
-      <svg class="ac-chev w-5 h-5 stroke-[#9A9590] fill-none stroke-2 transition-transform duration-[250ms] shrink-0" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
-    <div class="ac-body hidden bg-areia border-t border-areia-borda">
-      <div class="flex flex-col gap-px bg-areia-borda md:grid md:grid-cols-2">
-        ${conv.prods.map(p => `
-          <div class="bg-white py-[18px] px-6 flex items-center justify-between gap-3.5">
-            <div>
-              <div class="text-[15px] font-bold text-grafite mb-[3px]">${p.n}</div>
-              <div class="text-[15px] text-[#9A9590] leading-relaxed">${p.d}</div>
-            </div>
-            <a class="flex items-center gap-[5px] bg-laranja-acao text-white py-[9px] px-3.5 rounded-btn text-[12px] font-bold no-underline whitespace-nowrap shrink-0 transition-colors duration-[250ms] hover:bg-laranja-acao-d"
-               href="https://wa.me/${WA}?text=${encodeURIComponent(p.msg)}" target="_blank" rel="noopener" onclick="trackWA('wa_prod_${conv.id}')">
-              <svg class="w-[13px] h-[13px] fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              Quero
-            </a>
-          </div>`).join('')}
-      </div>
+const waCta = (msg, label, trackLabel, full=false) => `<a href="${waLink(msg)}" target="_blank" rel="noopener" onclick="trackWA('${trackLabel}')"
+  class="inline-flex items-center justify-center gap-1.5 ${full ? 'w-full mt-auto' : ''} bg-laranja-acao hover:bg-laranja-acao-d text-white font-bold text-[15px] min-h-[48px] px-5 rounded-btn no-underline transition-colors">
+  ${label}<svg class="w-[14px] h-[14px] fill-white" viewBox="0 0 24 24"><path d="${WA_PATH}"/></svg></a>`;
+
+// Losango slot de mídia — recorta no formato diamante. Para usar imagem depois,
+// trocar convIcon(...) por <img src="..." class="w-full h-full object-cover">.
+const mediaDiamond = (conv, size=68) => `
+  <span aria-hidden="true" class="relative inline-block shrink-0" style="width:${size}px;height:${size}px">
+    <span class="absolute inset-0 rounded-[16px] rotate-45 overflow-hidden border border-white/40" style="background:linear-gradient(135deg,#FB6516,#ED4A05);box-shadow:0 8px 20px rgba(232,80,26,.4)">
+      <span class="absolute inset-0 -rotate-45 flex items-center justify-center text-white">${convIcon(conv, Math.round(size*0.42))}</span>
+    </span>
+  </span>`;
+
+const prodChips = document.getElementById('prod-chips');
+const prodGrid  = document.getElementById('prod-grid');
+
+prodChips.innerHTML = CONVS.map(c => `
+  <button class="prod-chip min-h-[48px] px-5 rounded-full font-semibold text-[15px]" data-id="${c.id}" aria-pressed="false" onclick="prodFilter('${c.id}')">${c.label}</button>`).join('');
+
+const prodPlaceholder = `
+  <div class="rounded-[18px] border border-white/70 bg-white/95 px-6 py-10 text-center shadow-[0_10px_30px_rgba(120,40,0,.18)]">
+    <div aria-hidden="true" class="mx-auto mb-3 w-12 h-12 rounded-full bg-[#FDEADF] text-laranja-acao flex items-center justify-center">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+    </div>
+    <p class="text-[18px] font-semibold text-grafite">Toque no seu convênio acima para ver os produtos.</p>
+    <p class="text-[15px] text-[#6B6560] mt-1">Mostramos só o que é do seu interesse — sem rolar a lista inteira.</p>
+  </div>`;
+
+function prodRenderConv(id) {
+  const c = byId(id);
+  prodGrid.innerHTML = `
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      ${c.prods.map(p => `
+        <div class="flex flex-col gap-3.5 rounded-[16px] border border-areia-borda bg-white p-5 shadow-[0_2px_10px_rgba(43,42,39,.05)] h-full">
+          ${mediaDiamond(c, 68)}
+          <div>
+            <div class="text-[12px] font-bold uppercase tracking-wide text-laranja-acao mb-1">${c.label}</div>
+            <div class="text-[18px] font-bold text-grafite leading-snug">${p.n}</div>
+            <div class="text-base leading-[1.6] text-[#6B6560] mt-1">${p.d}</div>
+          </div>
+          ${waCta(p.msg, 'Quero saber', 'wa_prod_' + c.id, true)}
+        </div>`).join('')}
     </div>`;
-  acordEl.appendChild(item);
-});
+}
+
+function prodFilter(id) {
+  prodChips.querySelectorAll('.prod-chip').forEach(b => {
+    const on = b.dataset.id === id;
+    b.classList.toggle('is-on', on);
+    b.setAttribute('aria-pressed', on);
+  });
+  prodRenderConv(id);
+}
+
+// estado inicial: nenhum produto, só o convite
+prodGrid.innerHTML = prodPlaceholder;
 
 function toggleAcord(btn) {
   const item = btn.closest('.ac-item');

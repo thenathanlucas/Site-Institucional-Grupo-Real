@@ -1,0 +1,26 @@
+<svg width="200" height="200" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#E8501A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <mask id="l1-occlude">
+      <rect width="240" height="240" fill="white"></rect>
+      <g transform="translate(-5 -14) translate(148 98) scale(1.02) translate(-148 -98)">
+        <path d="M136 84 h24 a8 8 0 0 1 8 8 v12 a8 8 0 0 1 -8 8 h-13 l-7 8 v-8 h-4 a8 8 0 0 1 -8 -8 v-12 a8 8 0 0 1 8 -8 z" fill="black"></path>
+      </g>
+    </mask>
+    <clipPath id="l1-clip">
+      <rect x="49.5" y="49.5" width="141" height="141" rx="22" transform="rotate(45 120 120)"></rect>
+    </clipPath>
+  </defs>
+  
+  <g id="contato" clip-path="url(#l1-clip)">
+    <g mask="url(#l1-occlude)">
+      <rect x="95" y="78" width="50" height="84" rx="10"></rect>
+      <line x1="113" y1="86" x2="127" y2="86"></line>
+      <line x1="113" y1="154" x2="127" y2="154"></line>
+    </g>
+    <g transform="translate(-5 -14) translate(148 98) scale(1.02) translate(-148 -98)">
+      <path d="M136 84 h24 a8 8 0 0 1 8 8 v12 a8 8 0 0 1 -8 8 h-13 l-7 8 v-8 h-4 a8 8 0 0 1 -8 -8 v-12 a8 8 0 0 1 8 -8 z"></path>
+    </g>
+  </g>
+  
+  <rect x="49.5" y="49.5" width="141" height="141" rx="22" transform="rotate(45 120 120)"></rect>
+</svg>

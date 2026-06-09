@@ -1,0 +1,19 @@
+<svg width="200" height="200" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#E8501A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <defs>
+    <mask id="l3-occlude">
+      <rect width="240" height="240" fill="white"></rect>
+      <path d="M112 92 L148 92 L160 104 L160 156 L112 156 Z" fill="black"></path>
+    </mask>
+  </defs>
+  
+  <rect x="49.5" y="49.5" width="141" height="141" rx="22" transform="rotate(45 120 120)"></rect>
+  
+  <g mask="url(#l3-occlude)">
+    <rect x="80" y="84" width="40" height="58" rx="3"></rect>
+  </g>
+  
+  <path d="M112 92 L148 92 L160 104 L160 156 L112 156 Z"></path>
+  <path d="M148 92 L148 104 L160 104"></path>
+  
+  <path d="M119 122 L132 138 L156 102"></path>
+</svg>
