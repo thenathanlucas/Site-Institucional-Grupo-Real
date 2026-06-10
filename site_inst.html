@@ -107,6 +107,11 @@ tailwind.config = {
   .step-card { transition: transform .3s ease, box-shadow .3s ease; }
   @media (min-width: 768px) { .step-card:hover { transform: translateY(-5px); } }
 
+  /* Cards "vidro premium" (2026-06-10): ~86% opaco + blur suave + sombra forte */
+  .card-glass { background:rgba(255,255,255,.86); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    box-shadow:0 18px 44px rgba(43,42,39,.16), 0 6px 16px rgba(43,42,39,.10); }
+  @media (min-width:768px){ .step-card.card-glass:hover { box-shadow:0 26px 56px rgba(43,42,39,.22), 0 8px 18px rgba(43,42,39,.12); } }
+
   /* Eyebrow pseudo-element before */
   .eyebrow::before {
     content: ''; display: block;
@@ -148,10 +153,11 @@ tailwind.config = {
       radial-gradient(140% 110% at 50% 50%, rgba(74,18,0,0) 62%, rgba(74,18,0,.18) 100%); }
   /* losango-marca d'água (textura de marca em traço branco sutil) */
   .prod-diamond-deco { position:absolute; border:2px solid rgba(255,255,255,.07); border-radius:24px; transform:rotate(45deg); pointer-events:none; }
-  /* card de solução do Balcão: branco sobre o corpo claro + sombra quente */
-  .sol-tile { background:#FFFFFF; border:1.5px solid #E8E3D9; box-shadow:0 10px 30px rgba(160,72,18,.08);
+  /* card de solução do Balcão: vidro premium (86% opaco + blur + sombra forte) */
+  .sol-tile { background:rgba(255,255,255,.86); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    border:1.5px solid #E8E3D9; box-shadow:0 18px 44px rgba(43,42,39,.16), 0 6px 16px rgba(43,42,39,.10);
     transition:transform .3s ease, box-shadow .3s ease; }
-  @media (min-width:768px){ .sol-tile:hover { transform:translateY(-4px); box-shadow:0 20px 44px rgba(160,72,18,.16); } }
+  @media (min-width:768px){ .sol-tile:hover { transform:translateY(-4px); box-shadow:0 26px 56px rgba(43,42,39,.22), 0 8px 18px rgba(43,42,39,.12); } }
   /* selo de convênio da faixa "Atendemos" (tons da placa C) */
   .conv-badge { background:rgba(255,233,218,.92); color:#8A4A1F; border:1px solid #F3C4A4; }
   @media (prefers-reduced-motion: reduce){
@@ -172,6 +178,7 @@ tailwind.config = {
 
   /* ─── Sombreamento do hero (camadas de profundidade) ───── */
   /* Vinheta de foco + poço de sombra que "aterra" os cards flutuantes */
+  .hd-item { will-change: transform, opacity; }
   .hero-vignette {
     background:
       radial-gradient(58% 40% at 50% 60%, rgba(86,22,0,.30) 0%, rgba(86,22,0,0) 72%),
@@ -198,12 +205,15 @@ tailwind.config = {
 
   .cf-card {
     width: 340px; height: 452px;
-    background: #fff;
+    background: rgba(255,255,255,.86);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     border-radius: 16px;
     border: 1px solid rgba(43,42,39,.10);
-    box-shadow: 0 18px 50px rgba(43,42,39,.18), 0 4px 12px rgba(43,42,39,.08);
+    box-shadow: 0 22px 54px rgba(43,42,39,.24), 0 6px 14px rgba(43,42,39,.10);
     display: flex; flex-direction: column; overflow: hidden;
   }
+  /* card central em foco: sólido e nítido — vidro só nos de trás */
+  .cf-card-wrap.is-front .cf-card { background:#fff; backdrop-filter:none; -webkit-backdrop-filter:none; }
 
   .cf-panel {
     position: relative; height: 224px; flex-shrink: 0; overflow: hidden;
@@ -245,7 +255,7 @@ tailwind.config = {
   .cf-sub {
     margin: 0;
     font-family: 'Source Sans 3', system-ui, sans-serif;
-    font-size: 15px; line-height: 1.5; color: #7A756C;
+    font-size: 15px; line-height: 1.5; color: #524C45;
   }
 
   .cf-footer {
@@ -256,7 +266,7 @@ tailwind.config = {
   .cf-badge { display: flex; flex-direction: column; line-height: 1; }
   .cf-badge-lbl {
     font-family: 'Source Sans 3', system-ui, sans-serif;
-    font-size: 11px; font-weight: 600; color: #7A756C; margin-bottom: 4px;
+    font-size: 11px; font-weight: 600; color: #524C45; margin-bottom: 4px;
   }
   .cf-badge-val {
     font-family: 'Bitter', Georgia, serif;
@@ -279,7 +289,7 @@ tailwind.config = {
   .cf-disclaimer {
     margin: 0;
     font-family: 'Source Sans 3', system-ui, sans-serif;
-    font-size: 11px; line-height: 1.4; color: #7A756C; opacity: .8;
+    font-size: 11px; line-height: 1.4; color: #524C45;
   }
 
   .cf-nav-btn {
@@ -490,6 +500,34 @@ tailwind.config = {
   <div aria-hidden="true" class="hero-vignette pointer-events-none absolute inset-0 z-0"></div>
   <div aria-hidden="true" class="hero-scrim pointer-events-none absolute inset-x-0 bottom-0 z-0"></div>
 
+  <!-- Doodles dinheiro/segurança (traço fino branco) — caem e somem com o scroll (IIFE hd-item) -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+    <!-- escudo com check (segurança) -->
+    <svg class="hd-item absolute" data-speed=".55" data-op=".22" style="left:3%;top:7%;opacity:.22" width="84" height="84" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M32 6 52 13v14c0 14-9 22-20 27C21 49 12 41 12 27V13z"/><path d="m24 31 6 6 11-12"/>
+    </svg>
+    <!-- moeda com cifrão (dinheiro) -->
+    <svg class="hd-item absolute hidden md:block" data-speed=".35" data-op=".18" style="left:14%;top:34%;opacity:.18" width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="32" cy="32" r="20"/><path d="M32 20v24"/><path d="M38 25c-1.2-1.6-3.5-2.6-6-2.6-4 0-7 2.1-7 4.8s3 4.4 7 4.8 7 2.1 7 4.8-3 4.8-7 4.8c-2.5 0-4.8-1-6-2.6"/>
+    </svg>
+    <!-- pilha de moedas (dinheiro) -->
+    <svg class="hd-item absolute hidden md:block" data-speed=".45" data-op=".16" style="left:6%;top:60%;opacity:.16" width="70" height="70" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <ellipse cx="32" cy="18" rx="16" ry="6"/><path d="M16 18v10c0 3.3 7.2 6 16 6s16-2.7 16-6V18"/><path d="M16 28v10c0 3.3 7.2 6 16 6s16-2.7 16-6V28"/>
+    </svg>
+    <!-- cadeado (segurança) -->
+    <svg class="hd-item absolute" data-speed=".5" data-op=".2" style="right:4%;top:9%;opacity:.2" width="74" height="74" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="16" y="28" width="32" height="26" rx="4"/><path d="M22 28v-8a10 10 0 0 1 20 0v8"/><circle cx="32" cy="40" r="3"/><path d="M32 43v5"/>
+    </svg>
+    <!-- nota de dinheiro -->
+    <svg class="hd-item absolute hidden md:block" data-speed=".3" data-op=".18" style="right:12%;top:40%;opacity:.18" width="92" height="92" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="6" y="18" width="52" height="28" rx="3"/><circle cx="32" cy="32" r="8"/><path d="M12 24v.01M52 40v.01"/>
+    </svg>
+    <!-- losango da marca -->
+    <svg class="hd-item absolute" data-speed=".6" data-op=".16" style="right:6%;top:64%;opacity:.16" width="54" height="54" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="18" y="18" width="28" height="28" rx="6" transform="rotate(45 32 32)"/>
+    </svg>
+  </div>
+
   <!-- TitleBlock -->
   <div class="relative z-10 text-center px-5 pt-[clamp(32px,5vh,52px)] pb-8 max-w-[680px] mx-auto">
     <div class="font-source text-[13px] font-bold tracking-[.14em] uppercase mb-4" style="color:#FFE3CC">• Correspondente Bancário</div>
@@ -683,7 +721,7 @@ tailwind.config = {
 <!-- ═══════════════════════
      COMO FUNCIONA
      ═══════════════════════ -->
-<section class="bg-areia py-16 px-5 md:py-[100px] md:px-12" id="como-funciona">
+<section class="py-16 px-5 md:py-[100px] md:px-12" id="como-funciona" style="background:linear-gradient(170deg,#F4F1EA 0%,#F9E9D8 58%,#FBE3CC 100%)">
   <div class="max-w-[1040px] mx-auto">
     <!-- Cabeçalho -->
     <div class="text-center max-w-[580px] mx-auto mb-14 md:mb-20">
@@ -697,13 +735,13 @@ tailwind.config = {
 
       <!-- ░░ PASSO 01 (esquerda) ░░ -->
       <div class="self-center md:self-start w-full md:max-w-[480px]">
-        <div class="step-card relative rounded-[20px] shadow-cardwarm hover:shadow-cardwarmh border border-areia-borda p-6 md:p-8 flex items-center gap-5 md:gap-6" style="background:linear-gradient(140deg,#ffffff 0%,#FBF6EF 100%)">
+        <div class="step-card card-glass relative rounded-[20px] border border-areia-borda p-6 md:p-8 flex items-center gap-5 md:gap-6">
           <span aria-hidden="true" class="absolute -top-3.5 -left-3.5 w-10 h-10 rounded-full bg-laranja-acao text-white font-body font-bold text-lg flex items-center justify-center ring-[3px] ring-white shadow-card">1</span>
           <img src="assets/losangos/svg/losango-1-contato.svg" alt="" aria-hidden="true" class="w-[97px] h-[97px] md:w-[119px] md:h-[119px] shrink-0"/>
           <div>
             <div class="text-[11px] font-bold tracking-[.14em] uppercase text-ambar mb-1.5">Atendimento</div>
             <h3 class="text-xl md:text-[23px] font-bold text-grafite font-body leading-snug mb-1.5">Você fala com a gente</h3>
-            <p class="text-base md:text-[17px] leading-[1.65] text-[#5f5a54]">Manda uma mensagem no WhatsApp ou liga. Rápido e sem compromisso.</p>
+            <p class="text-base md:text-[17px] leading-[1.65] text-[#4A453F]">Manda uma mensagem no WhatsApp ou liga. Rápido e sem compromisso.</p>
           </div>
         </div>
       </div>
@@ -720,13 +758,13 @@ tailwind.config = {
 
       <!-- ░░ PASSO 02 (direita) ░░ -->
       <div class="self-center md:self-end w-full md:max-w-[480px]">
-        <div class="step-card relative rounded-[20px] shadow-cardwarm hover:shadow-cardwarmh border border-areia-borda p-6 md:p-8 flex items-center gap-5 md:gap-6" style="background:linear-gradient(140deg,#ffffff 0%,#FBF6EF 100%)">
+        <div class="step-card card-glass relative rounded-[20px] border border-areia-borda p-6 md:p-8 flex items-center gap-5 md:gap-6">
           <span aria-hidden="true" class="absolute -top-3.5 -left-3.5 w-10 h-10 rounded-full bg-laranja-acao text-white font-body font-bold text-lg flex items-center justify-center ring-[3px] ring-white shadow-card">2</span>
           <img src="assets/losangos/svg/losango-2-especialista.svg" alt="" aria-hidden="true" class="w-[97px] h-[97px] md:w-[119px] md:h-[119px] shrink-0"/>
           <div>
             <div class="text-[11px] font-bold tracking-[.14em] uppercase text-ambar mb-1.5">Análise</div>
             <h3 class="text-xl md:text-[23px] font-bold text-grafite font-body leading-snug mb-1.5">A gente te entende</h3>
-            <p class="text-base md:text-[17px] leading-[1.65] text-[#5f5a54]">Um especialista entende o que você precisa e encontra a melhor solução.</p>
+            <p class="text-base md:text-[17px] leading-[1.65] text-[#4A453F]">Um especialista entende o que você precisa e encontra a melhor solução.</p>
           </div>
         </div>
       </div>
@@ -743,13 +781,13 @@ tailwind.config = {
 
       <!-- ░░ PASSO 03 (esquerda) ░░ -->
       <div class="self-center md:self-start w-full md:max-w-[480px]">
-        <div class="step-card relative rounded-[20px] shadow-cardwarm hover:shadow-cardwarmh border border-areia-borda p-6 md:p-8 flex items-center gap-5 md:gap-6" style="background:linear-gradient(140deg,#ffffff 0%,#FBF6EF 100%)">
+        <div class="step-card card-glass relative rounded-[20px] border border-areia-borda p-6 md:p-8 flex items-center gap-5 md:gap-6">
           <span aria-hidden="true" class="absolute -top-3.5 -left-3.5 w-10 h-10 rounded-full bg-laranja-acao text-white font-body font-bold text-lg flex items-center justify-center ring-[3px] ring-white shadow-card">3</span>
           <img src="assets/losangos/svg/losango-3-melhor-opcao.svg" alt="" aria-hidden="true" class="w-[97px] h-[97px] md:w-[119px] md:h-[119px] shrink-0"/>
           <div>
             <div class="text-[11px] font-bold tracking-[.14em] uppercase text-ambar mb-1.5">Proposta</div>
             <h3 class="text-xl md:text-[23px] font-bold text-grafite font-body leading-snug mb-1.5">Você vê a melhor opção</h3>
-            <p class="text-base md:text-[17px] leading-[1.65] text-[#5f5a54]">A gente mostra a parcela que cabe no seu bolso, sem pegadinha.</p>
+            <p class="text-base md:text-[17px] leading-[1.65] text-[#4A453F]">A gente mostra a parcela que cabe no seu bolso, sem pegadinha.</p>
           </div>
         </div>
       </div>
@@ -766,13 +804,13 @@ tailwind.config = {
 
       <!-- ░░ PASSO 04 (direita) ░░ -->
       <div class="self-center md:self-end w-full md:max-w-[480px]">
-        <div class="step-card relative rounded-[20px] shadow-cardwarm hover:shadow-cardwarmh border border-areia-borda p-6 md:p-8 flex items-center gap-5 md:gap-6" style="background:linear-gradient(140deg,#ffffff 0%,#FBF6EF 100%)">
+        <div class="step-card card-glass relative rounded-[20px] border border-areia-borda p-6 md:p-8 flex items-center gap-5 md:gap-6">
           <span aria-hidden="true" class="absolute -top-3.5 -left-3.5 w-10 h-10 rounded-full bg-laranja-acao text-white font-body font-bold text-lg flex items-center justify-center ring-[3px] ring-white shadow-card">4</span>
           <img src="assets/losangos/svg/losango-4-pix.svg" alt="" aria-hidden="true" class="w-[97px] h-[97px] md:w-[119px] md:h-[119px] shrink-0"/>
           <div>
             <div class="text-[11px] font-bold tracking-[.14em] uppercase text-ambar mb-1.5">Liberação</div>
             <h3 class="text-xl md:text-[23px] font-bold text-grafite font-body leading-snug mb-1.5">O dinheiro cai na conta</h3>
-            <p class="text-base md:text-[17px] leading-[1.65] text-[#5f5a54]">Com tudo certo, o crédito é depositado direto na sua conta.</p>
+            <p class="text-base md:text-[17px] leading-[1.65] text-[#4A453F]">Com tudo certo, o crédito é depositado direto na sua conta.</p>
           </div>
         </div>
       </div>
@@ -797,8 +835,8 @@ tailwind.config = {
     </div>
   </div>
 
-  <!-- corpo claro: balcão de soluções + faixa de convênios -->
-  <div class="bg-white py-12 px-5 md:py-16 md:px-12">
+  <!-- corpo claro tintado (pêssego): balcão de soluções + faixa de convênios -->
+  <div class="py-12 px-5 md:py-16 md:px-12" style="background:linear-gradient(175deg,#FFF6ED 0%,#FCE9D7 60%,#F9E0C6 100%)">
     <div class="max-w-[1200px] mx-auto">
       <!-- balcão de soluções: uma situação por linha (render via SOLUCOES, layout L2 aprovado) -->
       <div id="sol-lista" class="flex flex-col gap-3.5"></div>
@@ -832,7 +870,7 @@ tailwind.config = {
 <!-- ═══════════════════════
      BLOCO DE SEGURANÇA / FILIAIS
      ═══════════════════════ -->
-<section class="bg-white border-t-[3px] border-laranja-acao py-12 px-5 md:py-[72px] md:px-12" id="filiais">
+<section class="border-t-[3px] border-laranja-acao py-12 px-5 md:py-[72px] md:px-12" id="filiais" style="background:linear-gradient(180deg,#FFFFFF 0%,#FAF0E3 55%,#F7E8D4 100%)">
   <div class="max-w-[1200px] mx-auto">
     <div class="text-center mb-10">
       <div class="eyebrow inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-ambar mb-3.5">Onde estamos</div>
@@ -842,7 +880,7 @@ tailwind.config = {
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
       <!-- Filial 01 — Realengo -->
-      <div class="border border-[1.5px] border-areia-borda rounded-card overflow-hidden shadow-card">
+      <div class="card-glass border border-[1.5px] border-areia-borda rounded-card overflow-hidden">
         <div class="h-[180px] overflow-hidden relative">
           <div class="w-full h-full bg-gradient-to-br from-cafe to-cafe-claro flex items-center justify-center font-body text-5xl font-bold text-white/[.15] tracking-[-2px]">Realengo</div>
         </div>
@@ -850,15 +888,15 @@ tailwind.config = {
           <div class="text-[10px] font-bold tracking-[.1em] uppercase text-laranja-acao mb-1.5">Matriz</div>
           <h3 class="font-body text-[22px] font-bold text-grafite mb-3.5">Realengo</h3>
           <div class="flex flex-col gap-2.5 mb-[18px]">
-            <div class="flex gap-2.5 items-start text-[15px] text-[#6B6560] leading-relaxed">
+            <div class="flex gap-2.5 items-start text-[15px] text-[#524C45] leading-relaxed">
               <svg class="w-4 h-4 stroke-ambar fill-none stroke-2 shrink-0 mt-[1px]" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
               <span>Av. Santa Cruz, 1028 — Realengo, Rio de Janeiro / RJ</span>
             </div>
-            <div class="flex gap-2.5 items-start text-[15px] text-[#6B6560] leading-relaxed">
+            <div class="flex gap-2.5 items-start text-[15px] text-[#524C45] leading-relaxed">
               <svg class="w-4 h-4 stroke-ambar fill-none stroke-2 shrink-0 mt-[1px]" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               <span>Seg–Qui: 08h às 18h · Sex: 09h às 18h</span>
             </div>
-            <div class="flex gap-2.5 items-start text-[15px] text-[#6B6560] leading-relaxed">
+            <div class="flex gap-2.5 items-start text-[15px] text-[#524C45] leading-relaxed">
               <svg class="w-4 h-4 stroke-ambar fill-none stroke-2 shrink-0 mt-[1px]" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.37 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.91-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               <a href="tel:+5521964781371" class="no-underline hover:text-laranja-acao transition-colors">(21) 96478-1371</a>
             </div>
@@ -872,7 +910,7 @@ tailwind.config = {
       </div>
 
       <!-- Filial 02 — Bangu -->
-      <div class="border border-[1.5px] border-areia-borda rounded-card overflow-hidden shadow-card">
+      <div class="card-glass border border-[1.5px] border-areia-borda rounded-card overflow-hidden">
         <div class="h-[180px] overflow-hidden relative">
           <div class="w-full h-full bg-gradient-to-br from-cafe to-cafe-claro flex items-center justify-center font-body text-5xl font-bold text-white/[.15] tracking-[-2px]">Bangu</div>
         </div>
@@ -880,15 +918,15 @@ tailwind.config = {
           <div class="text-[10px] font-bold tracking-[.1em] uppercase text-laranja-acao mb-1.5">Filial</div>
           <h3 class="font-body text-[22px] font-bold text-grafite mb-3.5">Bangu</h3>
           <div class="flex flex-col gap-2.5 mb-[18px]">
-            <div class="flex gap-2.5 items-start text-[15px] text-[#6B6560] leading-relaxed">
+            <div class="flex gap-2.5 items-start text-[15px] text-[#524C45] leading-relaxed">
               <svg class="w-4 h-4 stroke-ambar fill-none stroke-2 shrink-0 mt-[1px]" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
               <span>Rua Professor Clemente Ferreira, 1764, loja c — Bangu, Rio de Janeiro / RJ</span>
             </div>
-            <div class="flex gap-2.5 items-start text-[15px] text-[#6B6560] leading-relaxed">
+            <div class="flex gap-2.5 items-start text-[15px] text-[#524C45] leading-relaxed">
               <svg class="w-4 h-4 stroke-ambar fill-none stroke-2 shrink-0 mt-[1px]" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               <span>Seg–Qui: 08h às 18h · Sex: 09h às 18h</span>
             </div>
-            <div class="flex gap-2.5 items-start text-[15px] text-[#6B6560] leading-relaxed">
+            <div class="flex gap-2.5 items-start text-[15px] text-[#524C45] leading-relaxed">
               <svg class="w-4 h-4 stroke-ambar fill-none stroke-2 shrink-0 mt-[1px]" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.37 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.91-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               <a href="tel:+5521988883917" class="no-underline hover:text-laranja-acao transition-colors">(21) 98888-3917</a>
             </div>
@@ -1298,6 +1336,7 @@ tailwind.config = {
       wrap.style.opacity      = c.op;
       wrap.style.pointerEvents = c.op === 0 ? 'none' : 'auto';
       wrap.style.cursor       = i === current ? 'default' : 'pointer';
+      wrap.classList.toggle('is-front', i === current); // card central: sólido (sem vidro)
     });
 
     dots.forEach((d, i) => {
@@ -1507,7 +1546,7 @@ document.getElementById('sol-lista').innerHTML = SOLUCOES.map(s => `
     ${solDiamond(s.illo, 76)}
     <div class="min-w-[230px] flex-1">
       <div class="text-[19px] font-bold text-grafite leading-snug">${s.manchete}</div>
-      <div class="text-base leading-[1.6] mt-1 text-[#6B6560]">${s.resumo}
+      <div class="text-base leading-[1.6] mt-1 text-[#524C45]">${s.resumo}
         <span class="whitespace-nowrap text-[13px] font-bold uppercase tracking-wide text-laranja-acao-d">· ${s.nome}</span></div>
     </div>
     ${waCta(s.msg, 'Quero saber', 'wa_sol_' + s.id)}
@@ -1521,6 +1560,25 @@ document.getElementById('sol-convs').innerHTML = `
     <a href="${waLink('Olá! Quero saber se meu convênio é atendido pelo Grupo Real.')}" target="_blank" rel="noopener" onclick="trackWA('wa_sol_outro_convenio')"
        class="text-[14px] font-semibold text-laranja-acao-d underline underline-offset-4 decoration-[rgba(232,80,26,.4)] hover:text-laranja-acao px-1 py-2">Não achou o seu? Pergunta pra gente</a>
   </div>`;
+
+// Doodles do hero: caem e desvanecem conforme o scroll (decorativo, anulado em reduced-motion)
+(() => {
+  const items = document.querySelectorAll('.hd-item');
+  if (!items.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const fade = 560; // px de rolagem até sumirem por completo
+  let tick = false;
+  const update = () => {
+    const y = window.scrollY;
+    const k = Math.max(0, 1 - y / fade);
+    items.forEach(el => {
+      el.style.transform = `translateY(${(y * (parseFloat(el.dataset.speed) || .4)).toFixed(1)}px)`;
+      el.style.opacity   = (k * (parseFloat(el.dataset.op) || .2)).toFixed(3);
+    });
+    tick = false;
+  };
+  window.addEventListener('scroll', () => { if (!tick) { tick = true; requestAnimationFrame(update); } }, { passive: true });
+  update();
+})();
 
 function toggleAcord(btn) {
   const item = btn.closest('.ac-item');

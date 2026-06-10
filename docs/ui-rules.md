@@ -46,16 +46,17 @@ A tipografia deve misturar a autoridade de uma marca nacional com a legibilidade
 
 As sombras devem ser suaves e orgânicas, simulando elementos reais flutuando sobre o fundo areia macio, sem o visual artificial das fintechs.
 
-*   **Sombra de Cartão (Card Shadow):** `box-shadow: 0px 4px 20px rgba(43, 42, 39, 0.04);` (Sombra extremamente sutil utilizando o Grafite Escuro).
+*   ~~**Sombra de Cartão (Card Shadow):** `box-shadow: 0px 4px 20px rgba(43, 42, 39, 0.04);` (Sombra extremamente sutil)~~ → **Revisado em 2026-06-10 (pedido do cliente): cards de conteúdo usam o padrão "vidro premium"** — classe `.card-glass` (e equivalentes `.sol-tile`/`.cf-card`): fundo `rgba(255,255,255,.86)` (~86% opaco), `backdrop-filter: blur(10px)`, **sombra forte em 2 camadas** `0 18px 44px rgba(43,42,39,.16), 0 6px 16px rgba(43,42,39,.10)` (hover: `0 26px 56px (.22)`). Textos de apoio dentro de cards escurecidos para alto contraste: `#524C45` (≈8:1 sobre branco) / `#4A453F`. O token `shadow-card` segue existindo para usos menores (selos, botões).
 *   **Sombra de Botão Flutuante (WhatsApp):** `box-shadow: 0px 8px 24px rgba(255, 87, 34, 0.2);` (tom de brilho **legado** — o coral foi descontinuado como cor de marca, mas este valor RGBA permanece **apenas** como brilho sutil do botão flutuante para atrair cliques; não é cor de marca).
 
 ### Sombreamento do Hero (profundidade)
-O hero laranja recebe **camadas de profundidade decorativas** (`aria-hidden`, `pointer-events:none`) para "aterrar" os cards flutuantes e melhorar a experiência. Três peças:
+O hero laranja recebe **camadas de profundidade decorativas** (`aria-hidden`, `pointer-events:none`) para "aterrar" os cards flutuantes e melhorar a experiência. Quatro peças (4ª adicionada em 2026-06-10):
 1.  **Vinheta de foco (`.hero-vignette`):** poço radial de sombra atrás dos cards + leve brilho quente no topo + escurecimento sutil das bordas, puxando o olho ao centro.
 2.  **Scrim inferior (`.hero-scrim`):** gradiente escuro na base (`rgba(74,18,0,0)→.32`) que suaviza a transição do laranja para a seção clara seguinte.
 3.  **Sombra de seção (`shadow-hero`):** `0 24px 48px -16px rgba(120,40,0,0.45), 0 6px 16px rgba(40,12,0,0.18)` — faz o hero "pairar" sobre o restante do site.
+4.  **Doodles dinheiro/segurança (`.hd-item`):** 6 SVGs em traço fino branco (escudo-check, cadeado, moeda-cifrão, nota, pilha de moedas, losango) com opacidade base 0.16–0.22, no topo do hero. **Parallax de queda:** ao rolar, descem (`translateY` × `data-speed` 0.3–0.6) e desvanecem até sumir (~560px). JS com `requestAnimationFrame` + scroll passivo; **anulado em `prefers-reduced-motion`** (ficam estáticos).
 
-> Conteúdo real do hero fica em `z-10`; as camadas em `z-0`. Por serem estáticas, não há custo para `prefers-reduced-motion`.
+> Conteúdo real do hero fica em `z-10`; as camadas em `z-0`. As três primeiras são estáticas; a 4ª respeita `prefers-reduced-motion`.
 
 ---
 

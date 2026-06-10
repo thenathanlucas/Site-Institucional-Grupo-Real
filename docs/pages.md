@@ -48,7 +48,7 @@
 
 ## 2. Hero + Coverflow
 
-**ID:** `#topo` | **Fundo:** `.hero-orange` (gradiente laranja) + camadas de profundidade.
+**ID:** `#topo` | **Fundo:** `.hero-orange` (gradiente laranja) + camadas de profundidade + **doodles dinheiro/segurança** (2026-06-10): 6 SVGs em traço fino branco (`.hd-item`, `aria-hidden`) — escudo-check, cadeado, moeda-cifrão, nota, pilha de moedas e losango da marca — espalhados no topo do hero; **parallax de queda no scroll** (IIFE JS: `translateY` por `data-speed` + fade até sumir em ~560px de rolagem; anulado em `prefers-reduced-motion`; 3 doodles ocultos no mobile via `hidden md:block`).
 
 ### TitleBlock (centralizado)
 - **Eyebrow:** `• Correspondente Bancário` (cor `#FFE3CC`, caixa alta).
@@ -56,7 +56,7 @@
 - **Subtítulo:** "Um consultor analisa seu convênio e mostra as condições reais — sem pressão, sem letra miúda escondida."
 
 ### Coverflow (carrossel 3D, JS vanilla)
-5 cards brancos com painel laranja, setas prev/next, dots, swipe touch, drag mouse e setas de teclado.
+5 cards em **vidro premium** (2026-06-10: `rgba(255,255,255,.86)` + `backdrop-blur(10px)` + sombra forte; textos de apoio `.cf-sub`/`.cf-badge-lbl`/`.cf-disclaimer` escurecidos para `#524C45`) com painel laranja, setas prev/next, dots, swipe touch, drag mouse e setas de teclado. **Exceção: o card central em foco é sólido** (`#fff`, sem blur) via classe `.is-front` togglada pelo JS do coverflow — vidro só nos cards de trás.
 
 | # | Tag | Título | Parcela | trackWA |
 |---|-----|--------|---------|---------|
@@ -77,10 +77,10 @@
 
 ## 3. Como Funciona
 
-**ID:** `#como-funciona` | **Fundo:** areia.
+**ID:** `#como-funciona` | **Fundo:** gradiente areia→pêssego (`#F4F1EA→#FBE3CC`, 2026-06-10 — tintado p/ revelar o vidro dos cards).
 - **Eyebrow:** "Simples e sem burocracia" · **H2:** "Como **funciona**"
 - **Subtítulo:** "Do primeiro \"oi\" até o dinheiro na conta, você sempre fala com uma pessoa de verdade."
-- **Trilha zigzag (v4):** 4 cards alternados (esq/dir no desktop via `md:self-start`/`md:self-end`, empilhados no mobile), fundo creme quente, selo numerado laranja com anel branco e **losango SVG temático** (`assets/losangos/svg/losango-N-*.svg`), ligados por linha conectora tracejada decorativa (`aria-hidden`).
+- **Trilha zigzag (v4):** 4 cards alternados (esq/dir no desktop via `md:self-start`/`md:self-end`, empilhados no mobile), em **vidro premium** (2026-06-10: `.card-glass` substituiu o gradiente creme inline + `shadow-cardwarm`; texto de apoio escurecido para `#4A453F`), selo numerado laranja com anel branco e **losango SVG temático** (`assets/losangos/svg/losango-N-*.svg`), ligados por linha conectora tracejada decorativa (`aria-hidden`).
 
 | # | Rótulo | Título | Apoio |
 |---|--------|--------|-------|
@@ -93,11 +93,11 @@
 
 ## 4. Produtos / Balcão de soluções ("Como podemos te ajudar?")
 
-**ID:** `#produtos` | **Fundo (revisado 2026-06-10):** seção **dividida** — **faixa-título laranja** (`.prod-section`, mesma fórmula do hero, com vinheta + 2 losangos-textura `aria-hidden`; scrim removido) contendo só eyebrow/H2/subtítulo, e **corpo branco** (`bg-white`) com o balcão + faixa de convênios.
+**ID:** `#produtos` | **Fundo (revisado 2026-06-10):** seção **dividida** — **faixa-título laranja** (`.prod-section`, mesma fórmula do hero, com vinheta + 2 losangos-textura `aria-hidden`; scrim removido) contendo só eyebrow/H2/subtítulo, e **corpo pêssego claro** (gradiente `#FFF6ED→#F9E0C6`, tintado em 2026-06-10 p/ revelar o vidro dos cards) com o balcão + faixa de convênios.
 - **Eyebrow:** "Soluções financeiras" (creme) · **H2:** "Como podemos te **ajudar**?" (branco, destaque em grafite)
 - **Subtítulo:** "Toque na sua situação — a gente cuida do resto no WhatsApp."
-- **Balcão de soluções** (substituiu o mosaico filtrado por convênio em 2026-06-10): render estático via array `SOLUCOES` em `#sol-lista`, **layout L2 "balcão em linhas"** — uma solução por linha, sem filtro prévio. Cada linha (`.sol-tile`, **branca** com borda `areia-borda 1.5px` + sombra quente, hover lift no desktop — o vidro fosco saiu junto com o fundo laranja do corpo): **losango laranja com aura** (`solDiamond`, 76px) contendo **ilustração SVG de traço fino branco** (74% do losango; desenhos inline em `ILLOS`, slot pronto para `<img>`), **manchete-pergunta** 19px ("Sua parcela está pesando?"), resumo 16px `#6B6560` + etiqueta do nome da solução, e CTA **"Quero saber"** (`trackWA('wa_sol_{id}')`).
-- **Faixa "Atendemos"** (`#sol-convs`, sobre o corpo branco): rótulo `#7A756C`, 7 selos pêssego `.conv-badge` com os labels dos convênios (derivados do `CONVS`, que **permanece como fonte de dados**) + link laranja "Não achou o seu? Pergunta pra gente" (`wa_sol_outro_convenio`).
+- **Balcão de soluções** (substituiu o mosaico filtrado por convênio em 2026-06-10): render estático via array `SOLUCOES` em `#sol-lista`, **layout L2 "balcão em linhas"** — uma solução por linha, sem filtro prévio. Cada linha (`.sol-tile`, **vidro premium** desde 2026-06-10: `rgba(255,255,255,.86)` + `backdrop-blur(10px)` + sombra forte, borda `areia-borda 1.5px`, hover lift no desktop; resumo escurecido para `#524C45`): **losango laranja com aura** (`solDiamond`, 76px) contendo **ilustração SVG de traço fino branco** (74% do losango; desenhos inline em `ILLOS`, slot pronto para `<img>`), **manchete-pergunta** 19px ("Sua parcela está pesando?"), resumo 16px `#6B6560` + etiqueta do nome da solução, e CTA **"Quero saber"** (`trackWA('wa_sol_{id}')`).
+- **Faixa "Atendemos"** (`#sol-convs`, sobre o corpo pêssego claro): rótulo `#7A756C`, 7 selos pêssego `.conv-badge` com os labels dos convênios (derivados do `CONVS`, que **permanece como fonte de dados**) + link laranja "Não achou o seu? Pergunta pra gente" (`wa_sol_outro_convenio`).
 - Spec: `docs/balcao-solucoes-spec.md` (supersede `nossas-solucoes-spec.md`, que documenta o fallback).
 
 | Solução | Manchete (pergunta) | Tracking |
@@ -118,8 +118,9 @@
 
 ## 6. Onde Estamos (Filiais)
 
-**ID:** `#filiais` | **Fundo:** branco, borda-topo `laranja-acao` (3px).
+**ID:** `#filiais` | **Fundo:** gradiente branco→areia quente (`#FFF→#F7E8D4`, 2026-06-10), borda-topo `laranja-acao` (3px).
 - **Eyebrow:** "Onde estamos" · **H2:** "Nossas **filiais**"
+- **Cards das filiais** em **vidro premium** (2026-06-10: `.card-glass` substituiu `shadow-card`; linhas de endereço/horário/telefone escurecidas para `#524C45`).
 
 | | Matriz — Realengo | Filial — Bangu |
 |---|---|---|
@@ -183,10 +184,10 @@
 |---|-------|----|-------|-----|
 | 1 | Navbar | — | areia-nav | — |
 | 2 | Hero + Coverflow | `#topo` | laranja | WhatsApp por card |
-| 3 | Como funciona | `#como-funciona` | areia | — (scaffold) |
-| 4 | Balcão de soluções | `#produtos` | **laranja (faixa-título) + branco (corpo)** | WhatsApp por solução |
+| 3 | Como funciona | `#como-funciona` | areia→pêssego | — (scaffold) |
+| 4 | Balcão de soluções | `#produtos` | **laranja (faixa-título) + pêssego claro (corpo)** | WhatsApp por solução |
 | 5 | Bancos Parceiros | `#bancos` | **areia** | WhatsApp |
-| 6 | Onde Estamos (Filiais) | `#filiais` | branco | Google Maps + `tel:` |
+| 6 | Onde Estamos (Filiais) | `#filiais` | branco→areia quente | Google Maps + `tel:` |
 | 7 | Depoimentos | `#depoimentos` | areia | — |
 | 8 | Quem Somos | `#sobre` | café | — |
 | 9 | FAQ | `#faq` | areia | — |
@@ -194,7 +195,7 @@
 | 11 | Footer | — | café | WhatsApp (consultor) |
 | 12 | WhatsApp Flutuante | — | — | WhatsApp (global) |
 
-**Ritmo de fundos:** areia → **laranja+branco** (Produtos: faixa-título laranja, corpo branco) → areia → branco → areia → café → areia → branco → café. Alternância limpa, sem dois claros idênticos colados (por isso o corpo de Produtos é **branco**, não areia — Bancos logo abaixo é areia); a faixa-título laranja mantém o eco do hero.
+**Ritmo de fundos (revisado 2026-06-10, fundos tintados p/ revelar o vidro premium):** areia→pêssego (Como funciona, gradiente `#F4F1EA→#FBE3CC`) → **laranja + pêssego claro** (Produtos: faixa-título laranja, corpo `#FFF6ED→#F9E0C6`) → areia (Bancos) → branco→areia quente (Filiais, `#FFF→#F7E8D4`) → areia → café → areia → branco → café. Os claros agora são gradientes quentes distintos — sem dois idênticos colados; a faixa-título laranja mantém o eco do hero.
 
 ---
 
