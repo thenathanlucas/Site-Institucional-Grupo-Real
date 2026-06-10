@@ -1,15 +1,54 @@
 # Spec — Seção "Nossas soluções" (filtro por convênio + cards com losango)
 
+> ⚠️ **SUPERSEDED (2026-06-10):** o mosaico filtrado descrito aqui (e suas evoluções abaixo) foi **substituído pelo "Balcão de soluções"** — ver `docs/balcao-solucoes-spec.md`. Mantido como histórico e **fallback documentado** caso o Balcão seja revertido; **não implementar**.
+
 > **Objetivo:** substituir a vitrine deslizante atual (`#prod-rail` + `#prod-detail`) da seção `#produtos` por um **mosaico filtrado**: o cliente toca no seu convênio e só então aparecem os produtos daquele convênio, em cards com **losango** (slot de mídia). Resolve a queixa de UX (não obrigar o idoso a rolar por todos os produtos) e prepara o card para receber imagem/ícone no losango futuramente.
 > **Arquivo a editar:** `site_inst.html` (HTML único, Tailwind via CDN, **sem build**).
 > **Referência canônica (aprovada pelo cliente):** `docs/grade-produtos-5opcoes.html` → **Opção 5**. Em dúvida de marcação/CSS/JS, copiar de lá.
 > **Supersede:** para a seção `#produtos`, esta spec substitui a vitrine descrita em `docs/product_grid-spec.md` e `docs/grade_produtos.md`. A **paleta laranja** dessas specs permanece válida.
-> **Status:** ⏳ a implementar.
+> **Status:** ✅ **Implementado** em `site_inst.html` (verificado contra o HTML em 2026-06-10).
+> **Evolução (2026-06-10, "Opção A" aprovada):** 5 melhorias aplicadas sobre esta spec — ver bloco abaixo. Mockup comparativo: `docs/grade-produtos-v2-opcoes.html`.
+
+---
+
+## ⚡ Evolução 2026-06-10 — melhorias "Opção A" (aprovadas pelo Nathan)
+
+Altera pontos desta spec (o restante permanece válido):
+
+1. **Estado inicial:** ~~sem produtos + placeholder convite~~ → **INSS pré-selecionado** no load (`prodFilter('inss')`); a vitrine nunca abre vazia. O `prodPlaceholder` foi **removido** do código. Segue sem opção "Todos".
+2. **Linha de contexto (`convHeader`)** acima da grade: losango-herói do convênio (56px) + label + tag humana ("— Aposentados e pensionistas") + contagem via `plural()` ("N produtos para você comparar"), em texto branco sobre o laranja. *(O selo verde "Atendimento humano no WhatsApp" foi proposto e **recusado** — não incluir.)*
+3. **Ícones por tipo de produto** nos losangos dos cards (56px): helper `prodIconPaths(p.n)` + mapa `PROD_ICONS` (consignado = cifrão, portabilidade = setas, refinanciamento = ciclo, cartão, antecipação FGTS = calendário). **Provisório** — Nathan vai estudar ícone × imagem nos losangos; o slot de mídia continua pronto para `<img>`. O losango do **cabeçalho** continua usando o ícone do convênio.
+4. **Etiqueta de convênio removida dos cards** (era redundante após o filtro; o `convHeader` informa o contexto).
+5. **Fade-in `.pg-in`** (keyframes `pgIn`, 350ms) no cabeçalho e na grade a cada troca de filtro, anulado sob `prefers-reduced-motion`.
+6. **Refactor:** `convIcon(conv, cls)` → `iconSvg(paths, size)` (corrige bug em que o tamanho era passado como *classe* do SVG, sem width/height); `mediaDiamond(conv, size)` → `mediaDiamond(paths, size)`.
+
+## ✨ Polimento visual 2026-06-10 (aprovado pelo Nathan — só estilo, zero conteúdo)
+
+Queixa: seção "chapada", só laranja + branco. Técnicas aplicadas (todas decorativas com `aria-hidden` + `pointer-events:none`, conteúdo em `z-10`):
+
+1. **Profundidade no fundo** (mesma linguagem do hero): `.prod-vignette` (clarão central + escurecimento sutil das bordas) e `.prod-scrim` (gradiente escuro de 110px na base, suavizando a transição para a seção areia seguinte).
+2. **Textura de marca:** 2 losangos gigantes em traço branco 7% (`.prod-diamond-deco`, 340px sup. dir. / 260px inf. esq., `rotate(45deg)`).
+3. ~~**`convHeader` em placa de vidro** (`bg-white/10` + `backdrop-blur`)~~ → **revisto no mesmo dia (Direção B):** o vidro ficou sem destaque sobre o laranja. Losango-herói com **aura blur laranja** (`mediaDiamond(..., halo=true)`, 3º parâmetro novo) **mantido**.
+4. **Cards `.prod-tile`:** hover (≥768px) `translateY(-4px)` + sombra maior. *(Fundo/sombra revistos na Direção B abaixo.)*
+5. **Micro-interações:** `waCta` com `hover:-translate-y-px` + `active:scale-[.98]` (padrão do CTA de Bancos); `.prod-chip:hover` com `translateY(-1px)`. Tudo anulado em `prefers-reduced-motion` (transitions/transforms zerados).
+
+Nenhuma cor fora da paleta. Conferido no código; teste visual em 360/768/1280px recomendado.
+
+## 🎨 Direção B 2026-06-10 — painel claro envolvente (aprovada pelo Nathan)
+
+Feedback: cabeçalho de vidro sem destaque + seção "laranja demais" (só 2 das 3 cores de marca). Correções:
+
+1. **Painel creme envolvente:** chips + grade vivem dentro de um painel `rounded-[24px]`, fundo `linear-gradient(165deg,#FFFFFF→#FFF4EA)`, borda `white/70`, sombra em 2 camadas `0 30px 70px rgba(120,40,0,.28), 0 8px 22px (.14)` — o laranja vira **moldura** (header da seção + margens), não o fundo de tudo. Estética "painel boutique flutuando" já aprovada na era da vitrine (`grade_produtos.md §2`).
+2. **`convHeader` em placa Café Profundo:** `bg-cafe` + sombra forte + clarão radial laranja interno (`aria-hidden`); nome branco, tag e contagem em bege quente `#C9BBA8` (padrão do antigo spotlight); losango com aura mantido. Injeta a 3ª cor da marca como contraponto ao laranja.
+3. **Chips reestilizados para fundo claro:** brancos com borda `1.5px areia-borda` e sombra leve; hover = borda laranja + lift; ativo = borda transparente + anel laranja `0 0 0 2px #E8501A` + texto `#C2410C`.
+4. **`.prod-tile`:** fundo volta a `#FFFFFF` puro (quem aquece é o painel), sombra `0 6px 18px rgba(160,72,18,.08)`, hover `0 16px 34px (.14)`.
+
+Vinheta, scrim, losangos-textura e micro-interações do polimento anterior **mantidos**. Conferido no código; teste visual em 360/768/1280px recomendado.
 
 ---
 
 ## 1. Decisões fechadas
-- **Modelo de interação:** filtro por **chips de convênio** (single-select). Estado inicial **sem produtos** — só os chips + um aviso convidando a escolher. Produtos aparecem **somente ao tocar** num convênio, mostrando apenas os daquele convênio. **Não existe "Todos"** (era o que gerava a lista longa).
+- **Modelo de interação:** filtro por **chips de convênio** (single-select). ~~Estado inicial **sem produtos** — só os chips + um aviso convidando a escolher.~~ *(Revisto em 2026-06-10: INSS pré-selecionado — ver Evolução acima.)* Produtos de **um** convênio por vez. **Não existe "Todos"** (era o que gerava a lista longa).
 - **Título da seção:** **"Nossas soluções"** (`Nossas <span class="text-grafite">soluções</span>`).
 - **Subtítulo:** "Toque no seu convênio para ver só os produtos dele."
 - **Card de produto:** topo com **losango** (reaproveitado), depois etiqueta do convênio (laranja, caixa-alta), nome do produto, descrição e **CTA WhatsApp** (largura total, fixo na base; cards de altura igual).
@@ -170,14 +209,14 @@ prodGrid.innerHTML = prodPlaceholder;
 ---
 
 ## 9. Critérios de aceite
-- [ ] Vitrine (`#prod-rail`/`#prod-detail`) removida; mosaico filtrado no lugar, dentro de `#produtos`.
-- [ ] Título "Nossas soluções"; subtítulo atualizado.
-- [ ] Estado inicial **sem produtos**, com aviso; produtos aparecem só ao tocar num convênio (apenas os dele); sem "Todos".
-- [ ] Cards com **losango** no topo (slot de mídia recortado, pronto para `<img>`), etiqueta do convênio, nome, descrição e CTA WhatsApp full-width.
-- [ ] CTAs Laranja Ação com `trackWA('wa_prod_{id}')`.
-- [ ] `role="group"`/`aria-label`, `aria-pressed`, `aria-live`, foco visível; corpo ≥16px; alvos ≥48px.
-- [ ] Responsivo (1/2/3 colunas); `prefers-reduced-motion` ok.
-- [ ] FAQ (`toggleAcord`) e âncora `#produtos` sem regressão; nenhuma sobra da vitrine.
+- [x] Vitrine (`#prod-rail`/`#prod-detail`) removida; mosaico filtrado no lugar, dentro de `#produtos`.
+- [x] Título "Nossas soluções"; subtítulo atualizado.
+- [x] ~~Estado inicial **sem produtos**, com aviso~~ → **INSS pré-selecionado** (Evolução 2026-06-10); um convênio por vez; sem "Todos".
+- [x] Cards com **losango** no topo (slot de mídia recortado, pronto para `<img>`), ~~etiqueta do convênio~~ (removida na Evolução 2026-06-10 — contexto via `convHeader`), nome, descrição e CTA WhatsApp full-width.
+- [x] CTAs Laranja Ação com `trackWA('wa_prod_{id}')`.
+- [x] `role="group"`/`aria-label`, `aria-pressed`, `aria-live`, foco visível; corpo ≥16px; alvos ≥48px.
+- [x] Responsivo (1/2/3 colunas); `prefers-reduced-motion` ok. *(conferido no código; teste visual em 360/768/1280 recomendado)*
+- [x] FAQ (`toggleAcord`) e âncora `#produtos` sem regressão; nenhuma sobra da vitrine (zero `prod-rail`/`prod-detail`/`renderDetail`/`setActive`/`pick`/`prodIo` no arquivo).
 
 ---
 

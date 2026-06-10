@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Balcão de dúvidas — 3 layouts (Grupo Real)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      ambar:'#D98324', areia:'#F4F1EA', 'areia-borda':'#E8E3D9', grafite:'#2B2A27',
+      cafe:'#2B1D14', 'laranja-acao':'#E8501A', 'laranja-acao-d':'#C2410C', 'verde-hi':'#17A24B',
+    },
+    fontFamily: {
+      body:['"Plus Jakarta Sans"','Helvetica','sans-serif'],
+      source:['"Source Sans 3"','system-ui','sans-serif'],
+    },
+    borderRadius: { card:'8px', btn:'6px' },
+  } }
+}
+</script>
+<style>
+  body { background:#EDEAE3; }
+  .section-title { font-size: clamp(30px, 5vw, 44px); line-height: 1.2; }
+  .eyebrow-white::before { content:''; display:block; width:24px; height:2px; background:#FFD9B3; border-radius:2px; flex-shrink:0; }
+  a:focus-visible, button:focus-visible { outline:3px solid #2B2A27; outline-offset:2px; }
+
+  /* fundo + profundidade (iguais ao site) */
+  .prod-section {
+    background:
+      radial-gradient(120% 80% at 50% -10%, #FF8A3D 0%, rgba(255,138,61,0) 56%),
+      linear-gradient(160deg, #FB6516 0%, #ED4A05 52%, #CE3A00 100%);
+  }
+  .prod-vignette { position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(90% 70% at 50% 40%, rgba(255,176,110,.14) 0%, rgba(255,176,110,0) 60%),
+      radial-gradient(140% 110% at 50% 50%, rgba(74,18,0,0) 62%, rgba(74,18,0,.18) 100%); }
+  .prod-scrim { position:absolute; left:0; right:0; bottom:0; height:110px; pointer-events:none;
+    background:linear-gradient(180deg, rgba(74,18,0,0) 0%, rgba(74,18,0,.22) 100%); }
+  .prod-diamond-deco { position:absolute; border:2px solid rgba(255,255,255,.07); border-radius:24px; transform:rotate(45deg); pointer-events:none; }
+
+  /* card de vidro fosco (base vencedora) */
+  .tile { background:rgba(255,255,255,.78); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,.55); box-shadow:0 10px 30px rgba(120,30,0,.22);
+    transition:transform .3s ease, box-shadow .3s ease; }
+  @media (min-width:768px){ .tile:hover { transform:translateY(-4px); box-shadow:0 16px 34px rgba(120,30,0,.3); } }
+
+  /* pílula-pergunta do layout 3 (tons da placa C) */
+  .ask-pill { background:linear-gradient(135deg,#FFE9DA,#FFD9BD); border:1.5px solid #F3C4A4; box-shadow:0 6px 16px rgba(160,72,18,.22); }
+
+  /* selo de convênio (faixa discreta) */
+  .conv-badge { background:rgba(255,233,218,.92); color:#8A4A1F; border:1px solid #F3C4A4; }
+
+  @keyframes pgIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+  .pg-in { animation:pgIn .35s ease both; }
+  @media (prefers-reduced-motion: reduce){
+    * { transition:none !important; }
+    .tile:hover { transform:none; }
+    .pg-in { animation:none; }
+  }
+</style>
+</head>
+<body class="font-body text-grafite antialiased">
+
+<div class="bg-grafite text-white text-center py-6 px-5">
+  <div class="text-2xl font-bold">Balcão de dúvidas — 3 layouts</div>
+  <div class="text-[14px] text-white/70 mt-1.5 max-w-[720px] mx-auto">
+    Spec: <code>docs/balcao-solucoes-spec.md</code>. Copy v2 (manchetes em 1ª pessoa) e as mesmas 5 ilustrações (SVG traço branco no losango laranja) nos três — só o <strong>layout</strong> muda. CTAs abrem o WhatsApp de verdade.
+  </div>
+</div>
+
+<!-- ════════════════ L1 — VITRINE (GRADE DE CARDS) ════════════════ -->
+<div class="bg-[#1b1a18] text-white px-5 py-3.5">
+  <div class="max-w-[1100px] mx-auto text-[15px]"><span class="inline-block text-[11px] font-bold tracking-widest uppercase bg-laranja-acao rounded-full px-3 py-1 mr-2.5">L1</span><strong>Vitrine</strong> — grade de cards verticais (3+2 no desktop), losango-ilustração grande no topo, manchete como título.</div>
+</div>
+<section class="prod-section relative overflow-hidden py-14 px-5 md:py-20 md:px-12">
+  <span aria-hidden="true" class="prod-vignette z-0"></span>
+  <span aria-hidden="true" class="prod-diamond-deco z-0 w-[340px] h-[340px] -top-28 -right-24"></span>
+  <span aria-hidden="true" class="prod-diamond-deco z-0 w-[260px] h-[260px] -bottom-32 -left-28"></span>
+  <span aria-hidden="true" class="prod-scrim z-0"></span>
+  <div class="max-w-[1200px] mx-auto relative z-10">
+    <div class="eyebrow-white inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-[#FFE3CC] mb-3.5">Soluções financeiras</div>
+    <h2 class="section-title font-bold tracking-[-0.3px] text-white mb-4">Como podemos te <span class="text-grafite">ajudar</span>?</h2>
+    <p class="text-base leading-[1.75] max-w-[520px] mb-9" style="color:rgba(255,247,240,.92)">Toque na sua situação — a gente cuida do resto no WhatsApp.</p>
+    <div id="l1-grid"></div>
+    <div id="l1-convs"></div>
+  </div>
+</section>
+
+<!-- ════════════════ L2 — BALCÃO EM LINHAS ════════════════ -->
+<div class="bg-[#1b1a18] text-white px-5 py-3.5">
+  <div class="max-w-[1100px] mx-auto text-[15px]"><span class="inline-block text-[11px] font-bold tracking-widest uppercase bg-laranja-acao rounded-full px-3 py-1 mr-2.5">L2</span><strong>Balcão em linhas</strong> — uma solução por linha, leitura de cima pra baixo como cardápio de balcão. A mais confortável pra idoso varrer.</div>
+</div>
+<section class="prod-section relative overflow-hidden py-14 px-5 md:py-20 md:px-12">
+  <span aria-hidden="true" class="prod-vignette z-0"></span>
+  <span aria-hidden="true" class="prod-diamond-deco z-0 w-[340px] h-[340px] -top-28 -right-24"></span>
+  <span aria-hidden="true" class="prod-diamond-deco z-0 w-[260px] h-[260px] -bottom-32 -left-28"></span>
+  <span aria-hidden="true" class="prod-scrim z-0"></span>
+  <div class="max-w-[1200px] mx-auto relative z-10">
+    <div class="eyebrow-white inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-[#FFE3CC] mb-3.5">Soluções financeiras</div>
+    <h2 class="section-title font-bold tracking-[-0.3px] text-white mb-4">Como podemos te <span class="text-grafite">ajudar</span>?</h2>
+    <p class="text-base leading-[1.75] max-w-[520px] mb-9" style="color:rgba(255,247,240,.92)">Toque na sua situação — a gente cuida do resto no WhatsApp.</p>
+    <div id="l2-grid"></div>
+    <div id="l2-convs"></div>
+  </div>
+</section>
+
+<!-- ════════════════ L3 — PERGUNTA EM PÍLULA ════════════════ -->
+<div class="bg-[#1b1a18] text-white px-5 py-3.5">
+  <div class="max-w-[1100px] mx-auto text-[15px]"><span class="inline-block text-[11px] font-bold tracking-widest uppercase bg-laranja-acao rounded-full px-3 py-1 mr-2.5">L3</span><strong>Pergunta em pílula</strong> — a manchete vira balão pêssego (placa C) saltando do card, como pergunta de conversa: o "balcão de dúvidas" literal.</div>
+</div>
+<section class="prod-section relative overflow-hidden py-14 px-5 md:py-20 md:px-12">
+  <span aria-hidden="true" class="prod-vignette z-0"></span>
+  <span aria-hidden="true" class="prod-diamond-deco z-0 w-[340px] h-[340px] -top-28 -right-24"></span>
+  <span aria-hidden="true" class="prod-diamond-deco z-0 w-[260px] h-[260px] -bottom-32 -left-28"></span>
+  <span aria-hidden="true" class="prod-scrim z-0"></span>
+  <div class="max-w-[1200px] mx-auto relative z-10">
+    <div class="eyebrow-white inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-[#FFE3CC] mb-3.5">Soluções financeiras</div>
+    <h2 class="section-title font-bold tracking-[-0.3px] text-white mb-4">Como podemos te <span class="text-grafite">ajudar</span>?</h2>
+    <p class="text-base leading-[1.75] max-w-[520px] mb-12" style="color:rgba(255,247,240,.92)">Toque na sua situação — a gente cuida do resto no WhatsApp.</p>
+    <div id="l3-grid"></div>
+    <div id="l3-convs"></div>
+  </div>
+</section>
+
+<div class="bg-grafite text-white/60 text-center text-[13px] py-6 px-5">
+  Mockup de estudo — Grupo Real · etapa 4-5 do plano (<code>docs/balcao-solucoes-spec.md</code>) · tracking é só <code>console.log</code> aqui.
+</div>
+
+<script>
+const WA = '5521986862308';
+const WA_PATH = 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z';
+
+const waLink  = msg => `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+const trackWA = l   => console.log('[trackWA]', l);
+
+/* ── ilustrações: traço fino branco (desenhos, não ícones) ── */
+const ILLOS = {
+  portabilidade: `
+    <g transform="rotate(-8 16 27)"><rect x="7" y="15" width="18" height="24" rx="2.5"/><path d="M11 22h10M11 27h10M11 32h6"/></g>
+    <path d="M26 17c8-7 18-6 24 1"/><path d="m47 13 4 5-6 2"/>
+    <g transform="rotate(8 47 40)"><rect x="38" y="28" width="18" height="24" rx="2.5"/><path d="m43 41 3.5 3.5 6.5-7"/></g>
+    <path d="M28 46v6M25 49h6"/>`,
+  emprestimo: `
+    <rect x="7" y="19" width="34" height="20" rx="3"/>
+    <circle cx="24" cy="29" r="6.5"/>
+    <path d="M24 25.5v7M26.5 26.8c-.6-.7-1.5-1.1-2.5-1.1-1.7 0-3 .9-3 2.1s1.3 1.9 3 2.1c1.7.2 3 .9 3 2.1s-1.3 2.1-3 2.1c-1 0-1.9-.4-2.5-1.1"/>
+    <path d="M11 23v.01M37 35v.01"/>
+    <path d="M41 45v-4.5c0-1.8 3.2-3.2 7.2-3.2s7.2 1.4 7.2 3.2V45"/>
+    <path d="M41 40.5c0 1.8 3.2 3.2 7.2 3.2s7.2-1.4 7.2-3.2"/>
+    <path d="M41 45c0 1.8 3.2 3.2 7.2 3.2s7.2-1.4 7.2-3.2"/>
+    <path d="M49 12v6M46 15h6"/>`,
+  refin: `
+    <rect x="21" y="13" width="23" height="29" rx="3"/><path d="M26 20h13M26 25h13M26 30h8"/>
+    <path d="M12 34a21 21 0 0 1 7.5-15"/><path d="m16 17 4 2.5-5 2.5"/>
+    <path d="M53 28a21 21 0 0 1-7.5 15"/><path d="m49 47-4-2.5 5-2.5"/>
+    <circle cx="38" cy="48" r="7.5"/><path d="M38 44.8v6.4M34.8 48h6.4"/>`,
+  fgts: `
+    <rect x="13" y="17" width="37" height="31" rx="3"/><path d="M13 27h37M22 12v8M41 12v8"/>
+    <rect x="26" y="33" width="12" height="9.5" rx="1.5"/><path d="M32 33v9.5M26 37.5h12"/>
+    <path d="M32 33c-1.8-3.6-5.6-2.8-4.6-.4M32 33c1.8-3.6 5.6-2.8 4.6-.4"/>
+    <path d="M5 30h4M3 36h6M5 42h4"/>`,
+  cartao: `
+    <rect x="8" y="17" width="37" height="25" rx="3.5"/><path d="M8 25.5h37"/>
+    <rect x="13" y="31" width="7.5" height="5.5" rx="1.2"/><path d="M25 36.5h9"/>
+    <path d="M49 23a10 10 0 0 1 0 13M53.5 19.5a16 16 0 0 1 0 20"/>
+    <path d="M49 47v6M46 50h6"/>`
+};
+
+/* losango laranja com ilustração branca de traço fino dentro */
+const solDiamond = (key, size=96) => `
+  <span aria-hidden="true" class="relative inline-block shrink-0" style="width:${size}px;height:${size}px">
+    <span class="absolute -inset-3 rounded-full" style="background:radial-gradient(closest-side, rgba(255,170,100,.5), transparent);filter:blur(11px)"></span>
+    <span class="absolute inset-0 rounded-[20px] rotate-45 overflow-hidden border border-white/40" style="background:linear-gradient(135deg,#FB6516,#ED4A05);box-shadow:0 10px 26px rgba(232,80,26,.42)">
+      <span class="absolute inset-0 -rotate-45 flex items-center justify-center">
+        <svg width="${Math.round(size*0.74)}" height="${Math.round(size*0.74)}" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ILLOS[key]}</svg>
+      </span>
+    </span>
+  </span>`;
+
+/* ── dados (copy v2 da spec §3 — manchetes em 1ª pessoa) ── */
+const SOLUCOES = [
+  { id:'emprestimo',    nome:'Empréstimo',      illo:'emprestimo',
+    manchete:'Precisando de um dinheiro?',
+    resumo:'Buscamos a menor taxa do seu perfil entre 30+ bancos.',
+    msg:'Olá! Quero fazer um empréstimo.' },
+  { id:'portabilidade', nome:'Portabilidade',   illo:'portabilidade',
+    manchete:'Sua parcela está pesando?',
+    resumo:'Trazemos seu contrato de outro banco e buscamos condição melhor.',
+    msg:'Olá! Já tenho um empréstimo e quero saber sobre a Portabilidade.' },
+  { id:'refin',         nome:'Refinanciamento', illo:'refin',
+    manchete:'Já tem empréstimo e precisa de mais?',
+    resumo:'Renegociamos seu contrato pra liberar um saldo novo.',
+    msg:'Olá! Quero saber sobre o Refinanciamento do meu contrato.' },
+  { id:'fgts',          nome:'Antecipação FGTS', illo:'fgts',
+    manchete:'Seu FGTS está parado?',
+    resumo:'Você descobre quanto do saque-aniversário dá pra antecipar.',
+    msg:'Olá! Quero saber sobre a Antecipação do Saque-Aniversário FGTS.' },
+  { id:'cartao',        nome:'Cartão',           illo:'cartao',
+    manchete:'Quer um cartão?',
+    resumo:'Consignado ou Benefício — mostramos qual serve melhor pra você.',
+    msg:'Olá! Quero saber sobre os cartões Consignado e Benefício.' }
+];
+
+const CONV_LABELS = ['INSS','CLT','FGTS','SIAPE','Forças Armadas','Governos','Prefeituras'];
+
+const waCta = (s, full=true) => `<a href="${waLink(s.msg)}" target="_blank" rel="noopener" onclick="trackWA('wa_sol_${s.id}')"
+  class="inline-flex items-center justify-center gap-1.5 ${full ? 'w-full mt-auto' : 'shrink-0'} bg-laranja-acao hover:bg-laranja-acao-d text-white font-bold text-[15px] min-h-[48px] px-5 rounded-btn no-underline transition-all duration-300 hover:-translate-y-px active:scale-[.98]">
+  Quero saber<svg class="w-[14px] h-[14px] fill-white" viewBox="0 0 24 24"><path d="${WA_PATH}"/></svg></a>`;
+
+/* faixa discreta de convênios (igual nos 3 layouts) */
+const convStrip = `
+  <div class="mt-9 flex flex-wrap items-center gap-x-3 gap-y-2.5">
+    <span class="text-[13px] font-bold uppercase tracking-wide text-white/85">Atendemos:</span>
+    ${CONV_LABELS.map(l => `<span class="conv-badge rounded-full px-3.5 py-1.5 text-[14px] font-semibold">${l}</span>`).join('')}
+    <a href="${waLink('Olá! Quero saber se meu convênio é atendido pelo Grupo Real.')}" target="_blank" rel="noopener" onclick="trackWA('wa_sol_outro_convenio')"
+       class="text-[14px] font-semibold text-white underline underline-offset-4 decoration-white/50 hover:decoration-white px-1 py-2">Não achou o seu? Pergunta pra gente</a>
+  </div>`;
+
+/* ── L1: vitrine (grade) ── */
+document.getElementById('l1-grid').innerHTML = `
+  <div class="pg-in grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    ${SOLUCOES.map(s => `
+      <div class="tile flex flex-col gap-4 rounded-[16px] p-6 h-full">
+        ${solDiamond(s.illo, 92)}
+        <div>
+          <div class="text-[11.5px] font-bold uppercase tracking-[.1em] text-laranja-acao-d mb-1.5">${s.nome}</div>
+          <div class="text-[20px] font-bold text-grafite leading-snug">${s.manchete}</div>
+          <div class="text-base leading-[1.6] mt-1.5" style="color:#57524C">${s.resumo}</div>
+        </div>
+        ${waCta(s)}
+      </div>`).join('')}
+  </div>`;
+document.getElementById('l1-convs').innerHTML = convStrip;
+
+/* ── L2: balcão em linhas ── */
+document.getElementById('l2-grid').innerHTML = `
+  <div class="pg-in flex flex-col gap-3.5">
+    ${SOLUCOES.map(s => `
+      <div class="tile flex flex-wrap items-center gap-x-5 gap-y-4 rounded-[16px] p-5 md:px-6">
+        ${solDiamond(s.illo, 76)}
+        <div class="min-w-[230px] flex-1">
+          <div class="text-[19px] font-bold text-grafite leading-snug">${s.manchete}</div>
+          <div class="text-base leading-[1.6] mt-1" style="color:#57524C">${s.resumo}
+            <span class="whitespace-nowrap text-[13px] font-bold uppercase tracking-wide text-laranja-acao-d">· ${s.nome}</span></div>
+        </div>
+        ${waCta(s, false)}
+      </div>`).join('')}
+  </div>`;
+document.getElementById('l2-convs').innerHTML = convStrip;
+
+/* ── L3: pergunta em pílula ── */
+document.getElementById('l3-grid').innerHTML = `
+  <div class="pg-in grid gap-x-4 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+    ${SOLUCOES.map(s => `
+      <div class="relative h-full">
+        <div class="ask-pill absolute -top-5 left-5 right-5 z-10 rounded-[14px] px-4 py-2.5 text-[16.5px] font-bold text-grafite leading-snug">${s.manchete}</div>
+        <div class="tile flex flex-col gap-4 rounded-[16px] p-6 pt-12 h-full">
+          <div class="flex items-center gap-4">
+            ${solDiamond(s.illo, 68)}
+            <div class="text-[12px] font-bold uppercase tracking-[.1em] text-laranja-acao-d">${s.nome}</div>
+          </div>
+          <div class="text-base leading-[1.6]" style="color:#57524C">${s.resumo}</div>
+          ${waCta(s)}
+        </div>
+      </div>`).join('')}
+  </div>`;
+document.getElementById('l3-convs').innerHTML = convStrip;
+</script>
+</body>
+</html>

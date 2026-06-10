@@ -69,7 +69,7 @@ Definidos no `<head>` (Tailwind config inline) e no `<style>`:
 ### Card de etapa
 - `step-card relative rounded-[20px] shadow-cardwarm hover:shadow-cardwarmh border border-areia-borda p-6 md:p-8 flex items-center gap-5 md:gap-6`, fundo `linear-gradient(140deg,#fff,#FBF6EF)` (creme quente).
 - **Selo do número:** círculo `bg-laranja-acao` texto branco, `ring-[3px] ring-white`, no canto sup. esquerdo (`-top-3.5 -left-3.5`). É o marcador da etapa. **Nunca** voltar ao número vazado (`diff-num`).
-- **Losango (ícone temático):** quadrado `rotate-45 rounded-[22px]`, ~72px (mobile) / 88px (desktop), com **brilho** (camada `blur` atrás) + **anel interno** fino + borda branca. Dentro, ícone `aria-hidden`:
+- **Losango (ícone temático):** ⚠️ **atualizado (commit "troca losangos", 2026-06)** — o quadrado `rotate-45` com ícone inline foi substituído por **`<img>` SVG pronto** por etapa (`assets/losangos/svg/losango-1-contato.svg` · `losango-2-especialista.svg` · `losango-3-melhor-opcao.svg` · `losango-4-pix.svg`), `aria-hidden`, ~97px (mobile) / 119px (desktop). A lógica de cor original (mantida dentro dos SVGs):
   - **Passo 01:** WhatsApp em **Verde Confiança `#17A24B`** (gradiente verde) — único ponto verde da seção.
   - **Passos 02–04:** ícone em `laranja-acao` (gradiente âmbar/laranja claro). Ícones: 02 = atendimento (fone), 03 = lupa (melhor opção), 04 = cédula (dinheiro).
 - **Texto:** rótulo da fase (`text-[11px] uppercase tracking-[.14em] text-ambar`: Atendimento/Análise/Proposta/Liberação) + `<h3>` (`text-xl md:text-[23px]`) + `<p>` (`text-base md:text-[17px] leading-[1.65] text-[#5f5a54]`).

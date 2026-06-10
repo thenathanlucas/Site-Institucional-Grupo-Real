@@ -118,10 +118,11 @@ Os botões do corpo do site obedecem à hierarquia, não ao destino do link:
 
 > Novos blocos definidos na reestruturação v1. Build detalhado em `docs/archive/body-restructure-spec-CONCLUIDO-2026-06-03.md`. Todos seguem as regras de acessibilidade da §2 (corpo ≥16px, `line-height` ≥1.6, alvos de toque ≥48px).
 
-### A. Passos "Como funciona"
-*   **Layout:** 3 a 4 passos numerados, grid horizontal no desktop (`md:grid-cols-4`), empilhados no mobile.
-*   **Cada passo:** número grande em estilo `diff-num` (contorno laranja) ou círculo `bg-laranja-acao/[.12]`, título curto (`font-bold text-grafite`) e 1 linha de apoio (`text-[#6B6560]`).
+### A. Passos "Como funciona" (v4 — trilha zigzag)
+*   **Layout:** 4 cards em trilha vertical **alternada** (esq/dir no desktop via `md:self-start`/`md:self-end`, empilhados no mobile), ligados por linha conectora SVG tracejada decorativa (`aria-hidden`).
+*   **Cada passo:** selo circular **preenchido** `bg-laranja-acao` com anel branco (o número vazado `diff-num` foi **reprovado pelo cliente** — não reutilizar), **losango SVG temático** (`assets/losangos/svg/`), rótulo da fase em âmbar, título curto (`font-bold text-grafite`) e 1 linha de apoio.
 *   **Objetivo UX:** reduzir o medo do processo — linguagem de "bater o olho", deixando claro que **quem responde é uma pessoa**, não um robô.
+*   Spec completa e conteúdo final: `docs/comofunciona-spec.md`.
 
 ### B. Depoimentos — Mockup de celular (WhatsApp)
 *   **Conceito:** moldura de celular exibindo a conversa real de WhatsApp do cliente (autenticidade = anti-golpe).

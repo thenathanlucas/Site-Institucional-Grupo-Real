@@ -1,5 +1,7 @@
 # Spec — Seção "Produtos / Convênios" (substituir acordeão pela Vitrine fluida — Opção 5)
 
+> ⚠️ **SUPERSEDED (2026-06-10):** a vitrine descrita aqui foi implementada e depois **substituída pelo mosaico filtrado** — ver `docs/nossas-solucoes-spec.md`. Mantido apenas como histórico; **não implementar**.
+
 > **Objetivo:** trocar o acordeão vertical atual da seção `#produtos` por uma **vitrine horizontal deslizante** (Opção 5 aprovada), com seleção fluida do convênio e um painel de destaque ("spotlight" escuro) mostrando os produtos. Resolve o atrito do acordeão (gavetas rígidas) e dá mais destaque visual, mantendo acessibilidade para o público idoso.
 > **Arquivo a editar:** `site_inst.html` (HTML único, Tailwind via CDN, **sem build**).
 > **Referência canônica (mockup aprovado):** `docs/product_grid-refined.html` → **Opção 5**. Em caso de dúvida de marcação/CSS/JS, copiar de lá. O briefing original é `docs/product_grid.md`.

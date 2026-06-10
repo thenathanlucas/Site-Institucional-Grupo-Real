@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nossas soluções — 3 layouts de cabeçalho (cor fixa: placa C) sobre vidro fosco (Grupo Real)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      ambar:'#D98324', areia:'#F4F1EA', 'areia-borda':'#E8E3D9', grafite:'#2B2A27',
+      cafe:'#2B1D14', 'cafe-claro':'#3A2A1E',
+      'laranja-acao':'#E8501A', 'laranja-acao-d':'#C2410C', 'verde-hi':'#17A24B',
+    },
+    fontFamily: {
+      body:['"Plus Jakarta Sans"','Helvetica','sans-serif'],
+      source:['"Source Sans 3"','system-ui','sans-serif'],
+    },
+    borderRadius: { card:'8px', btn:'6px' },
+  } }
+}
+</script>
+<style>
+  body { background:#EDEAE3; }
+  .section-title { font-size: clamp(30px, 5vw, 44px); line-height: 1.2; }
+  .eyebrow-white::before { content:''; display:block; width:24px; height:2px; background:#FFD9B3; border-radius:2px; flex-shrink:0; }
+  a:focus-visible, button:focus-visible { outline:3px solid #2B2A27; outline-offset:2px; }
+
+  /* fundo da seção (fórmula atual do site) + camadas de profundidade */
+  .prod-section {
+    background:
+      radial-gradient(120% 80% at 50% -10%, #FF8A3D 0%, rgba(255,138,61,0) 56%),
+      linear-gradient(160deg, #FB6516 0%, #ED4A05 52%, #CE3A00 100%);
+  }
+  .prod-vignette { position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(90% 70% at 50% 40%, rgba(255,176,110,.14) 0%, rgba(255,176,110,0) 60%),
+      radial-gradient(140% 110% at 50% 50%, rgba(74,18,0,0) 62%, rgba(74,18,0,.18) 100%); }
+  .prod-scrim { position:absolute; left:0; right:0; bottom:0; height:110px; pointer-events:none;
+    background:linear-gradient(180deg, rgba(74,18,0,0) 0%, rgba(74,18,0,.22) 100%); }
+  .prod-diamond-deco { position:absolute; border:2px solid rgba(255,255,255,.07); border-radius:24px; transform:rotate(45deg); pointer-events:none; }
+
+  /* chips sobre o laranja (base vencedora, sem painel) */
+  .prod-chip { background:rgba(255,255,255,.92); color:#2B2A27; border:0; cursor:pointer; box-shadow:0 4px 12px rgba(120,40,0,.15); transition:.25s; }
+  .prod-chip:hover { background:#fff; transform:translateY(-1px); }
+  .prod-chip.is-on { background:#fff; color:#C2410C; box-shadow:0 0 0 2px #E8501A, 0 8px 18px rgba(120,40,0,.25); }
+
+  /* cards de produto em vidro fosco (vencedor) */
+  .tile { background:rgba(255,255,255,.78); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    padding:20px; border-color:rgba(255,255,255,.55) !important;
+    box-shadow:0 10px 30px rgba(120,30,0,.22); transition:transform .3s ease, box-shadow .3s ease; }
+  .tile div.text-base { color:#57524C; }
+  @media (min-width:768px){ .tile:hover { transform:translateY(-4px); box-shadow:0 16px 34px rgba(120,30,0,.3); } }
+
+  /* superfície da placa C (cor fixa em todos os layouts de cabeçalho) */
+  .plate-c { position:relative; background:linear-gradient(135deg,#FFE9DA,#FFD9BD); border:1.5px solid #F3C4A4; box-shadow:0 10px 26px rgba(160,72,18,.18); }
+  .plate-c::after { content:''; position:absolute; inset:0; pointer-events:none; border-radius:inherit; /* treliça de losangos discreta */
+    background-image:
+      repeating-linear-gradient(45deg,  rgba(194,65,12,.10) 0 1px, transparent 1px 16px),
+      repeating-linear-gradient(-45deg, rgba(194,65,12,.10) 0 1px, transparent 1px 16px); }
+  /* ponteiro da versão "aba" (losango que aponta para a grade) */
+  .plate-tip { position:absolute; bottom:-9px; left:44px; width:18px; height:18px; transform:rotate(45deg);
+    background:#FFDDC0; border-right:1.5px solid #F3C4A4; border-bottom:1.5px solid #F3C4A4; }
+
+  @keyframes pgIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+  .pg-in { animation:pgIn .35s ease both; }
+  @media (prefers-reduced-motion: reduce){
+    * { transition:none !important; }
+    .prod-chip:hover, .tile:hover { transform:none; }
+    .pg-in { animation:none; }
+  }
+</style>
+</head>
+<body class="font-body text-grafite antialiased">
+
+<div class="bg-grafite text-white text-center py-6 px-5">
+  <div class="text-2xl font-bold">Cabeçalho do convênio — 3 layouts, cor fixa (placa C)</div>
+  <div class="text-[14px] text-white/70 mt-1.5 max-w-[720px] mx-auto">
+    Base vencedora em todas: <strong>cards de vidro fosco</strong> direto sobre o laranja, sem painel. Só o <strong>layout do cabeçalho</strong> muda — a cor pêssego é sempre a mesma. Os chips filtram de verdade.
+  </div>
+</div>
+
+<!-- ════════════════ H1 — FAIXA DE TÍTULO ════════════════ -->
+<div class="bg-[#1b1a18] text-white px-5 py-3.5">
+  <div class="max-w-[1100px] mx-auto text-[15px]"><span class="inline-block text-[11px] font-bold tracking-widest uppercase bg-laranja-acao rounded-full px-3 py-1 mr-2.5">H1</span><strong>Faixa de título</strong> — ocupa a linha inteira (nenhum card de produto faz isso); contagem vira selo à direita. Compacta, lê como barra de cabeçalho.</div>
+</div>
+<section class="prod-section relative overflow-hidden py-14 px-5 md:py-20 md:px-12">
+  <span aria-hidden="true" class="prod-vignette z-0"></span>
+  <span aria-hidden="true" class="prod-diamond-deco z-0 w-[340px] h-[340px] -top-28 -right-24"></span>
+  <span aria-hidden="true" class="prod-diamond-deco z-0 w-[260px] h-[260px] -bottom-32 -left-28"></span>
+  <span aria-hidden="true" class="prod-scrim z-0"></span>
+  <div class="max-w-[1200px] mx-auto relative z-10">
+    <div class="eyebrow-white inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-[#FFE3CC] mb-3.5">Soluções financeiras</div>
+    <h2 class="section-title font-bold tracking-[-0.3px] text-white mb-4">Nossas <span class="text-grafite">soluções</span></h2>
+    <p class="text-base leading-[1.75] max-w-[520px]" style="color:rgba(255,247,240,.92)">Toque no seu convênio para ver só os produtos dele.</p>
+    <div id="h1-chips" class="flex flex-wrap gap-2.5 mt-8 mb-7" role="group" aria-label="Filtrar produtos por convênio"></div>
+    <div id="h1-grid" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ════════════════ H2 — EDITORIAL ════════════════ -->
+<div class="bg-[#1b1a18] text-white px-5 py-3.5">
+  <div class="max-w-[1100px] mx-auto text-[15px]"><span class="inline-block text-[11px] font-bold tracking-widest uppercase bg-laranja-acao rounded-full px-3 py-1 mr-2.5">H2</span><strong>Editorial</strong> — eyebrow "CONVÊNIO" + nome grande (28px) + losango maior. Hierarquia tipográfica de título, nada parecido com card.</div>
+</div>
+<section class="prod-section relative overflow-hidden py-14 px-5 md:py-20 md:px-12">
+  <span aria-hidden="true" class="prod-vignette z-0"></span>
+  <span aria-hidden="true" class="prod-diamond-deco z-0 w-[340px] h-[340px] -top-28 -right-24"></span>
+  <span aria-hidden="true" class="prod-diamond-deco z-0 w-[260px] h-[260px] -bottom-32 -left-28"></span>
+  <span aria-hidden="true" class="prod-scrim z-0"></span>
+  <div class="max-w-[1200px] mx-auto relative z-10">
+    <div class="eyebrow-white inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-[#FFE3CC] mb-3.5">Soluções financeiras</div>
+    <h2 class="section-title font-bold tracking-[-0.3px] text-white mb-4">Nossas <span class="text-grafite">soluções</span></h2>
+    <p class="text-base leading-[1.75] max-w-[520px]" style="color:rgba(255,247,240,.92)">Toque no seu convênio para ver só os produtos dele.</p>
+    <div id="h2-chips" class="flex flex-wrap gap-2.5 mt-8 mb-7" role="group" aria-label="Filtrar produtos por convênio"></div>
+    <div id="h2-grid" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ════════════════ H3 — ABA APONTANDO PARA A GRADE ════════════════ -->
+<div class="bg-[#1b1a18] text-white px-5 py-3.5">
+  <div class="max-w-[1100px] mx-auto text-[15px]"><span class="inline-block text-[11px] font-bold tracking-widest uppercase bg-laranja-acao rounded-full px-3 py-1 mr-2.5">H3</span><strong>Aba apontando</strong> — faixa com ponteiro em losango apontando para a grade: "estes produtos pertencem a este convênio".</div>
+</div>
+<section class="prod-section relative overflow-hidden py-14 px-5 md:py-20 md:px-12">
+  <span aria-hidden="true" class="prod-vignette z-0"></span>
+  <span aria-hidden="true" class="prod-diamond-deco z-0 w-[340px] h-[340px] -top-28 -right-24"></span>
+  <span aria-hidden="true" class="prod-diamond-deco z-0 w-[260px] h-[260px] -bottom-32 -left-28"></span>
+  <span aria-hidden="true" class="prod-scrim z-0"></span>
+  <div class="max-w-[1200px] mx-auto relative z-10">
+    <div class="eyebrow-white inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-[#FFE3CC] mb-3.5">Soluções financeiras</div>
+    <h2 class="section-title font-bold tracking-[-0.3px] text-white mb-4">Nossas <span class="text-grafite">soluções</span></h2>
+    <p class="text-base leading-[1.75] max-w-[520px]" style="color:rgba(255,247,240,.92)">Toque no seu convênio para ver só os produtos dele.</p>
+    <div id="h3-chips" class="flex flex-wrap gap-2.5 mt-8 mb-7" role="group" aria-label="Filtrar produtos por convênio"></div>
+    <div id="h3-grid" aria-live="polite"></div>
+  </div>
+</section>
+
+<div class="bg-grafite text-white/60 text-center text-[13px] py-6 px-5">
+  Mockup de estudo — Grupo Real · tracking é só <code>console.log</code> aqui · dados reais do <code>CONVS</code>.
+</div>
+
+<script>
+/* dados e helpers — espelho do site_inst.html */
+const WA = '5521986862308';
+const WA_PATH = 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z';
+
+const CONVS = [
+  { id:'clt',    label:'CLT',            tag:'Carteira assinada',
+    icon:'<path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="2"/>',
+    prods:[
+      { n:'Empréstimo Consignado CLT',   d:'Desconto em folha para trabalhadores com carteira assinada.', msg:'Olá! Tenho interesse no Empréstimo Consignado CLT.' },
+      { n:'Portabilidade CLT',           d:'Transfira seu contrato atual para melhores condições.',        msg:'Olá! Quero saber sobre Portabilidade CLT.' }
+    ]},
+  { id:'fgts',   label:'FGTS',           tag:'Saque-aniversário',
+    icon:'<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>',
+    prods:[
+      { n:'Antecipação Saque-Aniversário', d:'Antecipe as parcelas do seu saque-aniversário do FGTS.', msg:'Olá! Tenho interesse na Antecipação Saque-Aniversário FGTS.' }
+    ]},
+  { id:'inss',   label:'INSS',           tag:'Aposentados e pensionistas',
+    icon:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+    prods:[
+      { n:'Empréstimo Consignado', d:'Crédito com desconto direto no benefício INSS.',             msg:'Olá! Quero saber sobre Empréstimo Consignado INSS.' },
+      { n:'Portabilidade',         d:'Mude seu contrato para melhores taxas.',                     msg:'Olá! Quero saber sobre Portabilidade INSS.' },
+      { n:'Refinanciamento',       d:'Renegocie seu contrato e obtenha saldo extra.',              msg:'Olá! Quero saber sobre Refinanciamento INSS.' },
+      { n:'Cartão Consignado',     d:'Cartão com limite descontado em folha, sem anuidade.',      msg:'Olá! Quero saber sobre Cartão Consignado INSS.' },
+      { n:'Cartão Benefício',      d:'Cartão vinculado ao benefício com vantagens exclusivas.',   msg:'Olá! Quero saber sobre Cartão Benefício INSS.' }
+    ]},
+  { id:'forcas', label:'Forças Armadas', tag:'Militares',
+    icon:'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+    prods:[
+      { n:'Empréstimo Consignado', d:'Crédito com desconto em folha para militares.',             msg:'Olá! Quero saber sobre Empréstimo Consignado Forças Armadas.' },
+      { n:'Refinanciamento',       d:'Renegocie condições com saldo disponível.',                 msg:'Olá! Quero saber sobre Refinanciamento Forças Armadas.' }
+    ]},
+  { id:'siape',  label:'SIAPE',          tag:'Servidor federal',
+    icon:'<rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>',
+    prods:[
+      { n:'Empréstimo Consignado', d:'Para servidores federais ativos e aposentados.',             msg:'Olá! Quero saber sobre Empréstimo Consignado SIAPE.' },
+      { n:'Refinanciamento',       d:'Renegocie e obtenha saldo adicional.',                       msg:'Olá! Quero saber sobre Refinanciamento SIAPE.' },
+      { n:'Portabilidade',         d:'Transfira seu contrato para melhores condições.',            msg:'Olá! Quero saber sobre Portabilidade SIAPE.' },
+      { n:'Cartão Consignado',     d:'Cartão com desconto em folha.',                             msg:'Olá! Quero saber sobre Cartão Consignado SIAPE.' },
+      { n:'Cartão Benefício',      d:'Benefícios e vantagens exclusivas para servidores.',        msg:'Olá! Quero saber sobre Cartão Benefício SIAPE.' }
+    ]},
+  { id:'gov',    label:'Governos',       tag:'Servidor estadual',
+    icon:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+    prods:[
+      { n:'Empréstimo Consignado', d:'Para servidores estaduais e municipais.',                    msg:'Olá! Quero saber sobre Empréstimo Consignado Governos.' },
+      { n:'Cartão Consignado',     d:'Limite com desconto em folha.',                             msg:'Olá! Quero saber sobre Cartão Consignado Governos.' },
+      { n:'Cartão Benefício',      d:'Vantagens para servidores governamentais.',                 msg:'Olá! Quero saber sobre Cartão Benefício Governos.' }
+    ]},
+  { id:'pref',   label:'Prefeituras',    tag:'Servidor municipal',
+    icon:'<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+    prods:[
+      { n:'Empréstimo Consignado', d:'Para servidores de prefeituras conveniadas.',                msg:'Olá! Quero saber sobre Empréstimo Consignado Prefeituras.' },
+      { n:'Cartão Consignado',     d:'Crédito rotativo com desconto em folha.',                   msg:'Olá! Quero saber sobre Cartão Consignado Prefeituras.' },
+      { n:'Cartão Benefício',      d:'Benefícios exclusivos para servidores municipais.',         msg:'Olá! Quero saber sobre Cartão Benefício Prefeituras.' }
+    ]}
+];
+
+const byId    = id  => CONVS.find(c => c.id === id);
+const waLink  = msg => `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+const plural  = n   => n + ' produto' + (n > 1 ? 's' : '');
+const trackWA = l   => console.log('[trackWA]', l);
+const iconSvg = (paths, size) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`;
+
+const waCta = (msg, label, trackLabel) => `<a href="${waLink(msg)}" target="_blank" rel="noopener" onclick="trackWA('${trackLabel}')"
+  class="inline-flex items-center justify-center gap-1.5 w-full mt-auto bg-laranja-acao hover:bg-laranja-acao-d text-white font-bold text-[15px] min-h-[48px] px-5 rounded-btn no-underline transition-all duration-300 hover:-translate-y-px active:scale-[.98]">
+  ${label}<svg class="w-[14px] h-[14px] fill-white" viewBox="0 0 24 24"><path d="${WA_PATH}"/></svg></a>`;
+
+const PROD_ICONS = {
+  consignado:   '<path d="M12 2v20"/><path d="M17 5.5H9.5a3.25 3.25 0 0 0 0 6.5h5a3.25 3.25 0 0 1 0 6.5H6.5"/>',
+  portabilidade:'<path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/>',
+  refin:        '<path d="M3 12a9 9 0 0 1 15.5-6.4L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.4L3 16"/><path d="M3 21v-5h5"/>',
+  cartao:       '<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="15" x2="10" y2="15"/>',
+  fgts:         '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M12 14v3"/><path d="M10.5 15.5h3"/>'
+};
+const prodIconPaths = name => {
+  const n = name.toLowerCase();
+  if (n.includes('portabilidade'))   return PROD_ICONS.portabilidade;
+  if (n.includes('refinanciamento')) return PROD_ICONS.refin;
+  if (n.includes('cartão'))          return PROD_ICONS.cartao;
+  if (n.includes('antecipação'))     return PROD_ICONS.fgts;
+  return PROD_ICONS.consignado;
+};
+
+const mediaDiamond = (paths, size=68, halo=false) => `
+  <span aria-hidden="true" class="relative inline-block shrink-0" style="width:${size}px;height:${size}px">
+    ${halo ? '<span class="absolute -inset-2.5 rounded-full" style="background:radial-gradient(closest-side, rgba(255,170,100,.55), transparent);filter:blur(10px)"></span>' : ''}
+    <span class="absolute inset-0 rounded-[16px] rotate-45 overflow-hidden border border-white/40" style="background:linear-gradient(135deg,#FB6516,#ED4A05);box-shadow:0 8px 20px rgba(232,80,26,.4)">
+      <span class="absolute inset-0 -rotate-45 flex items-center justify-center text-white">${iconSvg(paths, Math.round(size*0.46))}</span>
+    </span>
+  </span>`;
+
+/* ── 3 layouts de cabeçalho — cor sempre a da placa C ── */
+const HEADERS = {
+  /* H1 — faixa de título: largura total, contagem em selo à direita */
+  faixa: c => `
+    <div class="plate-c w-full flex flex-wrap items-center gap-x-4 gap-y-3 px-5 py-4 rounded-[18px]">
+      ${mediaDiamond(c.icon, 52, true)}
+      <div class="min-w-0 flex-1 relative">
+        <div class="text-[22px] font-bold text-grafite leading-tight">${c.label}
+          <span class="font-semibold text-[16px]" style="color:#A14515">— ${c.tag}</span></div>
+      </div>
+      <span class="relative shrink-0 inline-flex items-center rounded-full bg-white/75 px-4 py-2 text-[14px] font-bold" style="color:#8A5A3B">${plural(c.prods.length)}</span>
+    </div>`,
+
+  /* H2 — editorial: eyebrow + nome grande + losango maior */
+  editorial: c => `
+    <div class="plate-c w-full flex flex-wrap items-center gap-x-5 gap-y-3 px-6 py-5 rounded-[18px]">
+      ${mediaDiamond(c.icon, 64, true)}
+      <div class="min-w-0 flex-1 relative">
+        <div class="text-[12px] font-bold uppercase tracking-[.14em]" style="color:#A14515">Convênio</div>
+        <div class="text-[26px] md:text-[28px] font-bold text-grafite leading-tight">${c.label}</div>
+        <div class="text-[16px] font-semibold mt-0.5" style="color:#8A5A3B">${c.tag} · ${plural(c.prods.length)}</div>
+      </div>
+    </div>`,
+
+  /* H3 — aba: faixa com ponteiro em losango apontando para a grade */
+  aba: c => `
+    <div class="relative w-full">
+      <div class="plate-c w-full flex flex-wrap items-center gap-x-4 gap-y-3 px-5 py-4 rounded-[18px]">
+        ${mediaDiamond(c.icon, 52, true)}
+        <div class="min-w-0 flex-1 relative">
+          <div class="text-[22px] font-bold text-grafite leading-tight">${c.label}
+            <span class="font-semibold text-[16px]" style="color:#A14515">— ${c.tag}</span></div>
+          <div class="text-[15px] mt-0.5" style="color:#8A5A3B">${plural(c.prods.length)} para você comparar</div>
+        </div>
+      </div>
+      <span aria-hidden="true" class="plate-tip"></span>
+    </div>`
+};
+
+function mount(prefix, header){
+  const chips = document.getElementById(prefix + '-chips');
+  const grid  = document.getElementById(prefix + '-grid');
+
+  chips.innerHTML = CONVS.map(c => `
+    <button class="prod-chip min-h-[48px] px-5 rounded-full font-semibold text-[15px]" data-id="${c.id}" aria-pressed="false">${c.label}</button>`).join('');
+
+  function render(id){
+    const c = byId(id);
+    grid.innerHTML = `<div class="pg-in mb-6">${HEADERS[header](c)}</div>` + `
+      <div class="pg-in grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        ${c.prods.map(p => `
+          <div class="tile flex flex-col gap-3.5 rounded-[16px] border h-full">
+            ${mediaDiamond(prodIconPaths(p.n), 56)}
+            <div>
+              <div class="text-[18px] font-bold text-grafite leading-snug">${p.n}</div>
+              <div class="text-base leading-[1.6] mt-1">${p.d}</div>
+            </div>
+            ${waCta(p.msg, 'Quero saber', 'wa_prod_' + c.id)}
+          </div>`).join('')}
+      </div>`;
+  }
+  function filter(id){
+    chips.querySelectorAll('.prod-chip').forEach(b => {
+      const on = b.dataset.id === id;
+      b.classList.toggle('is-on', on);
+      b.setAttribute('aria-pressed', on);
+    });
+    render(id);
+  }
+  chips.querySelectorAll('.prod-chip').forEach(b => b.addEventListener('click', () => filter(b.dataset.id)));
+  filter('inss');
+}
+mount('h1', 'faixa');
+mount('h2', 'editorial');
+mount('h3', 'aba');
+</script>
+</body>
+</html>

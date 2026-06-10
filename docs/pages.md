@@ -1,6 +1,6 @@
 # pages.md — Mapeamento completo do site Grupo Real
 
-> **Regenerado em 2026-06-03** após a reordenação v2 (`docs/body-reorder-spec.md`). Reflete exatamente o que está no ar **agora**.
+> **Regenerado em 2026-06-10.** Acumula: reordenação v2 (`docs/body-reorder-spec.md`), SEO/JSON-LD (`docs/seo-tracking-spec.md`), "Como funciona" v4 (`docs/comofunciona-spec.md`) e mosaico filtrado de Produtos (`docs/nossas-solucoes-spec.md`). Reflete exatamente o que está no ar **agora**.
 > Predecessor: reestruturação v1 concluída em 2026-06-03 (arquivada em `docs/archive/`).
 
 ---
@@ -14,8 +14,10 @@
 | `og:title` | Quem já fez com a gente, aprovou! — Grupo Real |
 | `og:description` | Crédito consignado com atendimento rápido, sem enrolação e com muito respeito. |
 | `og:type` | website |
-| `twitter:card` | summary_large_image |
-| `og:image` | **Ausente** |
+| `og:url` / `canonical` | `https://www.gruporealintermediacao.com.br/` |
+| `og:image` | `https://www.gruporealintermediacao.com.br/assets/og/grupo-real-og.jpg` (1200×630, com `og:image:alt`) |
+| `twitter:card` | summary_large_image (+ `twitter:title/description/image` espelhando os og:) |
+| JSON-LD | 2 blocos no `<head>`: `FinancialService`/`LocalBusiness` (2 filiais, telefones, horários) e `FAQPage` (10 perguntas do `#faq`) |
 | Favicon | `assets/logo/grupo-real-icon.svg` (SVG externo) |
 | Fontes | **Bitter** (títulos do hero) · **Source Sans 3** (corpo do hero/cards) · **Plus Jakarta Sans** (corpo do restante) — via Google Fonts |
 | Analytics | Google Analytics 4 → `G-RJH4XR0J4H` |
@@ -28,7 +30,7 @@
 
 **Fontes:** `display`/`body` = Plus Jakarta Sans · `bitter` = Bitter · `source` = Source Sans 3
 **Radius:** `card 8px` · `btn 6px` · `img 12px`
-**Shadow:** `card` · `wa` · `dc` · `hero`
+**Shadow:** `card` · `wa` · `dc` · `hero` · `cardwarm` · `cardwarmh`
 
 ---
 
@@ -77,27 +79,36 @@
 
 **ID:** `#como-funciona` | **Fundo:** areia.
 - **Eyebrow:** "Simples e sem burocracia" · **H2:** "Como **funciona**"
-- 4 passos numerados (grid horizontal desktop / empilhados mobile) — **conteúdo a preencher pelo cliente** (placeholders comentados).
+- **Subtítulo:** "Do primeiro \"oi\" até o dinheiro na conta, você sempre fala com uma pessoa de verdade."
+- **Trilha zigzag (v4):** 4 cards alternados (esq/dir no desktop via `md:self-start`/`md:self-end`, empilhados no mobile), fundo creme quente, selo numerado laranja com anel branco e **losango SVG temático** (`assets/losangos/svg/losango-N-*.svg`), ligados por linha conectora tracejada decorativa (`aria-hidden`).
 
-> ⏳ Pendência: cliente precisa fornecer conteúdo dos 4 passos + subtítulo da seção.
+| # | Rótulo | Título | Apoio |
+|---|--------|--------|-------|
+| 1 | Atendimento | Você fala com a gente | Manda uma mensagem no WhatsApp ou liga. Rápido e sem compromisso. |
+| 2 | Análise | A gente te entende | Um especialista entende o que você precisa e encontra a melhor solução. |
+| 3 | Proposta | Você vê a melhor opção | A gente mostra a parcela que cabe no seu bolso, sem pegadinha. |
+| 4 | Liberação | O dinheiro cai na conta | Com tudo certo, o crédito é depositado direto na sua conta. |
 
-## 4. Produtos / Convênios
+> ✅ Pendência de conteúdo resolvida. Spec/histórico: `docs/comofunciona-spec.md`.
 
-**ID:** `#produtos` | **Fundo:** branco.
-- **Eyebrow:** "Soluções financeiras" · **H2:** "Escolha seu **convênio**"
-- **Acordeão** gerado por JS (array `CONVS`) → `#acord`.
+## 4. Produtos / Balcão de soluções ("Como podemos te ajudar?")
 
-| Convênio | Qtd | Produtos |
-|----------|-----|---------|
-| CLT | 2 | Empréstimo Consignado CLT · Portabilidade CLT |
-| FGTS | 1 | Antecipação Saque-Aniversário |
-| INSS | 5 | Empréstimo Consignado · Portabilidade · Refinanciamento · Cartão Consignado · Cartão Benefício |
-| Forças Armadas | 2 | Empréstimo Consignado · Refinanciamento |
-| SIAPE | 5 | Empréstimo Consignado · Refinanciamento · Portabilidade · Cartão Consignado · Cartão Benefício |
-| Governos | 3 | Empréstimo Consignado · Cartão Consignado · Cartão Benefício |
-| Prefeituras | 3 | Empréstimo Consignado · Cartão Consignado · Cartão Benefício |
+**ID:** `#produtos` | **Fundo (revisado 2026-06-10):** seção **dividida** — **faixa-título laranja** (`.prod-section`, mesma fórmula do hero, com vinheta + 2 losangos-textura `aria-hidden`; scrim removido) contendo só eyebrow/H2/subtítulo, e **corpo branco** (`bg-white`) com o balcão + faixa de convênios.
+- **Eyebrow:** "Soluções financeiras" (creme) · **H2:** "Como podemos te **ajudar**?" (branco, destaque em grafite)
+- **Subtítulo:** "Toque na sua situação — a gente cuida do resto no WhatsApp."
+- **Balcão de soluções** (substituiu o mosaico filtrado por convênio em 2026-06-10): render estático via array `SOLUCOES` em `#sol-lista`, **layout L2 "balcão em linhas"** — uma solução por linha, sem filtro prévio. Cada linha (`.sol-tile`, **branca** com borda `areia-borda 1.5px` + sombra quente, hover lift no desktop — o vidro fosco saiu junto com o fundo laranja do corpo): **losango laranja com aura** (`solDiamond`, 76px) contendo **ilustração SVG de traço fino branco** (74% do losango; desenhos inline em `ILLOS`, slot pronto para `<img>`), **manchete-pergunta** 19px ("Sua parcela está pesando?"), resumo 16px `#6B6560` + etiqueta do nome da solução, e CTA **"Quero saber"** (`trackWA('wa_sol_{id}')`).
+- **Faixa "Atendemos"** (`#sol-convs`, sobre o corpo branco): rótulo `#7A756C`, 7 selos pêssego `.conv-badge` com os labels dos convênios (derivados do `CONVS`, que **permanece como fonte de dados**) + link laranja "Não achou o seu? Pergunta pra gente" (`wa_sol_outro_convenio`).
+- Spec: `docs/balcao-solucoes-spec.md` (supersede `nossas-solucoes-spec.md`, que documenta o fallback).
 
-> Total: **7 convênios · 21 produtos.**
+| Solução | Manchete (pergunta) | Tracking |
+|---------|---------------------|----------|
+| Empréstimo | Precisando de um dinheiro? | `wa_sol_emprestimo` |
+| Portabilidade | Sua parcela está pesando? | `wa_sol_portabilidade` |
+| Refinanciamento | Já tem empréstimo e precisa de mais? | `wa_sol_refin` |
+| Antecipação FGTS | Seu FGTS está parado? | `wa_sol_fgts` |
+| Cartão (Consignado + Benefício) | Quer um cartão? | `wa_sol_cartao` |
+
+> **5 soluções por situação** — o convênio deixou de ser filtro (o atendente qualifica no WhatsApp).
 
 ## 5. Bancos Parceiros
 
@@ -156,7 +167,7 @@
 ## 11. Footer
 
 **Fundo:** `cafe`.
-- Logo SVG (losangos G+R) + "Grupo Real" + tagline.
+- Logo PNG (`assets/logo/logo-grupo-real.png`, 120px, redondo) + "Grupo Real" + tagline.
 - **4 colunas:** Produtos (CLT·INSS·FGTS·SIAPE → `#produtos`) · Filiais (Bangu·Realengo → `#filiais`) · Empresa (Como funciona → `#como-funciona` · Sobre nós → `#sobre` · Depoimentos → `#depoimentos` · Dúvidas → `#faq`) · Contato (Falar com consultor → WhatsApp · Instagram · E-mail).
 - **Legal:** Correspondente bancário Res. 4.935/2021 BC · CNPJ 15.191.039/0001-00 · Grupo Real Intermediação LTDA - ME · © 2026 · [Política de Privacidade](privacidade.html).
 
@@ -173,7 +184,7 @@
 | 1 | Navbar | — | areia-nav | — |
 | 2 | Hero + Coverflow | `#topo` | laranja | WhatsApp por card |
 | 3 | Como funciona | `#como-funciona` | areia | — (scaffold) |
-| 4 | Produtos / Convênios | `#produtos` | branco | WhatsApp por produto |
+| 4 | Balcão de soluções | `#produtos` | **laranja (faixa-título) + branco (corpo)** | WhatsApp por solução |
 | 5 | Bancos Parceiros | `#bancos` | **areia** | WhatsApp |
 | 6 | Onde Estamos (Filiais) | `#filiais` | branco | Google Maps + `tel:` |
 | 7 | Depoimentos | `#depoimentos` | areia | — |
@@ -183,7 +194,7 @@
 | 11 | Footer | — | café | WhatsApp (consultor) |
 | 12 | WhatsApp Flutuante | — | — | WhatsApp (global) |
 
-**Ritmo de fundos:** areia → branco → **areia** → branco → areia → café → areia → branco → café. Alternância limpa, sem dois claros idênticos colados.
+**Ritmo de fundos:** areia → **laranja+branco** (Produtos: faixa-título laranja, corpo branco) → areia → branco → areia → café → areia → branco → café. Alternância limpa, sem dois claros idênticos colados (por isso o corpo de Produtos é **branco**, não areia — Bancos logo abaixo é areia); a faixa-título laranja mantém o eco do hero.
 
 ---
 
@@ -195,7 +206,7 @@
 | Tipografia | Hero: **Bitter** + **Source Sans 3** · Corpo: **Plus Jakarta Sans** |
 | Breakpoint principal | `768px` (`md`) |
 | Coverflow | IIFE JS vanilla (sem React) |
-| Acordeão convênios | Gerado por JS (array `CONVS`, 7 convênios) → `#acord` |
+| Produtos (Balcão) | Render estático via array `SOLUCOES` (5 soluções) → `#sol-lista` + faixa `#sol-convs`; ilustrações inline `ILLOS` + `solDiamond`; `CONVS` mantido só como fonte de labels; rótulos `wa_sol_{id}` + `wa_sol_outro_convenio` |
 | Acordeão FAQ | HTML estático, reusa `toggleAcord()` e `.ac-item` |
 | Tracking WhatsApp | `trackWA(label)` → GA4 + Clarity |
 | WhatsApp número | `5521986862308` |

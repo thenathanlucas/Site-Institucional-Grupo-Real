@@ -1,5 +1,12 @@
 # SEO + Tracking + A11y — spec de execução
 
+> ## ✅ STATUS (verificado contra o HTML em 2026-06-10)
+> - **§1 SEO:** ✅ implementado — `canonical`, `og:url`, `og:image` (+width/height/alt), tags `twitter:` e os **2 blocos JSON-LD** (`FinancialService`/`LocalBusiness` + `FAQPage`) estão no ar.
+> - **§3 Como Funciona:** ✅ resolvido — preenchido pela v4 (`docs/comofunciona-spec.md`), com copy final aprovada (diferente do rascunho daqui).
+> - **§4 e §5 A11y:** ✅ atendidos — corpos ≥15–16px nos textos de leitura e `min-h-[48px]` nos CTAs/links verificados no HTML.
+> - **§2 Instagram embed:** ❌ não movido — segue no `<head>` (funciona; era cosmético/opcional).
+> - **§6 Antifraude global:** não aplicado — mantido só no FAQ, conforme a própria recomendação.
+
 > ## ⚠️ GATE DE CONFIRMAÇÃO — OBRIGATÓRIO
 > **Antes de editar QUALQUER arquivo, o agente deve PARAR e pedir a confirmação final do usuário (Nathan).**
 > Fluxo exigido:

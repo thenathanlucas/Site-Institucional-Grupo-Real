@@ -141,12 +141,22 @@ tailwind.config = {
       radial-gradient(120% 80% at 50% -10%, #FF8A3D 0%, rgba(255,138,61,0) 56%),
       linear-gradient(160deg, #FB6516 0%, #ED4A05 52%, #CE3A00 100%);
   }
-  .prod-chip { background:rgba(255,255,255,.92); color:#2B2A27; border:0; cursor:pointer; box-shadow:0 4px 12px rgba(120,40,0,.15); transition:.25s; }
-  .prod-chip:hover { background:#fff; }
-  .prod-chip.is-on { background:#fff; color:#C2410C; box-shadow:0 0 0 2px #E8501A, 0 8px 18px rgba(120,40,0,.25); }
-  .prod-chip:focus-visible { outline:3px solid #2B2A27; outline-offset:2px; }
+  /* camadas de profundidade da seção (mesma linguagem do hero: vinheta + scrim) */
+  .prod-vignette { position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(90% 70% at 50% 40%, rgba(255,176,110,.14) 0%, rgba(255,176,110,0) 60%),
+      radial-gradient(140% 110% at 50% 50%, rgba(74,18,0,0) 62%, rgba(74,18,0,.18) 100%); }
+  /* losango-marca d'água (textura de marca em traço branco sutil) */
+  .prod-diamond-deco { position:absolute; border:2px solid rgba(255,255,255,.07); border-radius:24px; transform:rotate(45deg); pointer-events:none; }
+  /* card de solução do Balcão: branco sobre o corpo claro + sombra quente */
+  .sol-tile { background:#FFFFFF; border:1.5px solid #E8E3D9; box-shadow:0 10px 30px rgba(160,72,18,.08);
+    transition:transform .3s ease, box-shadow .3s ease; }
+  @media (min-width:768px){ .sol-tile:hover { transform:translateY(-4px); box-shadow:0 20px 44px rgba(160,72,18,.16); } }
+  /* selo de convênio da faixa "Atendemos" (tons da placa C) */
+  .conv-badge { background:rgba(255,233,218,.92); color:#8A4A1F; border:1px solid #F3C4A4; }
   @media (prefers-reduced-motion: reduce){
-    .prod-chip { transition:none; }
+    .sol-tile { transition:none; }
+    .sol-tile:hover { transform:none; }
   }
 
   /* Clamps tipográficos */
@@ -772,19 +782,29 @@ tailwind.config = {
 </section>
 
 <!-- ═══════════════════════
-     PRODUTOS / CONVÊNIOS
+     PRODUTOS / BALCÃO DE SOLUÇÕES ("Como podemos te ajudar?")
      ═══════════════════════ -->
-<section class="prod-section relative overflow-hidden py-16 px-5 md:py-[100px] md:px-12" id="produtos">
-  <div class="max-w-[1200px] mx-auto">
-    <div class="eyebrow eyebrow-white inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-[#FFE3CC] mb-3.5">Soluções financeiras</div>
-    <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-white mb-4">Nossas <span class="text-grafite">soluções</span></h2>
-    <p class="text-base leading-[1.75] max-w-[520px]" style="color:rgba(255,247,240,.92)">Toque no seu convênio para ver só os produtos dele.</p>
+<section id="produtos">
+  <!-- faixa-título laranja (só eyebrow + H2 + subtítulo) -->
+  <div class="prod-section relative overflow-hidden py-12 px-5 md:py-16 md:px-12">
+    <span aria-hidden="true" class="prod-vignette z-0"></span>
+    <span aria-hidden="true" class="prod-diamond-deco z-0 w-[240px] h-[240px] -top-24 -right-20"></span>
+    <span aria-hidden="true" class="prod-diamond-deco z-0 w-[180px] h-[180px] -bottom-20 -left-16"></span>
+    <div class="max-w-[1200px] mx-auto relative z-10">
+      <div class="eyebrow eyebrow-white inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-[#FFE3CC] mb-3.5">Soluções financeiras</div>
+      <h2 class="section-title font-body font-bold leading-[1.2] tracking-[-0.3px] text-white mb-4">Como podemos te <span class="text-grafite">ajudar</span>?</h2>
+      <p class="text-base leading-[1.75] max-w-[520px]" style="color:rgba(255,247,240,.92)">Toque na sua situação — a gente cuida do resto no WhatsApp.</p>
+    </div>
+  </div>
 
-    <!-- chips de filtro (single-select) -->
-    <div id="prod-chips" class="flex flex-wrap gap-2.5 mt-8 mb-7" role="group" aria-label="Filtrar produtos por convênio"></div>
-
-    <!-- grade de produtos (vazia até escolher; anuncia mudanças a leitores de tela) -->
-    <div id="prod-grid" aria-live="polite"></div>
+  <!-- corpo claro: balcão de soluções + faixa de convênios -->
+  <div class="bg-white py-12 px-5 md:py-16 md:px-12">
+    <div class="max-w-[1200px] mx-auto">
+      <!-- balcão de soluções: uma situação por linha (render via SOLUCOES, layout L2 aprovado) -->
+      <div id="sol-lista" class="flex flex-col gap-3.5"></div>
+      <!-- faixa discreta dos convênios atendidos (labels vêm do CONVS) -->
+      <div id="sol-convs"></div>
+    </div>
   </div>
 </section>
 
@@ -1406,67 +1426,101 @@ const CONVS = [
     ]}
 ];
 
-const byId = id => CONVS.find(c => c.id === id);
 const waLink = msg => `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
-const plural = n => n + ' produto' + (n > 1 ? 's' : '');
-const convIcon = (conv, cls) => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${conv.icon}</svg>`;
 
 const waCta = (msg, label, trackLabel, full=false) => `<a href="${waLink(msg)}" target="_blank" rel="noopener" onclick="trackWA('${trackLabel}')"
-  class="inline-flex items-center justify-center gap-1.5 ${full ? 'w-full mt-auto' : ''} bg-laranja-acao hover:bg-laranja-acao-d text-white font-bold text-[15px] min-h-[48px] px-5 rounded-btn no-underline transition-colors">
+  class="inline-flex items-center justify-center gap-1.5 ${full ? 'w-full mt-auto' : 'shrink-0'} bg-laranja-acao hover:bg-laranja-acao-d text-white font-bold text-[15px] min-h-[48px] px-5 rounded-btn no-underline transition-all duration-300 hover:-translate-y-px active:scale-[.98]">
   ${label}<svg class="w-[14px] h-[14px] fill-white" viewBox="0 0 24 24"><path d="${WA_PATH}"/></svg></a>`;
 
-// Losango slot de mídia — recorta no formato diamante. Para usar imagem depois,
-// trocar convIcon(...) por <img src="..." class="w-full h-full object-cover">.
-const mediaDiamond = (conv, size=68) => `
+// Ilustrações do Balcão — traço fino branco dentro do losango laranja
+// (desenhadas inline; para usar imagem no futuro, trocar o <svg> do solDiamond por <img>)
+const ILLOS = {
+  portabilidade: `
+    <g transform="rotate(-8 16 27)"><rect x="7" y="15" width="18" height="24" rx="2.5"/><path d="M11 22h10M11 27h10M11 32h6"/></g>
+    <path d="M26 17c8-7 18-6 24 1"/><path d="m47 13 4 5-6 2"/>
+    <g transform="rotate(8 47 40)"><rect x="38" y="28" width="18" height="24" rx="2.5"/><path d="m43 41 3.5 3.5 6.5-7"/></g>
+    <path d="M28 46v6M25 49h6"/>`,
+  emprestimo: `
+    <rect x="7" y="19" width="34" height="20" rx="3"/>
+    <circle cx="24" cy="29" r="6.5"/>
+    <path d="M24 25.5v7M26.5 26.8c-.6-.7-1.5-1.1-2.5-1.1-1.7 0-3 .9-3 2.1s1.3 1.9 3 2.1c1.7.2 3 .9 3 2.1s-1.3 2.1-3 2.1c-1 0-1.9-.4-2.5-1.1"/>
+    <path d="M11 23v.01M37 35v.01"/>
+    <path d="M41 45v-4.5c0-1.8 3.2-3.2 7.2-3.2s7.2 1.4 7.2 3.2V45"/>
+    <path d="M41 40.5c0 1.8 3.2 3.2 7.2 3.2s7.2-1.4 7.2-3.2"/>
+    <path d="M41 45c0 1.8 3.2 3.2 7.2 3.2s7.2-1.4 7.2-3.2"/>
+    <path d="M49 12v6M46 15h6"/>`,
+  refin: `
+    <rect x="21" y="13" width="23" height="29" rx="3"/><path d="M26 20h13M26 25h13M26 30h8"/>
+    <path d="M12 34a21 21 0 0 1 7.5-15"/><path d="m16 17 4 2.5-5 2.5"/>
+    <path d="M53 28a21 21 0 0 1-7.5 15"/><path d="m49 47-4-2.5 5-2.5"/>
+    <circle cx="38" cy="48" r="7.5"/><path d="M38 44.8v6.4M34.8 48h6.4"/>`,
+  fgts: `
+    <rect x="13" y="17" width="37" height="31" rx="3"/><path d="M13 27h37M22 12v8M41 12v8"/>
+    <rect x="26" y="33" width="12" height="9.5" rx="1.5"/><path d="M32 33v9.5M26 37.5h12"/>
+    <path d="M32 33c-1.8-3.6-5.6-2.8-4.6-.4M32 33c1.8-3.6 5.6-2.8 4.6-.4"/>
+    <path d="M5 30h4M3 36h6M5 42h4"/>`,
+  cartao: `
+    <rect x="8" y="17" width="37" height="25" rx="3.5"/><path d="M8 25.5h37"/>
+    <rect x="13" y="31" width="7.5" height="5.5" rx="1.2"/><path d="M25 36.5h9"/>
+    <path d="M49 23a10 10 0 0 1 0 13M53.5 19.5a16 16 0 0 1 0 20"/>
+    <path d="M49 47v6M46 50h6"/>`
+};
+
+// Losango laranja com aura + ilustração dentro (slot de mídia do Balcão)
+const solDiamond = (key, size=76) => `
   <span aria-hidden="true" class="relative inline-block shrink-0" style="width:${size}px;height:${size}px">
-    <span class="absolute inset-0 rounded-[16px] rotate-45 overflow-hidden border border-white/40" style="background:linear-gradient(135deg,#FB6516,#ED4A05);box-shadow:0 8px 20px rgba(232,80,26,.4)">
-      <span class="absolute inset-0 -rotate-45 flex items-center justify-center text-white">${convIcon(conv, Math.round(size*0.42))}</span>
+    <span class="absolute -inset-3 rounded-full" style="background:radial-gradient(closest-side, rgba(255,170,100,.5), transparent);filter:blur(11px)"></span>
+    <span class="absolute inset-0 rounded-[20px] rotate-45 overflow-hidden border border-white/40" style="background:linear-gradient(135deg,#FB6516,#ED4A05);box-shadow:0 10px 26px rgba(232,80,26,.42)">
+      <span class="absolute inset-0 -rotate-45 flex items-center justify-center">
+        <svg width="${Math.round(size*0.74)}" height="${Math.round(size*0.74)}" viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ILLOS[key]}</svg>
+      </span>
     </span>
   </span>`;
 
-const prodChips = document.getElementById('prod-chips');
-const prodGrid  = document.getElementById('prod-grid');
+// Soluções por situação — copy v3 aprovada (docs/balcao-solucoes-spec.md §3)
+const SOLUCOES = [
+  { id:'emprestimo',    nome:'Empréstimo',       illo:'emprestimo',
+    manchete:'Precisando de um dinheiro?',
+    resumo:'Buscamos a menor taxa do seu perfil entre 30+ bancos.',
+    msg:'Olá! Quero fazer um empréstimo.' },
+  { id:'portabilidade', nome:'Portabilidade',    illo:'portabilidade',
+    manchete:'Sua parcela está pesando?',
+    resumo:'Trazemos seu contrato de outro banco e buscamos condição melhor.',
+    msg:'Olá! Já tenho um empréstimo e quero saber sobre a Portabilidade.' },
+  { id:'refin',         nome:'Refinanciamento',  illo:'refin',
+    manchete:'Já tem empréstimo e precisa de mais?',
+    resumo:'Renegociamos seu contrato pra liberar um saldo novo.',
+    msg:'Olá! Quero saber sobre o Refinanciamento do meu contrato.' },
+  { id:'fgts',          nome:'Antecipação FGTS', illo:'fgts',
+    manchete:'Seu FGTS está parado?',
+    resumo:'Você descobre quanto do saque-aniversário dá pra antecipar.',
+    msg:'Olá! Quero saber sobre a Antecipação do Saque-Aniversário FGTS.' },
+  { id:'cartao',        nome:'Cartão',           illo:'cartao',
+    manchete:'Quer um cartão?',
+    resumo:'Consignado ou Benefício — mostramos qual serve melhor pra você.',
+    msg:'Olá! Quero saber sobre os cartões Consignado e Benefício.' }
+];
 
-prodChips.innerHTML = CONVS.map(c => `
-  <button class="prod-chip min-h-[48px] px-5 rounded-full font-semibold text-[15px]" data-id="${c.id}" aria-pressed="false" onclick="prodFilter('${c.id}')">${c.label}</button>`).join('');
-
-const prodPlaceholder = `
-  <div class="rounded-[18px] border border-white/70 bg-white/95 px-6 py-10 text-center shadow-[0_10px_30px_rgba(120,40,0,.18)]">
-    <div aria-hidden="true" class="mx-auto mb-3 w-12 h-12 rounded-full bg-[#FDEADF] text-laranja-acao flex items-center justify-center">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+// Balcão de soluções (layout L2: uma situação por linha)
+document.getElementById('sol-lista').innerHTML = SOLUCOES.map(s => `
+  <div class="sol-tile flex flex-wrap items-center gap-x-5 gap-y-4 rounded-[16px] p-5 md:px-6">
+    ${solDiamond(s.illo, 76)}
+    <div class="min-w-[230px] flex-1">
+      <div class="text-[19px] font-bold text-grafite leading-snug">${s.manchete}</div>
+      <div class="text-base leading-[1.6] mt-1 text-[#6B6560]">${s.resumo}
+        <span class="whitespace-nowrap text-[13px] font-bold uppercase tracking-wide text-laranja-acao-d">· ${s.nome}</span></div>
     </div>
-    <p class="text-[18px] font-semibold text-grafite">Toque no seu convênio acima para ver os produtos.</p>
-    <p class="text-[15px] text-[#6B6560] mt-1">Mostramos só o que é do seu interesse — sem rolar a lista inteira.</p>
+    ${waCta(s.msg, 'Quero saber', 'wa_sol_' + s.id)}
+  </div>`).join('');
+
+// faixa discreta dos convênios atendidos (auto-qualificação leve; não é filtro)
+document.getElementById('sol-convs').innerHTML = `
+  <div class="mt-9 flex flex-wrap items-center gap-x-3 gap-y-2.5">
+    <span class="text-[13px] font-bold uppercase tracking-wide text-[#7A756C]">Atendemos:</span>
+    ${CONVS.map(c => `<span class="conv-badge rounded-full px-3.5 py-1.5 text-[14px] font-semibold">${c.label}</span>`).join('')}
+    <a href="${waLink('Olá! Quero saber se meu convênio é atendido pelo Grupo Real.')}" target="_blank" rel="noopener" onclick="trackWA('wa_sol_outro_convenio')"
+       class="text-[14px] font-semibold text-laranja-acao-d underline underline-offset-4 decoration-[rgba(232,80,26,.4)] hover:text-laranja-acao px-1 py-2">Não achou o seu? Pergunta pra gente</a>
   </div>`;
-
-function prodRenderConv(id) {
-  const c = byId(id);
-  prodGrid.innerHTML = `
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      ${c.prods.map(p => `
-        <div class="flex flex-col gap-3.5 rounded-[16px] border border-areia-borda bg-white p-5 shadow-[0_2px_10px_rgba(43,42,39,.05)] h-full">
-          ${mediaDiamond(c, 68)}
-          <div>
-            <div class="text-[12px] font-bold uppercase tracking-wide text-laranja-acao mb-1">${c.label}</div>
-            <div class="text-[18px] font-bold text-grafite leading-snug">${p.n}</div>
-            <div class="text-base leading-[1.6] text-[#6B6560] mt-1">${p.d}</div>
-          </div>
-          ${waCta(p.msg, 'Quero saber', 'wa_prod_' + c.id, true)}
-        </div>`).join('')}
-    </div>`;
-}
-
-function prodFilter(id) {
-  prodChips.querySelectorAll('.prod-chip').forEach(b => {
-    const on = b.dataset.id === id;
-    b.classList.toggle('is-on', on);
-    b.setAttribute('aria-pressed', on);
-  });
-  prodRenderConv(id);
-}
-
-// estado inicial: nenhum produto, só o convite
-prodGrid.innerHTML = prodPlaceholder;
 
 function toggleAcord(btn) {
   const item = btn.closest('.ac-item');
