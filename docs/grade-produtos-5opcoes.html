@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Grade de Produtos — 5 opções (Grupo Real)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500;0,600;0,700&family=Source+Sans+3:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      ambar:'#D98324', areia:'#F4F1EA', 'areia-borda':'#E8E3D9', grafite:'#2B2A27',
+      cafe:'#2B1D14', 'laranja-acao':'#E8501A', 'laranja-acao-d':'#C2410C', 'verde-hi':'#17A24B',
+    },
+    fontFamily: {
+      body:['"Plus Jakarta Sans"','Helvetica','sans-serif'],
+      bitter:['Bitter','Georgia','serif'],
+      source:['"Source Sans 3"','system-ui','sans-serif'],
+    },
+    borderRadius: { card:'8px', btn:'8px' },
+  } }
+}
+</script>
+<style>
+  body { background:#EDEAE3; }
+
+  /* fundo laranja da seção (igual ao site) */
+  .prod-section {
+    background:
+      radial-gradient(120% 80% at 50% -10%, #FF8A3D 0%, rgba(255,138,61,0) 56%),
+      linear-gradient(160deg, #FB6516 0%, #ED4A05 52%, #CE3A00 100%);
+  }
+
+  /* eyebrow */
+  .eyebrow::before { content:''; display:block; width:24px; height:2px; background:#D98324; border-radius:2px; flex-shrink:0; }
+  .eyebrow-white::before { background:#FFD9B3; }
+
+  /* foco visível acessível */
+  a:focus-visible, button:focus-visible, select:focus-visible { outline:3px solid #2B2A27; outline-offset:2px; }
+
+  /* ── Opção 1: acordeão ── */
+  .v1-body { display:none; }
+  .v1-item.open .v1-body { display:block; }
+  .v1-item.open .v1-chev { transform:rotate(180deg); }
+
+  /* ── Opção 3: abas grandes ── */
+  .v3-tab { background:rgba(255,255,255,.92); color:#2B2A27; border:0; cursor:pointer; box-shadow:0 4px 12px rgba(120,40,0,.15); transition:.25s; }
+  .v3-tab:hover { background:#fff; }
+  .v3-tab.is-on { background:#fff; color:#C2410C; box-shadow:0 0 0 2px #E8501A, 0 8px 18px rgba(120,40,0,.25); }
+
+  /* ── Opção 5: chips de filtro ── */
+  .v5-chip { background:rgba(255,255,255,.9); color:#2B2A27; border:0; cursor:pointer; box-shadow:0 3px 10px rgba(120,40,0,.12); transition:.25s; }
+  .v5-chip:hover { background:#fff; }
+  .v5-chip.is-on { background:#fff; color:#C2410C; box-shadow:0 0 0 2px #E8501A; }
+
+  @media (prefers-reduced-motion: reduce){ * { transition:none !important; } }
+</style>
+</head>
+<body class="font-body text-grafite">
+
+<div class="bg-grafite text-white text-center py-6 px-5">
+  <div class="font-bitter text-2xl font-bold">Grade de Produtos — 5 opções de layout</div>
+  <div class="text-[14px] text-white/70 mt-1.5 max-w-[680px] mx-auto">Mesma paleta da seção (laranja + cards claros). Todas pensadas para o público idoso: texto grande, alvos ≥48px, instruções claras e alto contraste. Compare e me diga qual prefere.</div>
+</div>
+
+<!-- ════════════════ OPÇÃO 1 — ACORDEÃO CLARO ════════════════ -->
+<div class="bg-[#1b1a18] text-white px-5 py-3.5">
+  <div class="max-w-[1100px] mx-auto"><span class="inline-block text-[11px] font-bold tracking-widest uppercase bg-laranja-acao rounded-full px-3 py-1 mr-2.5">Opção 1</span><strong>Acordeão claro</strong> — toca no convênio e os produtos abrem. Familiar, 1 coluna, foco em um de cada vez.</div>
+</div>
+<section class="prod-section py-14 px-5 md:py-20 md:px-12">
+  <div class="max-w-[1100px] mx-auto">
+    <div class="eyebrow eyebrow-white inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-[#FFE3CC] mb-3.5">Soluções financeiras</div>
+    <h2 class="font-bitter text-[clamp(28px,5vw,40px)] font-bold leading-[1.15] text-white mb-3">Escolha seu <span class="text-grafite">convênio</span></h2>
+    <p class="text-[17px] leading-[1.7] mb-8 max-w-[560px]" style="color:rgba(255,247,240,.92)">Toque no seu convênio para abrir a lista de produtos.</p>
+    <div id="v1" class="flex flex-col gap-3.5"></div>
+  </div>
+</section>
+
+<!-- ════════════════ OPÇÃO 2 — CATÁLOGO ABERTO ════════════════ -->
+<div class="bg-[#1b1a18] text-white px-5 py-3.5">
+  <div class="max-w-[1100px] mx-auto"><span class="inline-block text-[11px] font-bold tracking-widest uppercase bg-laranja-acao rounded-full px-3 py-1 mr-2.5">Opção 2</span><strong>Catálogo aberto</strong> — nada escondido. Tudo aparece rolando a página. Zero cliques para entender.</div>
+</div>
+<section class="prod-section py-14 px-5 md:py-20 md:px-12">
+  <div class="max-w-[1100px] mx-auto">
+    <div class="eyebrow eyebrow-white inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-[#FFE3CC] mb-3.5">Soluções financeiras</div>
+    <h2 class="font-bitter text-[clamp(28px,5vw,40px)] font-bold leading-[1.15] text-white mb-3">Nossos <span class="text-grafite">produtos</span></h2>
+    <p class="text-[17px] leading-[1.7] mb-10 max-w-[560px]" style="color:rgba(255,247,240,.92)">Tudo à vista: role a página e veja todos os produtos de cada convênio.</p>
+    <div id="v2"></div>
+  </div>
+</section>
+
+<!-- ════════════════ OPÇÃO 3 — BOTÕES GRANDES (ABAS) ════════════════ -->
+<div class="bg-[#1b1a18] text-white px-5 py-3.5">
+  <div class="max-w-[1100px] mx-auto"><span class="inline-block text-[11px] font-bold tracking-widest uppercase bg-laranja-acao rounded-full px-3 py-1 mr-2.5">Opção 3</span><strong>Botões grandes</strong> — escolhe o convênio num botão grande e os produtos aparecem abaixo.</div>
+</div>
+<section class="prod-section py-14 px-5 md:py-20 md:px-12">
+  <div class="max-w-[1100px] mx-auto">
+    <div class="eyebrow eyebrow-white inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-[#FFE3CC] mb-3.5">Soluções financeiras</div>
+    <h2 class="font-bitter text-[clamp(28px,5vw,40px)] font-bold leading-[1.15] text-white mb-3">Escolha seu <span class="text-grafite">convênio</span></h2>
+    <p class="text-[17px] leading-[1.7] mb-8 max-w-[560px]" style="color:rgba(255,247,240,.92)">Toque no botão do seu convênio.</p>
+    <div id="v3-tabs" class="flex flex-wrap gap-2.5 mb-7"></div>
+    <div id="v3-panel"></div>
+  </div>
+</section>
+
+<!-- ════════════════ OPÇÃO 4 — LISTA SUSPENSA (SELECT) ════════════════ -->
+<div class="bg-[#1b1a18] text-white px-5 py-3.5">
+  <div class="max-w-[1100px] mx-auto"><span class="inline-block text-[11px] font-bold tracking-widest uppercase bg-laranja-acao rounded-full px-3 py-1 mr-2.5">Opção 4</span><strong>Lista suspensa</strong> — um seletor grande e familiar (igual formulário). Muito acessível para quem tem pouca intimidade com o site.</div>
+</div>
+<section class="prod-section py-14 px-5 md:py-20 md:px-12">
+  <div class="max-w-[1100px] mx-auto">
+    <div class="eyebrow eyebrow-white inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-[#FFE3CC] mb-3.5">Soluções financeiras</div>
+    <h2 class="font-bitter text-[clamp(28px,5vw,40px)] font-bold leading-[1.15] text-white mb-3">Encontre seu <span class="text-grafite">convênio</span></h2>
+    <p class="text-[17px] leading-[1.7] mb-6 max-w-[560px]" style="color:rgba(255,247,240,.92)">Selecione seu convênio na lista abaixo.</p>
+    <label for="v4-select" class="block text-white font-bold text-[18px] mb-2.5">Seu convênio:</label>
+    <select id="v4-select" class="w-full max-w-[440px] min-h-[56px] text-[18px] font-semibold text-grafite bg-white rounded-[12px] border-2 border-white px-4 mb-8 shadow-[0_6px_18px_rgba(120,40,0,.18)] cursor-pointer"></select>
+    <div id="v4-panel"></div>
+  </div>
+</section>
+
+<!-- ════════════════ OPÇÃO 5 — MOSAICO COM FILTRO ════════════════ -->
+<div class="bg-[#1b1a18] text-white px-5 py-3.5">
+  <div class="max-w-[1100px] mx-auto"><span class="inline-block text-[11px] font-bold tracking-widest uppercase bg-laranja-acao rounded-full px-3 py-1 mr-2.5">Opção 5</span><strong>Mosaico com filtro</strong> — todos os produtos em cards; filtra por convênio ou vê todos. Cada card é autoexplicativo.</div>
+</div>
+<section class="prod-section py-14 px-5 md:py-20 md:px-12">
+  <div class="max-w-[1100px] mx-auto">
+    <div class="eyebrow eyebrow-white inline-flex items-center gap-2 text-[11px] font-semibold tracking-[.12em] uppercase text-[#FFE3CC] mb-3.5">Soluções financeiras</div>
+    <h2 class="font-bitter text-[clamp(28px,5vw,40px)] font-bold leading-[1.15] text-white mb-3">Nossas <span class="text-grafite">soluções</span></h2>
+    <p class="text-[17px] leading-[1.7] mb-7 max-w-[560px]" style="color:rgba(255,247,240,.92)">Toque no seu convênio para ver só os produtos dele.</p>
+    <div id="v5-chips" class="flex flex-wrap gap-2.5 mb-8"></div>
+    <div id="v5-grid"></div>
+  </div>
+</section>
+
+<div class="bg-grafite text-white/70 text-center py-7 px-5 text-sm">
+  Protótipo de comparação · dados reais dos convênios · CTAs abrem WhatsApp · paleta e acessibilidade conforme <code>ui-rules.md</code>
+</div>
+
+<script>
+const WA = '5521986862308';
+const WA_PATH = 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z';
+
+const CONVS = [
+  { id:'clt', label:'CLT', tag:'Carteira assinada', icon:'<path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="2"/>', prods:[
+    { n:'Empréstimo Consignado CLT', d:'Desconto em folha para trabalhadores com carteira assinada.', msg:'Olá! Tenho interesse no Empréstimo Consignado CLT.' },
+    { n:'Portabilidade CLT', d:'Transfira seu contrato atual para melhores condições.', msg:'Olá! Quero saber sobre Portabilidade CLT.' } ]},
+  { id:'fgts', label:'FGTS', tag:'Saque-aniversário', icon:'<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>', prods:[
+    { n:'Antecipação Saque-Aniversário', d:'Antecipe as parcelas do seu saque-aniversário do FGTS.', msg:'Olá! Tenho interesse na Antecipação Saque-Aniversário FGTS.' } ]},
+  { id:'inss', label:'INSS', tag:'Aposentados e pensionistas', icon:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>', prods:[
+    { n:'Empréstimo Consignado', d:'Crédito com desconto direto no benefício INSS.', msg:'Olá! Quero saber sobre Empréstimo Consignado INSS.' },
+    { n:'Portabilidade', d:'Mude seu contrato para melhores taxas.', msg:'Olá! Quero saber sobre Portabilidade INSS.' },
+    { n:'Refinanciamento', d:'Renegocie seu contrato e obtenha saldo extra.', msg:'Olá! Quero saber sobre Refinanciamento INSS.' },
+    { n:'Cartão Consignado', d:'Cartão com limite descontado em folha, sem anuidade.', msg:'Olá! Quero saber sobre Cartão Consignado INSS.' },
+    { n:'Cartão Benefício', d:'Cartão vinculado ao benefício com vantagens exclusivas.', msg:'Olá! Quero saber sobre Cartão Benefício INSS.' } ]},
+  { id:'forcas', label:'Forças Armadas', tag:'Militares', icon:'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>', prods:[
+    { n:'Empréstimo Consignado', d:'Crédito com desconto em folha para militares.', msg:'Olá! Quero saber sobre Empréstimo Consignado Forças Armadas.' },
+    { n:'Refinanciamento', d:'Renegocie condições com saldo disponível.', msg:'Olá! Quero saber sobre Refinanciamento Forças Armadas.' } ]},
+  { id:'siape', label:'SIAPE', tag:'Servidor federal', icon:'<rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>', prods:[
+    { n:'Empréstimo Consignado', d:'Para servidores federais ativos e aposentados.', msg:'Olá! Quero saber sobre Empréstimo Consignado SIAPE.' },
+    { n:'Refinanciamento', d:'Renegocie e obtenha saldo adicional.', msg:'Olá! Quero saber sobre Refinanciamento SIAPE.' },
+    { n:'Portabilidade', d:'Transfira seu contrato para melhores condições.', msg:'Olá! Quero saber sobre Portabilidade SIAPE.' },
+    { n:'Cartão Consignado', d:'Cartão com desconto em folha.', msg:'Olá! Quero saber sobre Cartão Consignado SIAPE.' },
+    { n:'Cartão Benefício', d:'Benefícios e vantagens exclusivas para servidores.', msg:'Olá! Quero saber sobre Cartão Benefício SIAPE.' } ]},
+  { id:'gov', label:'Governos', tag:'Servidor estadual', icon:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>', prods:[
+    { n:'Empréstimo Consignado', d:'Para servidores estaduais e municipais.', msg:'Olá! Quero saber sobre Empréstimo Consignado Governos.' },
+    { n:'Cartão Consignado', d:'Limite com desconto em folha.', msg:'Olá! Quero saber sobre Cartão Consignado Governos.' },
+    { n:'Cartão Benefício', d:'Vantagens para servidores governamentais.', msg:'Olá! Quero saber sobre Cartão Benefício Governos.' } ]},
+  { id:'pref', label:'Prefeituras', tag:'Servidor municipal', icon:'<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>', prods:[
+    { n:'Empréstimo Consignado', d:'Para servidores de prefeituras conveniadas.', msg:'Olá! Quero saber sobre Empréstimo Consignado Prefeituras.' },
+    { n:'Cartão Consignado', d:'Crédito rotativo com desconto em folha.', msg:'Olá! Quero saber sobre Cartão Consignado Prefeituras.' },
+    { n:'Cartão Benefício', d:'Benefícios exclusivos para servidores municipais.', msg:'Olá! Quero saber sobre Cartão Benefício Prefeituras.' } ]},
+];
+
+const byId = id => CONVS.find(c => c.id === id);
+const waLink = msg => `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+const plural = n => n + ' produto' + (n > 1 ? 's' : '');
+const convIcon = (conv, px) => `<svg width="${px}" height="${px}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${conv.icon}</svg>`;
+
+// losango laranja com ícone branco
+const diamond = (conv, size=56) => `
+  <span aria-hidden="true" class="relative inline-block shrink-0" style="width:${size}px;height:${size}px">
+    <span class="absolute inset-0 rounded-[16px] rotate-45 border border-white/30" style="background:linear-gradient(135deg,#FB6516,#ED4A05);box-shadow:0 8px 20px rgba(232,80,26,.4)"></span>
+    <span class="absolute inset-0 flex items-center justify-center text-white">${convIcon(conv, Math.round(size*0.42))}</span>
+  </span>`;
+
+// losango "slot de mídia": recorta o conteúdo no formato de diamante.
+// Hoje mostra o ícone do convênio; depois é só trocar o convIcon(...) por
+// <img src="..." class="w-full h-full object-cover"> que a imagem já encaixa no losango.
+const mediaDiamond = (conv, size = 68) => `
+  <span aria-hidden="true" class="relative inline-block shrink-0" style="width:${size}px;height:${size}px">
+    <span class="absolute inset-0 rounded-[16px] rotate-45 overflow-hidden border border-white/40" style="background:linear-gradient(135deg,#FB6516,#ED4A05);box-shadow:0 8px 20px rgba(232,80,26,.4)">
+      <span class="absolute inset-0 -rotate-45 flex items-center justify-center text-white">
+        ${convIcon(conv, Math.round(size * 0.42))}
+      </span>
+    </span>
+  </span>`;
+
+// botão CTA WhatsApp (laranja)
+const waCta = (msg, label, full) => `<a href="${waLink(msg)}" target="_blank" rel="noopener"
+  class="inline-flex items-center justify-center gap-2 ${full ? 'w-full' : ''} bg-laranja-acao hover:bg-laranja-acao-d text-white font-bold text-[15px] min-h-[48px] px-5 rounded-btn no-underline transition-colors mt-auto">
+  ${label}<svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="${WA_PATH}"/></svg></a>`;
+
+// selo de confiança verde
+const trustSeal = `<span class="inline-flex items-center gap-1.5 text-[14px] text-[#6B6560] font-semibold"><span class="w-2.5 h-2.5 rounded-full bg-verde-hi"></span>Atendimento humano no WhatsApp</span>`;
+
+// card de produto branco
+const prodCard = p => `
+  <div class="flex flex-col gap-3 rounded-[14px] border border-areia-borda bg-white p-5 shadow-[0_2px_10px_rgba(43,42,39,.05)] h-full">
+    <div>
+      <div class="text-[18px] font-bold text-grafite leading-snug">${p.n}</div>
+      <div class="text-[16px] leading-[1.6] text-[#6B6560] mt-1">${p.d}</div>
+    </div>
+    ${waCta(p.msg, 'Quero saber', true)}
+  </div>`;
+
+const productsGrid = (c, cols='sm:grid-cols-2') => `<div class="grid gap-4 ${cols}">${c.prods.map(prodCard).join('')}</div>`;
+
+/* ───────── Opção 1 — acordeão ───────── */
+document.getElementById('v1').innerHTML = CONVS.map((c, i) => `
+  <div class="v1-item bg-white rounded-[16px] shadow-[0_6px_18px_rgba(120,40,0,.16)] overflow-hidden ${i === 0 ? 'open' : ''}">
+    <button class="v1-head w-full flex items-center gap-4 p-5 text-left min-h-[48px] cursor-pointer" aria-expanded="${i === 0}" onclick="v1Toggle(this)">
+      ${diamond(c, 52)}
+      <span class="flex-1 min-w-0">
+        <span class="block text-[19px] font-bold text-grafite">${c.label}</span>
+        <span class="block text-[15px] text-[#6B6560]">${c.tag} · ${plural(c.prods.length)}</span>
+      </span>
+      <svg class="v1-chev w-6 h-6 stroke-laranja-acao fill-none stroke-2 transition-transform shrink-0" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="v1-body px-5 pb-5 pt-1">${productsGrid(c)}</div>
+  </div>`).join('');
+function v1Toggle(btn) {
+  const item = btn.closest('.v1-item');
+  const open = item.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open);
+}
+
+/* ───────── Opção 2 — catálogo aberto ───────── */
+document.getElementById('v2').innerHTML = CONVS.map(c => `
+  <div class="mb-10">
+    <div class="flex items-center gap-4 mb-4">
+      ${diamond(c, 56)}
+      <div>
+        <h3 class="font-bitter text-[24px] font-bold text-white leading-tight">${c.label}</h3>
+        <p class="text-[15px] font-semibold" style="color:rgba(255,247,240,.92)">${c.tag} · ${plural(c.prods.length)}</p>
+      </div>
+    </div>
+    ${productsGrid(c, 'sm:grid-cols-2 lg:grid-cols-3')}
+  </div>`).join('');
+
+/* ───────── Opção 3 — botões grandes ───────── */
+const v3tabs = document.getElementById('v3-tabs');
+const v3panel = document.getElementById('v3-panel');
+v3tabs.innerHTML = CONVS.map((c, i) => `
+  <button class="v3-tab min-h-[52px] px-6 rounded-full font-bold text-[16px] ${i === 0 ? 'is-on' : ''}" data-id="${c.id}" onclick="v3Pick('${c.id}')">${c.label}</button>`).join('');
+function v3Render(c) {
+  v3panel.innerHTML = `
+    <div class="rounded-[22px] border border-white/70 p-6 md:p-8 shadow-[0_22px_55px_rgba(120,40,0,.24)]" style="background:linear-gradient(165deg,#FFFFFF,#FFF4EA)">
+      <div class="flex items-center gap-4 mb-2">
+        ${diamond(c, 50)}
+        <div><h3 class="font-bitter text-[23px] font-bold text-grafite leading-tight">${c.label}</h3><p class="text-[15px] text-[#6B6560]">${c.tag} · ${plural(c.prods.length)}</p></div>
+      </div>
+      <div class="mb-5">${trustSeal}</div>
+      ${productsGrid(c, 'sm:grid-cols-2')}
+    </div>`;
+}
+function v3Pick(id) {
+  v3tabs.querySelectorAll('.v3-tab').forEach(b => b.classList.toggle('is-on', b.dataset.id === id));
+  v3Render(byId(id));
+}
+v3Render(CONVS[0]);
+
+/* ───────── Opção 4 — lista suspensa ───────── */
+const v4sel = document.getElementById('v4-select');
+v4sel.innerHTML = CONVS.map(c => `<option value="${c.id}">${c.label} — ${c.tag}</option>`).join('');
+function v4Render(c) {
+  document.getElementById('v4-panel').innerHTML = `
+    <div class="mb-5">${trustSeal.replace('text-[#6B6560]', 'text-white').replace('bg-verde-hi', 'bg-verde-hi')}</div>
+    ${productsGrid(c, 'sm:grid-cols-2 lg:grid-cols-3')}`;
+}
+v4sel.addEventListener('change', () => v4Render(byId(v4sel.value)));
+v4Render(CONVS[0]);
+
+/* ───────── Opção 5 — mosaico com filtro ───────── */
+const ALL = CONVS.flatMap(c => c.prods.map(p => ({ ...p, conv: c })));
+const v5chips = document.getElementById('v5-chips');
+const v5grid = document.getElementById('v5-grid');
+// começa sem produtos: só os botões de convênio (sem "Todos" pré-selecionado)
+v5chips.innerHTML = CONVS.map(c => `
+  <button class="v5-chip min-h-[48px] px-5 rounded-full font-semibold text-[15px]" data-id="${c.id}" aria-pressed="false" onclick="v5Filter('${c.id}')">${c.label}</button>`).join('');
+
+const v5Placeholder = `
+  <div class="rounded-[18px] border border-white/70 bg-white/95 px-6 py-10 text-center shadow-[0_10px_30px_rgba(120,40,0,.18)]">
+    <div aria-hidden="true" class="mx-auto mb-3 w-12 h-12 rounded-full bg-[#FDEADF] text-laranja-acao flex items-center justify-center">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+    </div>
+    <p class="text-[18px] font-semibold text-grafite">Toque no seu convênio acima para ver os produtos.</p>
+    <p class="text-[15px] text-[#6B6560] mt-1">Mostramos só o que é do seu interesse — sem rolar a lista inteira.</p>
+  </div>`;
+
+function v5Render(id) {
+  const list = ALL.filter(x => x.conv.id === id);
+  v5grid.innerHTML = `
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      ${list.map(p => `
+        <div class="flex flex-col gap-3.5 rounded-[16px] border border-areia-borda bg-white p-5 shadow-[0_2px_10px_rgba(43,42,39,.05)] h-full">
+          ${mediaDiamond(p.conv, 68)}
+          <div>
+            <div class="text-[12px] font-bold uppercase tracking-wide text-laranja-acao mb-1">${p.conv.label}</div>
+            <div class="text-[18px] font-bold text-grafite leading-snug">${p.n}</div>
+            <div class="text-[16px] leading-[1.6] text-[#6B6560] mt-1">${p.d}</div>
+          </div>
+          ${waCta(p.msg, 'Quero saber', true)}
+        </div>`).join('')}
+    </div>`;
+}
+function v5Filter(id) {
+  v5chips.querySelectorAll('.v5-chip').forEach(b => {
+    const on = b.dataset.id === id;
+    b.classList.toggle('is-on', on);
+    b.setAttribute('aria-pressed', on);
+  });
+  v5Render(id);
+}
+// estado inicial: nenhum produto, só o convite para escolher
+v5grid.innerHTML = v5Placeholder;
+</script>
+</body>
+</html>
